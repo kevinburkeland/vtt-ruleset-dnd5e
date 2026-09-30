@@ -170,7 +170,7 @@ class _PhaseCActiveEffectsResult {
 /// Pure 4-Phase Derivation Pipeline for Character Stats adhering to 5e rules.
 class CharacterStatCalculator {
   /// Pluggable hook for looking up class definitions when computing caster levels
-  static DomainEntity? Function(String slug)? classLookupHook;
+  static dynamic Function(String slug)? classLookupHook;
   /// Evaluates a Character and its equipped items against the reference resolver
   /// across 4 deterministic derivation phases:
   ///

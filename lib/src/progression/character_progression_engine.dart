@@ -110,7 +110,7 @@ class LevelUpValidationResult {
 /// Pure Dart progression service providing 5e RAW / 2024 revised mechanics for leveling up.
 class CharacterProgressionEngine {
   /// Pluggable hook for looking up class definitions when computing caster levels
-  static DomainEntity? Function(String slug)? classLookupHook;
+  static dynamic Function(String slug)? classLookupHook;
   CharacterProgressionEngine._();
 
   /// Standard 5e Multiclass Prerequisites mapping class slug to required attribute threshold options.

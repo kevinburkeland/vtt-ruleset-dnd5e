@@ -90,9 +90,9 @@ class EvaluatedCharacterStats {
 /// equipped & attuned inventory items, and class progression.
 class CharacterEvaluationEngine {
   /// Pluggable compendium lookup hooks
-  static DomainEntity? Function(String idOrName)? magicItemLookupHook;
-  static DomainEntity? Function(String slug)? featLookupHook;
-  static DomainEntity? Function(String slug)? classLookupHook;
+  static dynamic Function(String idOrName)? magicItemLookupHook;
+  static dynamic Function(String slug)? featLookupHook;
+  static dynamic Function(String slug)? classLookupHook;
   /// Evaluates a [Character] model into [EvaluatedCharacterStats].
   /// Optionally accepts a [IEntityResolver] if item references need compendium fallback.
   static EvaluatedCharacterStats evaluate(
