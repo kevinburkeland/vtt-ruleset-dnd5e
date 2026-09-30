@@ -24,8 +24,7 @@ enum SpellClass {
   ranger('Ranger'),
   sorcerer('Sorcerer'),
   warlock('Warlock'),
-  wizard('Wizard'),
-  artificer('Artificer');
+  wizard('Wizard');
 
   final String label;
   const SpellClass(this.label);
