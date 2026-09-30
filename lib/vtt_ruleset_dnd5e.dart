@@ -28,7 +28,7 @@ export 'src/mechanics/exhaustion_state.dart';
 
 // Simulation Strategies & Adapters
 export 'src/simulation/dnd_5e_dpr_simulation_strategy.dart';
-export 'src/simulation/dnd_5e_animated_object_adapter.dart';
+export 'src/simulation/dnd_5e_animated_object_adapter.dart' hide ObjectSize, AnimatedObjectStats;
 
 // Progression & Leveling
 export 'src/progression/character_progression_engine.dart';

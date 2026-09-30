@@ -1,30 +1,8 @@
 import 'package:meta/meta.dart';
 import 'package:vtt_engine_core/models/entity_reference.dart';
-import 'package:vtt_engine_core/models/generic_tabletop_primitives.dart';
+import 'package:vtt_engine_core/simulation/combat_rider.dart';
 import 'feature_grant.dart';
 import 'core_types.dart';
-import '../attributes/dnd5e_attributes.dart';
-
-
-extension CombatRiderDefinitionSerialization on CombatRiderDefinition {
-  Map<String, dynamic> toMap() => {
-        'id': id,
-        'name': name,
-        'riderType': riderType,
-        'params': params,
-      };
-
-  static CombatRiderDefinition fromMap(Map<String, dynamic> map) =>
-      CombatRiderDefinition(
-        id: map['id']?.toString() ?? '',
-        name: map['name']?.toString() ?? '',
-        riderType: map['riderType']?.toString() ?? 'condition',
-        params: map['params'] is Map
-            ? Map<String, dynamic>.from(map['params'] as Map)
-            : const {},
-      );
-}
-
 
 /// Isolated mathematical formula for damage and dice evaluation
 @immutable
@@ -43,123 +21,183 @@ class EvaluationMath {
     this.requiresSave = false,
   });
 
+  EvaluationMath copyWith({
+    String? diceFormula,
+    DamageType? damageType,
+    String? scalingFormula,
+    bool? isAttackRoll,
+    bool? requiresSave,
+  }) {
+    return EvaluationMath(
+      diceFormula: diceFormula ?? this.diceFormula,
+      damageType: damageType ?? this.damageType,
+      scalingFormula: scalingFormula ?? this.scalingFormula,
+      isAttackRoll: isAttackRoll ?? this.isAttackRoll,
+      requiresSave: requiresSave ?? this.requiresSave,
+    );
+  }
+
   Map<String, dynamic> toMap() => {
         'diceFormula': diceFormula,
         'damageType': damageType.name,
-        if (scalingFormula != null) 'scalingFormula': scalingFormula,
         'isAttackRoll': isAttackRoll,
         'requiresSave': requiresSave,
+        'scalingFormula': scalingFormula,
       };
 
   factory EvaluationMath.fromMap(Map<String, dynamic> map) {
+    final dmgStr = map['damageType']?.toString() ?? 'untyped';
+    final damageType = DamageType.values.firstWhere(
+      (d) => d.name == dmgStr,
+      orElse: () => DamageType.untyped,
+    );
     return EvaluationMath(
       diceFormula: map['diceFormula']?.toString() ?? '',
-      damageType: DamageType.fromString(map['damageType']?.toString()),
+      damageType: damageType,
       scalingFormula: map['scalingFormula']?.toString(),
       isAttackRoll: map['isAttackRoll'] == true,
       requiresSave: map['requiresSave'] == true,
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is EvaluationMath &&
+          runtimeType == other.runtimeType &&
+          diceFormula == other.diceFormula &&
+          damageType == other.damageType &&
+          scalingFormula == other.scalingFormula &&
+          isAttackRoll == other.isAttackRoll &&
+          requiresSave == other.requiresSave;
+
+  @override
+  int get hashCode =>
+      diceFormula.hashCode ^
+      damageType.hashCode ^
+      scalingFormula.hashCode ^
+      isAttackRoll.hashCode ^
+      requiresSave.hashCode;
+
+  @override
+  String toString() {
+    final delivery =
+        isAttackRoll ? ' (attack)' : (requiresSave ? ' (save)' : '');
+    return '$diceFormula ${damageType.name}$delivery';
+  }
 }
 
-/// Standardized Spell Components
+/// Standardized spell component flags
 @immutable
 class SpellComponents {
-  final bool verbal;
-  final bool somatic;
-  final bool material;
+  final bool v;
+  final bool s;
+  final bool m;
   final String? materialDescription;
-  final int? materialCostGp;
+  final int materialCostGp;
   final bool consumesMaterial;
 
   const SpellComponents({
-    this.verbal = false,
-    this.somatic = false,
-    this.material = false,
+    this.v = false,
+    this.s = false,
+    this.m = false,
     this.materialDescription,
-    this.materialCostGp,
+    this.materialCostGp = 0,
     this.consumesMaterial = false,
   });
 
   Map<String, dynamic> toMap() => {
-        'verbal': verbal,
-        'somatic': somatic,
-        'material': material,
-        if (materialDescription != null) 'materialDescription': materialDescription,
-        if (materialCostGp != null) 'materialCostGp': materialCostGp,
+        'v': v,
+        's': s,
+        'm': m,
+        'materialDescription': materialDescription,
+        'materialCostGp': materialCostGp,
         'consumesMaterial': consumesMaterial,
       };
 
   factory SpellComponents.fromMap(Map<String, dynamic> map) {
     return SpellComponents(
-      verbal: map['verbal'] == true,
-      somatic: map['somatic'] == true,
-      material: map['material'] == true,
+      v: map['v'] == true,
+      s: map['s'] == true,
+      m: map['m'] == true,
       materialDescription: map['materialDescription']?.toString(),
-      materialCostGp: (map['materialCostGp'] as num?)?.toInt(),
+      materialCostGp: (map['materialCostGp'] as num?)?.toInt() ?? 0,
       consumesMaterial: map['consumesMaterial'] == true,
     );
   }
 }
 
-/// Standardized Casting Time
+/// Flattened casting time model
 @immutable
 class CastingTime {
+  final int cost;
   final ActionType actionType;
-  final int count; // e.g. 1 (action), 10 (minutes)
-  final String? conditionDescription; // e.g. "which you take when you see a creature..."
+  final String? triggerCondition;
 
   const CastingTime({
+    required this.cost,
     required this.actionType,
-    this.count = 1,
-    this.conditionDescription,
+    this.triggerCondition,
   });
 
   Map<String, dynamic> toMap() => {
+        'cost': cost,
         'actionType': actionType.name,
-        'count': count,
-        if (conditionDescription != null)
-          'conditionDescription': conditionDescription,
+        'triggerCondition': triggerCondition,
       };
 
   factory CastingTime.fromMap(Map<String, dynamic> map) {
+    final typeStr = map['actionType']?.toString() ?? 'action';
+    final actionType = ActionType.values.firstWhere(
+      (a) => a.name == typeStr,
+      orElse: () => ActionType.action,
+    );
     return CastingTime(
-      actionType: ActionType.fromString(map['actionType']?.toString()),
-      count: (map['count'] as num?)?.toInt() ?? 1,
-      conditionDescription: map['conditionDescription']?.toString(),
+      cost: (map['cost'] as num?)?.toInt() ?? 1,
+      actionType: actionType,
+      triggerCondition: map['triggerCondition']?.toString(),
     );
   }
 }
 
-/// Standardized Spell Duration
+/// Flattened duration model with concentration flag
 @immutable
 class SpellDuration {
-  final String type; // instantaneous, timed, permanent, special
-  final int? durationMinutes;
+  final DurationType type;
+  final int durationSeconds;
   final bool requiresConcentration;
+  final String? rawText;
 
   const SpellDuration({
     required this.type,
-    this.durationMinutes,
+    this.durationSeconds = 0,
     this.requiresConcentration = false,
+    this.rawText,
   });
 
   Map<String, dynamic> toMap() => {
-        'type': type,
-        if (durationMinutes != null) 'durationMinutes': durationMinutes,
+        'type': type.name,
+        'durationSeconds': durationSeconds,
         'requiresConcentration': requiresConcentration,
+        'rawText': rawText,
       };
 
   factory SpellDuration.fromMap(Map<String, dynamic> map) {
+    final typeStr = map['type']?.toString() ?? 'instantaneous';
+    final type = DurationType.values.firstWhere(
+      (d) => d.name == typeStr,
+      orElse: () => DurationType.instantaneous,
+    );
     return SpellDuration(
-      type: map['type']?.toString() ?? 'instantaneous',
-      durationMinutes: (map['durationMinutes'] as num?)?.toInt(),
+      type: type,
+      durationSeconds: (map['durationSeconds'] as num?)?.toInt() ?? 0,
       requiresConcentration: map['requiresConcentration'] == true,
+      rawText: map['rawText']?.toString(),
     );
   }
 }
 
-/// Standardized Spell Domain Entity
+/// Modernized Spell Domain Model
 @immutable
 class Spell extends DomainEntity {
   @override
@@ -169,17 +207,22 @@ class Spell extends DomainEntity {
   final int level;
   final String school;
   final CastingTime castingTime;
-  final String range;
-  final SpellComponents components;
   final SpellDuration duration;
+  final String range;
+  final int rangeDistanceFeet;
+  final String rangeType;
+  final String? damageType;
+  final SpellComponents components;
   final String descriptionMarkdown;
-  final EvaluationMath? math;
-  final List<CombatRiderDefinition> riders;
+  final String? higherLevelsMarkdown;
+  final List<EvaluationMath> damageMath;
+  final List<EntityReference<DomainEntity>> relatedEntityRefs;
+  final List<CombatEffectRider> riders;
   @override
   final Map<String, dynamic> customProperties;
 
-  /// Pluggable static parser for extracting riders from text descriptions
-  static List<CombatRiderDefinition> Function(String text)? riderExtractor;
+  /// Optional pluggable hook for extracting combat riders from markdown at boundary.
+  static List<CombatEffectRider> Function(String markdown)? riderExtractor;
 
   const Spell({
     required this.id,
@@ -187,11 +230,16 @@ class Spell extends DomainEntity {
     required this.level,
     required this.school,
     required this.castingTime,
-    required this.range,
-    required this.components,
     required this.duration,
+    required this.range,
+    this.rangeDistanceFeet = 0,
+    this.rangeType = 'ranged',
+    this.damageType,
+    required this.components,
     required this.descriptionMarkdown,
-    this.math,
+    this.higherLevelsMarkdown,
+    this.damageMath = const [],
+    this.relatedEntityRefs = const [],
     this.riders = const [],
     this.customProperties = const {},
   });
@@ -206,41 +254,91 @@ class Spell extends DomainEntity {
         'level': level,
         'school': school,
         'castingTime': castingTime.toMap(),
-        'range': range,
-        'components': components.toMap(),
         'duration': duration.toMap(),
+        'range': range,
+        'rangeDistanceFeet': rangeDistanceFeet,
+        'rangeType': rangeType,
+        if (damageType != null) 'damageType': damageType,
+        'components': components.toMap(),
         'descriptionMarkdown': descriptionMarkdown,
-        if (math != null) 'math': math!.toMap(),
-        'riders': riders.map((r) => r.toMap()).toList(),
+        'higherLevelsMarkdown': higherLevelsMarkdown,
+        'damageMath': damageMath.map((d) => d.toMap()).toList(),
+        'relatedEntityRefs': relatedEntityRefs.map((r) => r.toMap()).toList(),
+        if (customProperties.containsKey('classes'))
+          'classes': customProperties['classes'],
         'customProperties': customProperties,
       };
 
   factory Spell.fromMap(Map<String, dynamic> map) {
-    final rawRiders = map['riders'] as List?;
+    final cp = Map<String, dynamic>.from(map['customProperties'] as Map? ?? {});
+    if (cp.containsKey('customProperties') && cp['customProperties'] is Map) {
+      final nested = Map<String, dynamic>.from(cp['customProperties'] as Map);
+      cp.remove('customProperties');
+      cp.addAll(nested);
+    }
+    if (map.containsKey('classes') && !cp.containsKey('classes')) {
+      cp['classes'] = map['classes'];
+    }
+    final rawRange = map['range']?.toString() ?? 'Self';
+    int distFeet = (map['rangeDistanceFeet'] as num?)?.toInt() ?? 0;
+    String rType = map['rangeType']?.toString() ?? 'ranged';
+    if (distFeet <= 0 && rawRange.isNotEmpty) {
+      final lower = rawRange.toLowerCase();
+      if (lower.contains('touch')) {
+        rType = 'touch';
+        distFeet = 0;
+      } else if (lower.contains('self')) {
+        rType = 'self';
+        distFeet = 0;
+      } else {
+        if (lower.contains('line')) {
+          rType = 'line';
+        } else if (lower.contains('cone')) {
+          rType = 'cone';
+        } else if (lower.contains('radius') || lower.contains('sphere')) {
+          rType = 'radius';
+        }
+        final digitMatch = RegExp(r'\d+').firstMatch(rawRange);
+        if (digitMatch != null) {
+          distFeet = int.tryParse(digitMatch.group(0) ?? '0') ?? 0;
+          if (distFeet > 0 && lower.contains('mile')) {
+            distFeet *= 5280;
+          }
+        }
+      }
+    }
+
     final desc = map['descriptionMarkdown']?.toString() ?? '';
-    final extractedRiders = riderExtractor != null && (rawRiders == null || rawRiders.isEmpty)
-        ? riderExtractor!(desc)
-        : (rawRiders ?? [])
-            .map((r) => CombatRiderDefinitionSerialization.fromMap(Map<String, dynamic>.from(r as Map)))
-            .toList();
+    final extractedRiders =
+        riderExtractor?.call(desc) ?? const <CombatEffectRider>[];
 
     return Spell(
-      id: EntityId.fromMap(Map<String, dynamic>.from(map['id'] as Map)),
+      id: EntityId.fromMap(Map<String, dynamic>.from(map['id'] as Map? ?? {})),
       name: map['name']?.toString() ?? '',
       level: (map['level'] as num?)?.toInt() ?? 0,
-      school: map['school']?.toString() ?? 'evocation',
-      castingTime: CastingTime.fromMap(Map<String, dynamic>.from(map['castingTime'] as Map)),
-      range: map['range']?.toString() ?? 'self',
-      components: SpellComponents.fromMap(Map<String, dynamic>.from(map['components'] as Map)),
-      duration: SpellDuration.fromMap(Map<String, dynamic>.from(map['duration'] as Map)),
+      school: map['school']?.toString() ?? 'Universal',
+      castingTime: CastingTime.fromMap(
+          Map<String, dynamic>.from(map['castingTime'] as Map? ?? {})),
+      duration: SpellDuration.fromMap(
+          Map<String, dynamic>.from(map['duration'] as Map? ?? {})),
+      range: rawRange,
+      rangeDistanceFeet: distFeet,
+      rangeType: rType,
+      damageType: map['damageType']?.toString(),
+      components: SpellComponents.fromMap(
+          Map<String, dynamic>.from(map['components'] as Map? ?? {})),
       descriptionMarkdown: desc,
-      math: map['math'] != null
-          ? EvaluationMath.fromMap(Map<String, dynamic>.from(map['math'] as Map))
-          : null,
+      higherLevelsMarkdown: map['higherLevelsMarkdown']?.toString(),
+      damageMath: (map['damageMath'] as List? ?? [])
+          .whereType<Map>()
+          .map((d) => EvaluationMath.fromMap(Map<String, dynamic>.from(d)))
+          .toList(),
+      relatedEntityRefs: (map['relatedEntityRefs'] as List? ?? [])
+          .whereType<Map>()
+          .map((r) => EntityReference.fromMap(Map<String, dynamic>.from(r)))
+          .toList(),
       riders: extractedRiders,
-      customProperties: map['customProperties'] is Map
-          ? Map<String, dynamic>.from(map['customProperties'] as Map)
-          : const {},
+      customProperties: cp,
     );
   }
 
@@ -250,12 +348,17 @@ class Spell extends DomainEntity {
     int? level,
     String? school,
     CastingTime? castingTime,
-    String? range,
-    SpellComponents? components,
     SpellDuration? duration,
+    String? range,
+    int? rangeDistanceFeet,
+    String? rangeType,
+    String? damageType,
+    SpellComponents? components,
     String? descriptionMarkdown,
-    EvaluationMath? math,
-    List<CombatRiderDefinition>? riders,
+    String? higherLevelsMarkdown,
+    List<EvaluationMath>? damageMath,
+    List<EntityReference<DomainEntity>>? relatedEntityRefs,
+    List<CombatEffectRider>? riders,
     Map<String, dynamic>? customProperties,
   }) {
     return Spell(
@@ -264,89 +367,23 @@ class Spell extends DomainEntity {
       level: level ?? this.level,
       school: school ?? this.school,
       castingTime: castingTime ?? this.castingTime,
-      range: range ?? this.range,
-      components: components ?? this.components,
       duration: duration ?? this.duration,
+      range: range ?? this.range,
+      rangeDistanceFeet: rangeDistanceFeet ?? this.rangeDistanceFeet,
+      rangeType: rangeType ?? this.rangeType,
+      damageType: damageType ?? this.damageType,
+      components: components ?? this.components,
       descriptionMarkdown: descriptionMarkdown ?? this.descriptionMarkdown,
-      math: math ?? this.math,
+      higherLevelsMarkdown: higherLevelsMarkdown ?? this.higherLevelsMarkdown,
+      damageMath: damageMath ?? this.damageMath,
+      relatedEntityRefs: relatedEntityRefs ?? this.relatedEntityRefs,
       riders: riders ?? this.riders,
       customProperties: customProperties ?? this.customProperties,
     );
   }
 }
 
-/// Standardized Monster Action Representation
-@immutable
-class MonsterAction {
-  final String name;
-  final String description;
-  final int? attackBonus;
-  final String? damageFormula;
-  final DamageType? damageType;
-  final String? reachOrRange;
-  final List<CombatRiderDefinition> riders;
-
-  const MonsterAction({
-    required this.name,
-    required this.description,
-    this.attackBonus,
-    this.damageFormula,
-    this.damageType,
-    this.reachOrRange,
-    this.riders = const [],
-  });
-
-  Map<String, dynamic> toMap() => {
-        'name': name,
-        'description': description,
-        if (attackBonus != null) 'attackBonus': attackBonus,
-        if (damageFormula != null) 'damageFormula': damageFormula,
-        if (damageType != null) 'damageType': damageType!.name,
-        if (reachOrRange != null) 'reachOrRange': reachOrRange,
-        'riders': riders.map((r) => r.toMap()).toList(),
-      };
-
-  factory MonsterAction.fromMap(Map<String, dynamic> map) {
-    final rawRiders = map['riders'] as List?;
-    return MonsterAction(
-      name: map['name']?.toString() ?? '',
-      description: map['description']?.toString() ?? '',
-      attackBonus: (map['attackBonus'] as num?)?.toInt(),
-      damageFormula: map['damageFormula']?.toString(),
-      damageType: DamageType.fromString(map['damageType']?.toString()),
-      reachOrRange: map['reachOrRange']?.toString(),
-      riders: (rawRiders ?? [])
-          .map((r) => CombatRiderDefinitionSerialization.fromMap(Map<String, dynamic>.from(r as Map)))
-          .toList(),
-    );
-  }
-}
-
-/// Standardized Monster Trait Representation
-@immutable
-class MonsterTrait {
-  final String name;
-  final String description;
-
-  const MonsterTrait({
-    required this.name,
-    required this.description,
-  });
-
-  Map<String, dynamic> toMap() => {
-        'name': name,
-        'description': description,
-      };
-
-  factory MonsterTrait.fromMap(Map<String, dynamic> map) {
-    return MonsterTrait(
-      name: map['name']?.toString() ?? '',
-      description: map['description']?.toString() ?? '',
-    );
-  }
-}
-
-/// Standardized Monster Domain Entity
+/// Modernized Monster Domain Model
 @immutable
 class Monster extends DomainEntity {
   @override
@@ -354,27 +391,15 @@ class Monster extends DomainEntity {
   @override
   final String name;
   final String size;
-  final String creatureType;
+  final String monsterType;
   final String alignment;
   final int armorClass;
-  final String? armorType;
   final int hitPoints;
-  final String hitPointFormula;
-  final String speed;
-  final Map<AbilityType, int> abilityScores;
-  final Map<SkillType, int> skills;
-  final List<String> damageImmunities;
-  final List<String> damageResistances;
-  final List<String> damageVulnerabilities;
-  final List<String> conditionImmunities;
-  final String senses;
-  final String languages;
+  final String hitDieFormula;
   final String challengeRating;
-  final int experiencePoints;
-  final List<MonsterTrait> traits;
-  final List<MonsterAction> actions;
-  final List<MonsterAction> reactions;
-  final List<MonsterAction> legendaryActions;
+  final String actionsMarkdown;
+  final List<EntityReference<Spell>> innateSpells;
+  final List<EvaluationMath> attackMath;
   @override
   final Map<String, dynamic> customProperties;
 
@@ -382,27 +407,15 @@ class Monster extends DomainEntity {
     required this.id,
     required this.name,
     required this.size,
-    required this.creatureType,
+    required this.monsterType,
     required this.alignment,
     required this.armorClass,
-    this.armorType,
     required this.hitPoints,
-    required this.hitPointFormula,
-    required this.speed,
-    required this.abilityScores,
-    this.skills = const {},
-    this.damageImmunities = const [],
-    this.damageResistances = const [],
-    this.damageVulnerabilities = const [],
-    this.conditionImmunities = const [],
-    required this.senses,
-    required this.languages,
+    required this.hitDieFormula,
     required this.challengeRating,
-    required this.experiencePoints,
-    this.traits = const [],
-    this.actions = const [],
-    this.reactions = const [],
-    this.legendaryActions = const [],
+    required this.actionsMarkdown,
+    this.innateSpells = const [],
+    this.attackMath = const [],
     this.customProperties = const {},
   });
 
@@ -414,98 +427,90 @@ class Monster extends DomainEntity {
         'id': id.toMap(),
         'name': name,
         'size': size,
-        'creatureType': creatureType,
+        'monsterType': monsterType,
         'alignment': alignment,
         'armorClass': armorClass,
-        if (armorType != null) 'armorType': armorType,
         'hitPoints': hitPoints,
-        'hitPointFormula': hitPointFormula,
-        'speed': speed,
-        'abilityScores': abilityScores.map((k, v) => MapEntry(k.name, v)),
-        'skills': skills.map((k, v) => MapEntry(k.name, v)),
-        'damageImmunities': damageImmunities,
-        'damageResistances': damageResistances,
-        'damageVulnerabilities': damageVulnerabilities,
-        'conditionImmunities': conditionImmunities,
-        'senses': senses,
-        'languages': languages,
+        'hitDieFormula': hitDieFormula,
         'challengeRating': challengeRating,
-        'experiencePoints': experiencePoints,
-        'traits': traits.map((t) => t.toMap()).toList(),
-        'actions': actions.map((a) => a.toMap()).toList(),
-        'reactions': reactions.map((r) => r.toMap()).toList(),
-        'legendaryActions': legendaryActions.map((l) => l.toMap()).toList(),
+        'actionsMarkdown': actionsMarkdown,
+        'innateSpells': innateSpells.map((s) => s.toMap()).toList(),
+        'attackMath': attackMath.map((a) => a.toMap()).toList(),
         'customProperties': customProperties,
       };
 
   factory Monster.fromMap(Map<String, dynamic> map) {
-    final rawScores = map['abilityScores'] as Map?;
-    final parsedScores = <AbilityType, int>{};
-    rawScores?.forEach((k, v) {
-      if (v is num) {
-        parsedScores[AbilityType.fromString(k.toString())] = v.toInt();
-      }
-    });
-
-    final rawSkills = map['skills'] as Map?;
-    final parsedSkills = <SkillType, int>{};
-    rawSkills?.forEach((k, v) {
-      if (v is num) {
-        parsedSkills[SkillType.fromString(k.toString())] = v.toInt();
-      }
-    });
-
     return Monster(
-      id: EntityId.fromMap(Map<String, dynamic>.from(map['id'] as Map)),
+      id: EntityId.fromMap(Map<String, dynamic>.from(map['id'] as Map? ?? {})),
       name: map['name']?.toString() ?? '',
       size: map['size']?.toString() ?? 'Medium',
-      creatureType: map['creatureType']?.toString() ?? 'humanoid',
+      monsterType: map['monsterType']?.toString() ?? 'Humanoid',
       alignment: map['alignment']?.toString() ?? 'unaligned',
       armorClass: (map['armorClass'] as num?)?.toInt() ?? 10,
-      armorType: map['armorType']?.toString(),
       hitPoints: (map['hitPoints'] as num?)?.toInt() ?? 10,
-      hitPointFormula: map['hitPointFormula']?.toString() ?? '2d8',
-      speed: map['speed']?.toString() ?? '30 ft.',
-      abilityScores: parsedScores,
-      skills: parsedSkills,
-      damageImmunities: List<String>.from(map['damageImmunities'] ?? []),
-      damageResistances: List<String>.from(map['damageResistances'] ?? []),
-      damageVulnerabilities: List<String>.from(map['damageVulnerabilities'] ?? []),
-      conditionImmunities: List<String>.from(map['conditionImmunities'] ?? []),
-      senses: map['senses']?.toString() ?? '',
-      languages: map['languages']?.toString() ?? '',
+      hitDieFormula: map['hitDieFormula']?.toString() ?? '2d8',
       challengeRating: map['challengeRating']?.toString() ?? '1',
-      experiencePoints: (map['experiencePoints'] as num?)?.toInt() ?? 200,
-      traits: ((map['traits'] as List?) ?? [])
-          .map((t) => MonsterTrait.fromMap(Map<String, dynamic>.from(t as Map)))
+      actionsMarkdown: map['actionsMarkdown']?.toString() ?? '',
+      innateSpells: (map['innateSpells'] as List? ?? [])
+          .whereType<Map>()
+          .map((s) =>
+              EntityReference<Spell>.fromMap(Map<String, dynamic>.from(s)))
           .toList(),
-      actions: ((map['actions'] as List?) ?? [])
-          .map((a) => MonsterAction.fromMap(Map<String, dynamic>.from(a as Map)))
+      attackMath: (map['attackMath'] as List? ?? [])
+          .whereType<Map>()
+          .map((a) => EvaluationMath.fromMap(Map<String, dynamic>.from(a)))
           .toList(),
-      reactions: ((map['reactions'] as List?) ?? [])
-          .map((r) => MonsterAction.fromMap(Map<String, dynamic>.from(r as Map)))
-          .toList(),
-      legendaryActions: ((map['legendaryActions'] as List?) ?? [])
-          .map((l) => MonsterAction.fromMap(Map<String, dynamic>.from(l as Map)))
-          .toList(),
-      customProperties: map['customProperties'] is Map
-          ? Map<String, dynamic>.from(map['customProperties'] as Map)
-          : const {},
+      customProperties:
+          Map<String, dynamic>.from(map['customProperties'] as Map? ?? {}),
+    );
+  }
+
+  Monster copyWith({
+    EntityId? id,
+    String? name,
+    String? size,
+    String? monsterType,
+    String? alignment,
+    int? armorClass,
+    int? hitPoints,
+    String? hitDieFormula,
+    String? challengeRating,
+    String? actionsMarkdown,
+    List<EntityReference<Spell>>? innateSpells,
+    List<EvaluationMath>? attackMath,
+    Map<String, dynamic>? customProperties,
+  }) {
+    return Monster(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      size: size ?? this.size,
+      monsterType: monsterType ?? this.monsterType,
+      alignment: alignment ?? this.alignment,
+      armorClass: armorClass ?? this.armorClass,
+      hitPoints: hitPoints ?? this.hitPoints,
+      hitDieFormula: hitDieFormula ?? this.hitDieFormula,
+      challengeRating: challengeRating ?? this.challengeRating,
+      actionsMarkdown: actionsMarkdown ?? this.actionsMarkdown,
+      innateSpells: innateSpells ?? this.innateSpells,
+      attackMath: attackMath ?? this.attackMath,
+      customProperties: customProperties ?? this.customProperties,
     );
   }
 }
 
-/// Standardized Equipment Domain Entity
+/// Modernized Equipment Item Domain Model
 @immutable
 class EquipmentItem extends DomainEntity {
   @override
   final EntityId id;
   @override
   final String name;
-  final String itemType; // weapon, armor, adventuring-gear, shield
-  final String rarity; // common, uncommon, rare, very rare, legendary, artifact
+  final String itemType;
+  final String rarity;
   final bool requiresAttunement;
   final String descriptionMarkdown;
+
+  /// Declarative mechanic grants emitted when this item is equipped (e.g., AC bonus, speed bonus).
   final List<FeatureGrant> grants;
   @override
   final Map<String, dynamic> customProperties;
@@ -514,8 +519,8 @@ class EquipmentItem extends DomainEntity {
     required this.id,
     required this.name,
     required this.itemType,
-    this.rarity = 'common',
-    this.requiresAttunement = false,
+    required this.rarity,
+    required this.requiresAttunement,
     required this.descriptionMarkdown,
     this.grants = const [],
     this.customProperties = const {},
@@ -538,18 +543,18 @@ class EquipmentItem extends DomainEntity {
 
   factory EquipmentItem.fromMap(Map<String, dynamic> map) {
     return EquipmentItem(
-      id: EntityId.fromMap(Map<String, dynamic>.from(map['id'] as Map)),
+      id: EntityId.fromMap(Map<String, dynamic>.from(map['id'] as Map? ?? {})),
       name: map['name']?.toString() ?? '',
-      itemType: map['itemType']?.toString() ?? 'adventuring-gear',
-      rarity: map['rarity']?.toString() ?? 'common',
+      itemType: map['itemType']?.toString() ?? 'Wondrous Item',
+      rarity: map['rarity']?.toString() ?? 'Common',
       requiresAttunement: map['requiresAttunement'] == true,
       descriptionMarkdown: map['descriptionMarkdown']?.toString() ?? '',
-      grants: ((map['grants'] as List?) ?? [])
-          .map((g) => FeatureGrant.fromMap(Map<String, dynamic>.from(g as Map)))
+      grants: (map['grants'] as List? ?? [])
+          .whereType<Map>()
+          .map((g) => FeatureGrant.fromMap(Map<String, dynamic>.from(g)))
           .toList(),
-      customProperties: map['customProperties'] is Map
-          ? Map<String, dynamic>.from(map['customProperties'] as Map)
-          : const {},
+      customProperties:
+          Map<String, dynamic>.from(map['customProperties'] as Map? ?? {}),
     );
   }
 

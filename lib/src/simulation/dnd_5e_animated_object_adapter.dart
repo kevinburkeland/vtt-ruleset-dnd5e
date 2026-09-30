@@ -1,11 +1,13 @@
 /// Standard 5e entity sizes for Animated Objects
-enum ObjectSize {
+enum DndObjectSize {
   tiny,
   small,
   medium,
   large,
   huge,
 }
+
+typedef ObjectSize = DndObjectSize;
 
 /// Baseline combat metrics for Animate Objects spell
 class AnimatedObjectStats {
@@ -45,8 +47,8 @@ class AnimatedObjectStats {
 class Dnd5eAnimatedObjectAdapter {
   const Dnd5eAnimatedObjectAdapter();
 
-  static const Map<ObjectSize, AnimatedObjectStats> baselines = {
-    ObjectSize.tiny: AnimatedObjectStats(
+  static const Map<DndObjectSize, AnimatedObjectStats> baselines = {
+    DndObjectSize.tiny: AnimatedObjectStats(
       pointCost: 1,
       maxHp: 20,
       ac: 18,
@@ -58,7 +60,7 @@ class Dnd5eAnimatedObjectAdapter {
       dexScore: 18,
       defaultExample: 'Silver Coin / Needle',
     ),
-    ObjectSize.small: AnimatedObjectStats(
+    DndObjectSize.small: AnimatedObjectStats(
       pointCost: 1,
       maxHp: 25,
       ac: 16,
@@ -70,7 +72,7 @@ class Dnd5eAnimatedObjectAdapter {
       dexScore: 14,
       defaultExample: 'Dagger / Chair',
     ),
-    ObjectSize.medium: AnimatedObjectStats(
+    DndObjectSize.medium: AnimatedObjectStats(
       pointCost: 2,
       maxHp: 40,
       ac: 13,
@@ -82,7 +84,7 @@ class Dnd5eAnimatedObjectAdapter {
       dexScore: 12,
       defaultExample: 'Sword / Table',
     ),
-    ObjectSize.large: AnimatedObjectStats(
+    DndObjectSize.large: AnimatedObjectStats(
       pointCost: 4,
       maxHp: 50,
       ac: 10,
@@ -94,7 +96,7 @@ class Dnd5eAnimatedObjectAdapter {
       dexScore: 10,
       defaultExample: 'Cart / Statue',
     ),
-    ObjectSize.huge: AnimatedObjectStats(
+    DndObjectSize.huge: AnimatedObjectStats(
       pointCost: 8,
       maxHp: 80,
       ac: 10,
@@ -108,7 +110,16 @@ class Dnd5eAnimatedObjectAdapter {
     ),
   };
 
-  static AnimatedObjectStats getStats(ObjectSize size) {
-    return baselines[size] ?? baselines[ObjectSize.medium]!;
+  static AnimatedObjectStats getStats(dynamic size) {
+    if (size is DndObjectSize) {
+      return baselines[size] ?? baselines[DndObjectSize.medium]!;
+    }
+    final sizeName = size.toString().split('.').last.toLowerCase();
+    for (final entry in baselines.entries) {
+      if (entry.key.name.toLowerCase() == sizeName) {
+        return entry.value;
+      }
+    }
+    return baselines[DndObjectSize.medium]!;
   }
 }
