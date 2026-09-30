@@ -380,7 +380,7 @@ class CasterPreparationRules {
       SpellClass.druid ||
       SpellClass.wizard =>
         CasterPrepStyle.preparedFull,
-      SpellClass.paladin || SpellClass.artificer => CasterPrepStyle.preparedHalf,
+      SpellClass.paladin => CasterPrepStyle.preparedHalf,
     };
   }
 

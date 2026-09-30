@@ -1,4 +1,3 @@
-import 'package:vtt_engine_core/models/entity_reference.dart';
 import '../rules/ruleset_edition.dart';
 import '../mechanics/weapon_mastery.dart';
 import '../spellcasting/spellcasting_rules_engine.dart';
