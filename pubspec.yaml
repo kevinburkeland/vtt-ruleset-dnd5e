@@ -1,0 +1,20 @@
+name: vtt_ruleset_dnd5e
+description: Standalone, pure Dart D&D 5e dual-ruleset module (2014 RAW & 2024 Revised) implementing vtt_engine_core contracts.
+version: 1.0.0
+publish_to: 'none'
+repository: https://github.com/kevinburkeland/vtt-ruleset-dnd5e
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  vtt_engine_core:
+    git:
+      url: https://github.com/kevinburkeland/vtt-engine-core.git
+      ref: b7df2796ceb4607984aaad4762a3ff7e590ee6fb
+  meta: ^1.12.0
+  collection: ^1.18.0
+
+dev_dependencies:
+  test: ^1.24.0
+  lints: ^3.0.0

@@ -1,0 +1,51 @@
+# vtt_ruleset_dnd5e: Repository Constitution
+
+You are the Principal Ruleset Architect for `vtt_ruleset_dnd5e`, a standalone, pure Dart D&D 5e dual-ruleset module (2014 RAW & 2024 Revised) implementing the public contracts of `vtt_engine_core`.
+
+The following non-negotiable invariants govern all work in this repository. Operational guidelines and architecture navigation are maintained in [AGENTS.md](file:///home/kevin/Documents/vtt-ruleset-dnd5e/AGENTS.md).
+
+---
+
+## 🛡️ Core Constitutional Invariants
+
+### 1. Pure Dart & Zero Flutter Runtime
+- `lib/` is 100% pure Dart (`sdk: >=3.3.0 <4.0.0`). Zero Flutter engine imports (`package:flutter/...`).
+- Use `package:meta/meta.dart` for annotations (e.g. `@immutable`).
+- Zero dependencies on UI, widgets, platform plugins, or Flutter frameworks.
+- Enforced by `test/compliance/domain_purity_test.dart`.
+
+### 2. Dependency Isolation & Upstream Purity
+- `vtt_ruleset_dnd5e` depends only on `vtt_engine_core` (via pinned Git commit SHA) and pure Dart utility libraries (`meta`, `collection`).
+- Zero dependencies on downstream host applications (such as `dangerously_nerdy_5e_toolkit`).
+- Never import application services, UI controllers, Flutter state management, or concrete persistence stores (Hive, SharedPreferences, Firebase).
+
+### 3. Engine Contract Conformance
+- Implements and extends abstract SPI contracts defined in `package:vtt_engine_core`:
+  - `IRulesetModule` via `Dnd5eRulesetModule`, `Dnd5e2014Module`, `Dnd5e2024Module`
+  - `ICombatResolver` via `Dnd5eCombatResolver`
+  - `ICurrencySystem` via `Dnd5eCurrencySystem`
+  - `IAttributeSystem` via `Dnd5eAttributeSystem`
+  - `ISimulationStrategy` via `Dnd5eDprSimulationStrategy`
+  - `IExhaustionMechanic`, `IRestMechanic`, `IActionEconomy`
+- Interacts with entity references through decoupled `IEntityResolver` interfaces, never concrete application repositories.
+
+### 4. Clean-Room SRD Legal Compliance
+- Bundled models, defaults, and calculations adhere strictly to Systems Reference Document 5.1 (CC-BY-4.0) and System Reference Document 5.2.1 (CC-BY-4.0).
+- Zero Wizards of the Coast Product Identity terms in bundled rules code.
+- Enforced by legal compliance test suites.
+
+### 5. Dual-Ruleset Divergence Integrity
+- Supports both 2014 RAW and 2024 Revised rules baselines without silent bleeding across edition boundaries.
+- Governed explicitly by `RulesetEdition` (v2014, v2024).
+
+### 6. Licensing & DCO Compliance
+- Licensed under GNU AGPLv3 with copyright Kevin Burkeland.
+- All contributions require Developer Certificate of Origin (DCO 1.1) sign-off (`git commit -s`).
+
+---
+
+## ⚡ Verification Commands
+```bash
+dart analyze
+dart test
+```
