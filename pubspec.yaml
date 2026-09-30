@@ -10,7 +10,7 @@ environment:
 dependencies:
   vtt_engine_core:
     git:
-      url: /home/kevin/Documents/vtt-engine-core
+      url: https://github.com/kevinburkeland/vtt-engine-core.git
       ref: 9d6f2cff1079886a1789c47bb667bd5a46f0f268
   meta: ^1.12.0
   collection: ^1.18.0
