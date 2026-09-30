@@ -44,6 +44,16 @@ The following non-negotiable invariants govern all work in this repository. Oper
 
 ---
 
+
+### 7. Cross-Boundary Repository Pivot Protocol
+- When inspecting or editing `../vtt-engine-core` or `../dangerously_nerdy_5e_toolkit`, read that repo's constitution and AGENTS.md.
+- Never leak 5e concepts upstream into `vtt_engine_core`.
+- Never leak Flutter, persistence, or UI downstream dependencies into `vtt_ruleset_dnd5e`.
+
+### 8. Pinned Git Dependency Synchronization
+- Upstream `vtt_engine_core` is consumed strictly via pinned Git commit SHAs in `pubspec.yaml`.
+- All integration tests must execute against resolved Git dependencies, never path overrides.
+
 ## ⚡ Verification Commands
 ```bash
 dart analyze

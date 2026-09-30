@@ -53,3 +53,20 @@ vtt_ruleset_dnd5e/
 dart analyze
 dart test
 ```
+
+---
+
+## 🔄 Cross-Boundary Repository Pivot Protocol
+When inspecting, editing, refactoring, or running commands inside `../vtt-engine-core` or `../dangerously_nerdy_5e_toolkit`:
+1. **Mandatory Ingestion:** Ingest the target repository's `.antigravityrules` and `AGENTS.md` before making changes.
+2. **Context Suspension:** Suspend ruleset assumptions when in core (no 5e mechanics or terminology in core); suspend pure-Dart assumptions when in the toolkit (Flutter UI, persistence, DI).
+3. **Local Governance:** The target repository's rules take absolute precedence for its files.
+
+---
+
+## 📌 Pinned Git Dependency Synchronization Protocol
+1. Core changes produce a concrete commit SHA on `main` in `../vtt-engine-core`.
+2. Update `pubspec.yaml` in `vtt-ruleset-dnd5e` with `vtt_engine_core.git.ref: <core-sha>`.
+3. Run `dart pub get`, `dart analyze`, and `dart test`.
+4. Commit changes with DCO sign-off (`git commit -s`) to produce a concrete ruleset commit SHA.
+5. Downstream applications (e.g. `dangerously_nerdy_5e_toolkit`) update their pinned Git dependencies accordingly.
