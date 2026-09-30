@@ -223,11 +223,22 @@ class CharacterProgressionEngine {
     dynamic characterClass,
   }) {
     if (characterClass != null) {
+      try {
+        final dynamic res = characterClass.getSubclassLevel(ruleset);
+        if (res is num) return newClassLevel == res.toInt();
+      } catch (_) {}
       final lvl = (characterClass is num)
           ? characterClass.toInt()
           : ((characterClass.customProperties['subclassLevel'] as num?)?.toInt() ??
               (characterClass.subclassSelectionLevel as num?)?.toInt());
-      if (lvl != null) return newClassLevel == lvl;
+      if (lvl != null) {
+        if (ruleset == RulesetVersion.v2014) {
+          final slug = classSlug.toLowerCase();
+          if (['cleric', 'sorcerer', 'warlock'].contains(slug)) return newClassLevel == 1;
+          if (['druid', 'wizard'].contains(slug)) return newClassLevel == 2;
+        }
+        return newClassLevel == lvl;
+      }
     }
     if (ruleset == RulesetVersion.v2014) {
       final slug = classSlug.toLowerCase();

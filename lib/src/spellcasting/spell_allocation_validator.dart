@@ -347,13 +347,14 @@ class SpellAllocationValidator {
       case 'cleric':
         final cantrips = (lvl >= 10) ? 5 : ((lvl >= 4) ? 4 : 3);
         final maxPrepared = math.max(1, lvl + abilityModifier);
-        final alwaysPreparedCount =
-            (SpellAllocationValidator.alwaysPreparedSpellsHook ?? (({required String classSlug, String? subclassSlug, required int classLevel, required RulesetEdition edition}) => <String>[]))(
-          classSlug: 'cleric',
-          subclassSlug: subclassSlug,
-          classLevel: lvl,
-          edition: edition,
-        ).length;
+        final alwaysPreparedCount = SpellAllocationValidator.alwaysPreparedSpellsHook != null
+            ? SpellAllocationValidator.alwaysPreparedSpellsHook!(
+                classSlug: 'cleric',
+                subclassSlug: subclassSlug,
+                classLevel: lvl,
+                edition: edition,
+              ).length
+            : ((subclassSlug != null && subclassSlug.isNotEmpty) ? math.min(5, maxTier) * 2 : 0);
 
         return SpellAllocationLimits(
           maxCantrips: cantrips,
@@ -368,13 +369,14 @@ class SpellAllocationValidator {
       case 'druid':
         final cantrips = (lvl >= 10) ? 4 : ((lvl >= 4) ? 3 : 2);
         final maxPrepared = math.max(1, lvl + abilityModifier);
-        final alwaysPreparedCount =
-            (SpellAllocationValidator.alwaysPreparedSpellsHook ?? (({required String classSlug, String? subclassSlug, required int classLevel, required RulesetEdition edition}) => <String>[]))(
-          classSlug: 'druid',
-          subclassSlug: subclassSlug,
-          classLevel: lvl,
-          edition: edition,
-        ).length;
+        final alwaysPreparedCount = SpellAllocationValidator.alwaysPreparedSpellsHook != null
+            ? SpellAllocationValidator.alwaysPreparedSpellsHook!(
+                classSlug: 'druid',
+                subclassSlug: subclassSlug,
+                classLevel: lvl,
+                edition: edition,
+              ).length
+            : ((subclassSlug != null && subclassSlug.isNotEmpty) ? math.min(5, maxTier) * 2 : 0);
 
         return SpellAllocationLimits(
           maxCantrips: cantrips,
@@ -411,13 +413,14 @@ class SpellAllocationValidator {
         final maxPrepared = (edition == RulesetEdition.v2024)
             ? math.max(1, ((lvl + 1) ~/ 2) + abilityModifier)
             : (lvl < 2 ? 0 : math.max(1, (lvl ~/ 2) + abilityModifier));
-        final alwaysPreparedCount =
-            (SpellAllocationValidator.alwaysPreparedSpellsHook ?? (({required String classSlug, String? subclassSlug, required int classLevel, required RulesetEdition edition}) => <String>[]))(
-          classSlug: 'paladin',
-          subclassSlug: subclassSlug,
-          classLevel: lvl,
-          edition: edition,
-        ).length;
+        final alwaysPreparedCount = SpellAllocationValidator.alwaysPreparedSpellsHook != null
+            ? SpellAllocationValidator.alwaysPreparedSpellsHook!(
+                classSlug: 'paladin',
+                subclassSlug: subclassSlug,
+                classLevel: lvl,
+                edition: edition,
+              ).length
+            : ((subclassSlug != null && subclassSlug.isNotEmpty) ? math.min(5, maxTier) * 2 : 0);
 
         return SpellAllocationLimits(
           maxCantrips: 0,
