@@ -11,7 +11,7 @@ dependencies:
   vtt_engine_core:
     git:
       url: https://github.com/kevinburkeland/vtt-engine-core.git
-      ref: 1fba4305058653978a4306e306859b1b45c273d5
+      ref: 02044c7b2cfa953b5de99bc46339a438617160b2
   meta: ^1.12.0
   collection: ^1.18.0
 
