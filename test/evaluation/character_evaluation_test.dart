@@ -6,7 +6,7 @@ void main() {
       const character = Character(
         id: EntityId(slug: 'hero-1', ruleset: RulesetVersion.v2024),
         name: 'Rogue Hero',
-        speciesRef: EntityReference<DomainEntity>(
+        speciesRef: EntityReference<DomainEntity>.empty(
           refType: EntityType.species,
           slug: 'elf',
           displayName: 'Elf',
@@ -14,7 +14,7 @@ void main() {
         progression: CharacterProgression(
           classes: [
             ClassLevelProgression(
-              classRef: EntityReference<DomainEntity>(
+              classRef: EntityReference<DomainEntity>.empty(
                 refType: EntityType.classDefinition,
                 slug: 'rogue',
                 displayName: 'Rogue',
@@ -37,7 +37,7 @@ void main() {
       final character = Character(
         id: const EntityId(slug: 'hero-plate', ruleset: RulesetVersion.v2024),
         name: 'Knight',
-        speciesRef: const EntityReference<DomainEntity>(
+        speciesRef: const EntityReference<DomainEntity>.empty(
           refType: EntityType.species,
           slug: 'human',
           displayName: 'Human',
@@ -45,7 +45,7 @@ void main() {
         progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
-              classRef: EntityReference<DomainEntity>(
+              classRef: EntityReference<DomainEntity>.empty(
                 refType: EntityType.classDefinition,
                 slug: 'fighter',
                 displayName: 'Fighter',
@@ -59,7 +59,7 @@ void main() {
         inventory: [
           InventoryItemInstance(
             instanceId: 'plate-1',
-            itemRef: const EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>.empty(
               refType: EntityType.equipment,
               slug: 'plate',
               displayName: 'Plate Armor',
@@ -85,7 +85,7 @@ void main() {
       final character = Character(
         id: const EntityId(slug: 'hero-med', ruleset: RulesetVersion.v2024),
         name: 'Ranger',
-        speciesRef: const EntityReference<DomainEntity>(
+        speciesRef: const EntityReference<DomainEntity>.empty(
           refType: EntityType.species,
           slug: 'human',
           displayName: 'Human',
@@ -93,7 +93,7 @@ void main() {
         progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
-              classRef: EntityReference<DomainEntity>(
+              classRef: EntityReference<DomainEntity>.empty(
                 refType: EntityType.classDefinition,
                 slug: 'ranger',
                 displayName: 'Ranger',
@@ -107,7 +107,7 @@ void main() {
         inventory: [
           InventoryItemInstance(
             instanceId: 'breastplate-1',
-            itemRef: const EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>.empty(
               refType: EntityType.equipment,
               slug: 'breastplate',
               displayName: 'Breastplate',
@@ -122,7 +122,7 @@ void main() {
           ),
           InventoryItemInstance(
             instanceId: 'shield-1',
-            itemRef: const EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>.empty(
               refType: EntityType.equipment,
               slug: 'shield',
               displayName: 'Shield',
@@ -148,7 +148,7 @@ void main() {
       final character = Character(
         id: const EntityId(slug: 'barb-1', ruleset: RulesetVersion.v2024),
         name: 'Krag',
-        speciesRef: const EntityReference<DomainEntity>(
+        speciesRef: const EntityReference<DomainEntity>.empty(
           refType: EntityType.species,
           slug: 'goliath',
           displayName: 'Goliath',
@@ -156,7 +156,7 @@ void main() {
         progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
-              classRef: EntityReference<DomainEntity>(
+              classRef: EntityReference<DomainEntity>.empty(
                 refType: EntityType.classDefinition,
                 slug: 'barbarian',
                 displayName: 'Barbarian',
@@ -173,7 +173,7 @@ void main() {
         inventory: [
           InventoryItemInstance(
             instanceId: 'shield-1',
-            itemRef: const EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>.empty(
               refType: EntityType.equipment,
               slug: 'shield',
               displayName: 'Shield',
@@ -199,7 +199,7 @@ void main() {
       const characterNoShield = Character(
         id: EntityId(slug: 'monk-1', ruleset: RulesetVersion.v2024),
         name: 'Li',
-        speciesRef: EntityReference<DomainEntity>(
+        speciesRef: EntityReference<DomainEntity>.empty(
           refType: EntityType.species,
           slug: 'human',
           displayName: 'Human',
@@ -207,7 +207,7 @@ void main() {
         progression: CharacterProgression(
           classes: [
             ClassLevelProgression(
-              classRef: EntityReference<DomainEntity>(
+              classRef: EntityReference<DomainEntity>.empty(
                 refType: EntityType.classDefinition,
                 slug: 'monk',
                 displayName: 'Monk',
@@ -232,7 +232,7 @@ void main() {
       final characterWithShield = Character(
         id: const EntityId(slug: 'monk-2', ruleset: RulesetVersion.v2024),
         name: 'Li With Shield',
-        speciesRef: const EntityReference<DomainEntity>(
+        speciesRef: const EntityReference<DomainEntity>.empty(
           refType: EntityType.species,
           slug: 'human',
           displayName: 'Human',
@@ -240,7 +240,7 @@ void main() {
         progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
-              classRef: EntityReference<DomainEntity>(
+              classRef: EntityReference<DomainEntity>.empty(
                 refType: EntityType.classDefinition,
                 slug: 'monk',
                 displayName: 'Monk',
@@ -257,7 +257,7 @@ void main() {
         inventory: [
           InventoryItemInstance(
             instanceId: 'shield-1',
-            itemRef: const EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>.empty(
               refType: EntityType.equipment,
               slug: 'shield',
               displayName: 'Shield',
@@ -282,7 +282,7 @@ void main() {
       final character = Character(
         id: const EntityId(slug: 'hero-belt', ruleset: RulesetVersion.v2024),
         name: 'Thorek',
-        speciesRef: const EntityReference<DomainEntity>(
+        speciesRef: const EntityReference<DomainEntity>.empty(
           refType: EntityType.species,
           slug: 'dwarf',
           displayName: 'Dwarf',
@@ -290,7 +290,7 @@ void main() {
         progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
-              classRef: EntityReference<DomainEntity>(
+              classRef: EntityReference<DomainEntity>.empty(
                 refType: EntityType.classDefinition,
                 slug: 'fighter',
                 displayName: 'Fighter',
@@ -304,7 +304,7 @@ void main() {
         inventory: [
           InventoryItemInstance(
             instanceId: 'belt-1',
-            itemRef: const EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>.empty(
               refType: EntityType.equipment,
               slug: 'belt-hill-giant',
               displayName: 'Belt of Hill Giant Strength',
@@ -330,7 +330,7 @@ void main() {
       final character = Character(
         id: const EntityId(slug: 'hero-unattuned', ruleset: RulesetVersion.v2024),
         name: 'Unattuned Hero',
-        speciesRef: const EntityReference<DomainEntity>(
+        speciesRef: const EntityReference<DomainEntity>.empty(
           refType: EntityType.species,
           slug: 'human',
           displayName: 'Human',
@@ -338,7 +338,7 @@ void main() {
         progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
-              classRef: EntityReference<DomainEntity>(
+              classRef: EntityReference<DomainEntity>.empty(
                 refType: EntityType.classDefinition,
                 slug: 'fighter',
                 displayName: 'Fighter',
@@ -352,7 +352,7 @@ void main() {
         inventory: [
           InventoryItemInstance(
             instanceId: 'ring-1',
-            itemRef: const EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>.empty(
               refType: EntityType.equipment,
               slug: 'ring-protection',
               displayName: 'Ring of Protection',
@@ -379,7 +379,7 @@ void main() {
       const baseChar = Character(
         id: EntityId(slug: 'hero-1', ruleset: RulesetVersion.v2024),
         name: 'Novice Hero',
-        speciesRef: EntityReference<DomainEntity>(
+        speciesRef: EntityReference<DomainEntity>.empty(
           refType: EntityType.species,
           slug: 'gnome',
           displayName: 'Gnome',
@@ -387,7 +387,7 @@ void main() {
         progression: CharacterProgression(
           classes: [
             ClassLevelProgression(
-              classRef: EntityReference<DomainEntity>(
+              classRef: EntityReference<DomainEntity>.empty(
                 refType: EntityType.classDefinition,
                 slug: 'wizard',
                 displayName: 'Wizard',
@@ -425,7 +425,7 @@ void main() {
 
       // Character with feat granting attunementSlotBonus = 3
       final charFeat = baseChar.copyWith(
-        feats: const [
+        feats: [
           EntityReference<DomainEntity>(
             refType: EntityType.feat,
             slug: 'attunement-master',
@@ -446,7 +446,7 @@ void main() {
       const character = Character(
         id: EntityId(slug: 'rogue-expert', ruleset: RulesetVersion.v2024),
         name: 'Master Thief',
-        speciesRef: EntityReference<DomainEntity>(
+        speciesRef: EntityReference<DomainEntity>.empty(
           refType: EntityType.species,
           slug: 'halfling',
           displayName: 'Halfling',
@@ -454,7 +454,7 @@ void main() {
         progression: CharacterProgression(
           classes: [
             ClassLevelProgression(
-              classRef: EntityReference<DomainEntity>(
+              classRef: EntityReference<DomainEntity>.empty(
                 refType: EntityType.classDefinition,
                 slug: 'rogue',
                 displayName: 'Rogue',
@@ -492,7 +492,7 @@ void main() {
       final character = Character(
         id: const EntityId(slug: 'artisan-hero', ruleset: RulesetVersion.v2024),
         name: 'Gnome Crafter',
-        speciesRef: const EntityReference<DomainEntity>(
+        speciesRef: const EntityReference<DomainEntity>.empty(
           refType: EntityType.species,
           slug: 'gnome',
           displayName: 'Gnome',
@@ -500,12 +500,12 @@ void main() {
         progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
-              classRef: EntityReference<DomainEntity>(
+              classRef: EntityReference<DomainEntity>.empty(
                 refType: EntityType.classDefinition,
                 slug: 'arcane-crafter',
                 displayName: 'Arcane Crafter',
               ),
-              subclassRef: EntityReference<DomainEntity>(
+              subclassRef: EntityReference<DomainEntity>.empty(
                 refType: EntityType.subclass,
                 slug: 'steel-artisan',
                 displayName: 'Steel Artisan',
@@ -533,7 +533,7 @@ void main() {
         inventory: [
           InventoryItemInstance(
             instanceId: 'magic-longsword',
-            itemRef: const EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>.empty(
               refType: EntityType.equipment,
               slug: 'longsword-plus-1',
               displayName: 'Longsword +1',
@@ -570,7 +570,7 @@ void main() {
       final character = Character(
         id: const EntityId(slug: 'ranger-skirmisher', ruleset: RulesetVersion.v2024),
         name: 'Skirmisher',
-        speciesRef: const EntityReference<DomainEntity>(
+        speciesRef: const EntityReference<DomainEntity>.empty(
           refType: EntityType.species,
           slug: 'elf',
           displayName: 'Elf',
@@ -578,7 +578,7 @@ void main() {
         progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
-              classRef: EntityReference<DomainEntity>(
+              classRef: EntityReference<DomainEntity>.empty(
                 refType: EntityType.classDefinition,
                 slug: 'ranger',
                 displayName: 'Ranger',
@@ -595,7 +595,7 @@ void main() {
         inventory: [
           InventoryItemInstance(
             instanceId: 'handaxe-1',
-            itemRef: const EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>.empty(
               refType: EntityType.equipment,
               slug: 'handaxe',
               displayName: 'Handaxe',
@@ -611,7 +611,7 @@ void main() {
           ),
           InventoryItemInstance(
             instanceId: 'dagger-1',
-            itemRef: const EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>.empty(
               refType: EntityType.equipment,
               slug: 'dagger',
               displayName: 'Dagger',
