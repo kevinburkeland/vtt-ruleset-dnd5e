@@ -1,3 +1,4 @@
+import 'package:vtt_engine_core/utils/deep_immutable.dart';
 import '../modules/dnd5e_ruleset_module.dart';
 import 'dart:math' as math;
 import 'package:collection/collection.dart';
@@ -760,13 +761,11 @@ class Character extends core.Character {
 
   @override
   List<InventoryItemInstance> get inventory =>
-      super.inventory is List<InventoryItemInstance>
-          ? super.inventory as List<InventoryItemInstance>
-          : super.inventory
-              .map((i) => i is InventoryItemInstance
-                  ? i
-                  : InventoryItemInstance.fromMap(i.toMap()))
-              .toList();
+      List<InventoryItemInstance>.unmodifiable(
+        super.inventory.map((i) => i is InventoryItemInstance
+            ? i
+            : InventoryItemInstance.fromMap(i.toMap())),
+      );
 
   @override
   AbilityScores get baseScores =>
@@ -1565,7 +1564,7 @@ class Character extends core.Character {
       baseSpeedFeet: baseSpeedFeet ?? this.baseSpeedFeet,
       rulesetId: effectiveRulesetId,
       customProperties: customProperties != null
-          ? Map.unmodifiable(customProperties)
+          ? deepFreezeMap(customProperties)
           : this.customProperties,
     );
   }
