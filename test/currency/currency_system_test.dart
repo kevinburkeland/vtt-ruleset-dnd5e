@@ -50,7 +50,7 @@ void main() {
 
   group('Dnd5ePurseExtension Replica Identity Hardening Tests', () {
     test('modifyCoin, setCoins, depositCoins, withdrawCoins, and deductGpEquivalent reject "local"', () {
-      final purse = const PartyPurse();
+      const purse = PartyPurse.empty();
 
       expect(
         () => purse.modifyCoin('gp', 10, nodeId: 'local'),
@@ -75,7 +75,7 @@ void main() {
     });
 
     test('performs mutations successfully when valid replica nodeId is provided', () {
-      const purse = PartyPurse();
+      const purse = PartyPurse.empty();
       final set = purse.setCoins(gp: 50, sp: 20, nodeId: 'replica-1');
       expect(set.gp, equals(50));
       expect(set.sp, equals(20));

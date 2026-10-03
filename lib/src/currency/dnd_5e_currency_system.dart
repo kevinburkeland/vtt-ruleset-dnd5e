@@ -279,7 +279,7 @@ extension Dnd5ePurseExtension on PartyPurse {
         epPerPlayer: ep,
         gpPerPlayer: gp,
         ppPerPlayer: pp,
-        remainderPurse: const PartyPurse(),
+        remainderPurse: const PartyPurse.empty(),
         liquidatedGemsAndArtIncluded: includeLiquidatedGemsAndArt,
       );
     }
@@ -299,7 +299,7 @@ extension Dnd5ePurseExtension on PartyPurse {
         epPerPlayer: 0,
         gpPerPlayer: floorPerPlayer.toInt(),
         ppPerPlayer: 0,
-        remainderPurse: const PartyPurse().setCoins(gp: remainder.round(), nodeId: nodeId),
+        remainderPurse: const PartyPurse.empty().setCoins(gp: remainder.round(), nodeId: nodeId),
         liquidatedGemsAndArtIncluded: true,
       );
     }
@@ -331,7 +331,7 @@ extension Dnd5ePurseExtension on PartyPurse {
       epPerPlayer: epEach,
       gpPerPlayer: gpEach,
       ppPerPlayer: ppEach,
-      remainderPurse: const PartyPurse().setCoins(
+      remainderPurse: const PartyPurse.empty().setCoins(
         cp: cpRem,
         sp: spRem,
         ep: epRem,

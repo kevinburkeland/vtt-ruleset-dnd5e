@@ -784,7 +784,7 @@ class Character extends core.Character {
     super.toolProficiencies = const [],
     super.languages = const ['Common'],
     List<InventoryItemInstance> inventory = const [],
-    super.purse = const PartyPurse(),
+    super.purse = const PartyPurse.empty(),
     this.allocatedSpells = const {},
     List<EntityReference<Spell>> cantrips = const [],
     List<EntityReference<Spell>> spellsKnown = const [],
@@ -1414,7 +1414,7 @@ class Character extends core.Character {
       purse: map['purse'] != null
           ? PartyPurse.fromMap(
               Map<String, dynamic>.from(map['purse'] as Map? ?? {}))
-          : const PartyPurse(),
+          : const PartyPurse.empty(),
       allocatedSpells: parsedAllocated,
       cantrips: parsedCantrips,
       spellsKnown: parsedSpellsKnown,
