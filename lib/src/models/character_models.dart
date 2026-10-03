@@ -269,7 +269,7 @@ class InventoryItemInstance extends core.InventoryItemInstance {
   final String? customName;
   final String? notes;
 
-  const InventoryItemInstance({
+  InventoryItemInstance({
     required super.itemRef,
     required super.instanceId,
     super.quantity = 1,
@@ -281,6 +281,18 @@ class InventoryItemInstance extends core.InventoryItemInstance {
     this.isAttuned = false,
     this.requiresAttunement = false,
   });
+
+  const InventoryItemInstance.constant({
+    required super.itemRef,
+    required super.instanceId,
+    super.quantity = 1,
+    super.isEquipped = false,
+    super.equippedSlot,
+    this.customName,
+    this.notes,
+    this.isAttuned = false,
+    this.requiresAttunement = false,
+  }) : super.constant();
 
   @override
   String get displayName => customName ?? itemRef.displayName;

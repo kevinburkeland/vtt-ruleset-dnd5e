@@ -34,15 +34,15 @@ void main() {
     });
 
     test('Plate Armor sets flat AC 18 and ignores DEX bonus', () {
-      const character = Character(
-        id: EntityId(slug: 'hero-plate', ruleset: RulesetVersion.v2024),
+      final character = Character(
+        id: const EntityId(slug: 'hero-plate', ruleset: RulesetVersion.v2024),
         name: 'Knight',
-        speciesRef: EntityReference<DomainEntity>(
+        speciesRef: const EntityReference<DomainEntity>(
           refType: EntityType.species,
           slug: 'human',
           displayName: 'Human',
         ),
-        progression: CharacterProgression(
+        progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
               classRef: EntityReference<DomainEntity>(
@@ -55,11 +55,11 @@ void main() {
             ),
           ],
         ),
-        baseScores: AbilityScores(dexterity: 18), // Mod +4
+        baseScores: const AbilityScores(dexterity: 18), // Mod +4
         inventory: [
           InventoryItemInstance(
             instanceId: 'plate-1',
-            itemRef: EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>(
               refType: EntityType.equipment,
               slug: 'plate',
               displayName: 'Plate Armor',
@@ -72,7 +72,7 @@ void main() {
             },
           ),
         ],
-        resources: CharacterResourcePool(currentHp: 10),
+        resources: const CharacterResourcePool(currentHp: 10),
       );
 
       final stats = CharacterEvaluationEngine.evaluate(character);
@@ -82,15 +82,15 @@ void main() {
 
     test('Medium Armor (Breastplate) caps DEX contribution at maxDexBonus (+2)',
         () {
-      const character = Character(
-        id: EntityId(slug: 'hero-med', ruleset: RulesetVersion.v2024),
+      final character = Character(
+        id: const EntityId(slug: 'hero-med', ruleset: RulesetVersion.v2024),
         name: 'Ranger',
-        speciesRef: EntityReference<DomainEntity>(
+        speciesRef: const EntityReference<DomainEntity>(
           refType: EntityType.species,
           slug: 'human',
           displayName: 'Human',
         ),
-        progression: CharacterProgression(
+        progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
               classRef: EntityReference<DomainEntity>(
@@ -103,11 +103,11 @@ void main() {
             ),
           ],
         ),
-        baseScores: AbilityScores(dexterity: 18), // Mod +4
+        baseScores: const AbilityScores(dexterity: 18), // Mod +4
         inventory: [
           InventoryItemInstance(
             instanceId: 'breastplate-1',
-            itemRef: EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>(
               refType: EntityType.equipment,
               slug: 'breastplate',
               displayName: 'Breastplate',
@@ -122,7 +122,7 @@ void main() {
           ),
           InventoryItemInstance(
             instanceId: 'shield-1',
-            itemRef: EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>(
               refType: EntityType.equipment,
               slug: 'shield',
               displayName: 'Shield',
@@ -134,7 +134,7 @@ void main() {
             },
           ),
         ],
-        resources: CharacterResourcePool(currentHp: 10),
+        resources: const CharacterResourcePool(currentHp: 10),
       );
 
       final stats = CharacterEvaluationEngine.evaluate(character);
@@ -145,15 +145,15 @@ void main() {
     test(
         'Barbarian Unarmored Defense calculates 10 + DEX + CON (allows shield)',
         () {
-      const character = Character(
-        id: EntityId(slug: 'barb-1', ruleset: RulesetVersion.v2024),
+      final character = Character(
+        id: const EntityId(slug: 'barb-1', ruleset: RulesetVersion.v2024),
         name: 'Krag',
-        speciesRef: EntityReference<DomainEntity>(
+        speciesRef: const EntityReference<DomainEntity>(
           refType: EntityType.species,
           slug: 'goliath',
           displayName: 'Goliath',
         ),
-        progression: CharacterProgression(
+        progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
               classRef: EntityReference<DomainEntity>(
@@ -166,14 +166,14 @@ void main() {
             ),
           ],
         ),
-        baseScores: AbilityScores(
+        baseScores: const AbilityScores(
           dexterity: 14, // Mod +2
           constitution: 16, // Mod +3
         ),
         inventory: [
           InventoryItemInstance(
             instanceId: 'shield-1',
-            itemRef: EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>(
               refType: EntityType.equipment,
               slug: 'shield',
               displayName: 'Shield',
@@ -185,7 +185,7 @@ void main() {
             },
           ),
         ],
-        resources: CharacterResourcePool(currentHp: 15),
+        resources: const CharacterResourcePool(currentHp: 15),
       );
 
       final stats = CharacterEvaluationEngine.evaluate(character);
@@ -229,15 +229,15 @@ void main() {
       // 10 + 3 (DEX) + 3 (WIS) = 16
       expect(statsNoShield.armorClass, equals(16));
 
-      const characterWithShield = Character(
-        id: EntityId(slug: 'monk-2', ruleset: RulesetVersion.v2024),
+      final characterWithShield = Character(
+        id: const EntityId(slug: 'monk-2', ruleset: RulesetVersion.v2024),
         name: 'Li With Shield',
-        speciesRef: EntityReference<DomainEntity>(
+        speciesRef: const EntityReference<DomainEntity>(
           refType: EntityType.species,
           slug: 'human',
           displayName: 'Human',
         ),
-        progression: CharacterProgression(
+        progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
               classRef: EntityReference<DomainEntity>(
@@ -250,14 +250,14 @@ void main() {
             ),
           ],
         ),
-        baseScores: AbilityScores(
+        baseScores: const AbilityScores(
           dexterity: 16, // Mod +3
           wisdom: 16, // Mod +3
         ),
         inventory: [
           InventoryItemInstance(
             instanceId: 'shield-1',
-            itemRef: EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>(
               refType: EntityType.equipment,
               slug: 'shield',
               displayName: 'Shield',
@@ -267,7 +267,7 @@ void main() {
             customProperties: {'acBonus': 2},
           ),
         ],
-        resources: CharacterResourcePool(currentHp: 10),
+        resources: const CharacterResourcePool(currentHp: 10),
       );
 
       final statsWithShield =
@@ -279,15 +279,15 @@ void main() {
     test(
         'Stat Overrides (Belt of Giant Strength) correctly override lower base stat when attuned',
         () {
-      const character = Character(
-        id: EntityId(slug: 'hero-belt', ruleset: RulesetVersion.v2024),
+      final character = Character(
+        id: const EntityId(slug: 'hero-belt', ruleset: RulesetVersion.v2024),
         name: 'Thorek',
-        speciesRef: EntityReference<DomainEntity>(
+        speciesRef: const EntityReference<DomainEntity>(
           refType: EntityType.species,
           slug: 'dwarf',
           displayName: 'Dwarf',
         ),
-        progression: CharacterProgression(
+        progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
               classRef: EntityReference<DomainEntity>(
@@ -300,11 +300,11 @@ void main() {
             ),
           ],
         ),
-        baseScores: AbilityScores(strength: 14), // Base Mod +2
+        baseScores: const AbilityScores(strength: 14), // Base Mod +2
         inventory: [
           InventoryItemInstance(
             instanceId: 'belt-1',
-            itemRef: EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>(
               refType: EntityType.equipment,
               slug: 'belt-hill-giant',
               displayName: 'Belt of Hill Giant Strength',
@@ -317,7 +317,7 @@ void main() {
             },
           ),
         ],
-        resources: CharacterResourcePool(currentHp: 40),
+        resources: const CharacterResourcePool(currentHp: 40),
       );
 
       final stats = CharacterEvaluationEngine.evaluate(character);
@@ -327,15 +327,15 @@ void main() {
     });
 
     test('Attunement item bonuses are ignored if item is not attuned', () {
-      const character = Character(
-        id: EntityId(slug: 'hero-unattuned', ruleset: RulesetVersion.v2024),
+      final character = Character(
+        id: const EntityId(slug: 'hero-unattuned', ruleset: RulesetVersion.v2024),
         name: 'Unattuned Hero',
-        speciesRef: EntityReference<DomainEntity>(
+        speciesRef: const EntityReference<DomainEntity>(
           refType: EntityType.species,
           slug: 'human',
           displayName: 'Human',
         ),
-        progression: CharacterProgression(
+        progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
               classRef: EntityReference<DomainEntity>(
@@ -348,11 +348,11 @@ void main() {
             ),
           ],
         ),
-        baseScores: AbilityScores(strength: 14),
+        baseScores: const AbilityScores(strength: 14),
         inventory: [
           InventoryItemInstance(
             instanceId: 'ring-1',
-            itemRef: EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>(
               refType: EntityType.equipment,
               slug: 'ring-protection',
               displayName: 'Ring of Protection',
@@ -365,7 +365,7 @@ void main() {
             },
           ),
         ],
-        resources: CharacterResourcePool(currentHp: 10),
+        resources: const CharacterResourcePool(currentHp: 10),
       );
 
       final stats = CharacterEvaluationEngine.evaluate(character);
@@ -530,10 +530,10 @@ void main() {
             ),
           ],
         },
-        inventory: const [
+        inventory: [
           InventoryItemInstance(
             instanceId: 'magic-longsword',
-            itemRef: EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>(
               refType: EntityType.equipment,
               slug: 'longsword-plus-1',
               displayName: 'Longsword +1',
@@ -567,15 +567,15 @@ void main() {
     test(
         'Handaxe (Thrown) uses STR whereas Dagger (Finesse, Thrown) uses DEX if DEX > STR',
         () {
-      const character = Character(
-        id: EntityId(slug: 'ranger-skirmisher', ruleset: RulesetVersion.v2024),
+      final character = Character(
+        id: const EntityId(slug: 'ranger-skirmisher', ruleset: RulesetVersion.v2024),
         name: 'Skirmisher',
-        speciesRef: EntityReference<DomainEntity>(
+        speciesRef: const EntityReference<DomainEntity>(
           refType: EntityType.species,
           slug: 'elf',
           displayName: 'Elf',
         ),
-        progression: CharacterProgression(
+        progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
               classRef: EntityReference<DomainEntity>(
@@ -588,14 +588,14 @@ void main() {
             ),
           ],
         ),
-        baseScores: AbilityScores(
+        baseScores: const AbilityScores(
           strength: 12, // Mod +1
           dexterity: 16, // Mod +3
         ),
         inventory: [
           InventoryItemInstance(
             instanceId: 'handaxe-1',
-            itemRef: EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>(
               refType: EntityType.equipment,
               slug: 'handaxe',
               displayName: 'Handaxe',
@@ -611,7 +611,7 @@ void main() {
           ),
           InventoryItemInstance(
             instanceId: 'dagger-1',
-            itemRef: EntityReference<EquipmentItem>(
+            itemRef: const EntityReference<EquipmentItem>(
               refType: EntityType.equipment,
               slug: 'dagger',
               displayName: 'Dagger',
@@ -627,7 +627,7 @@ void main() {
             },
           ),
         ],
-        resources: CharacterResourcePool(currentHp: 20),
+        resources: const CharacterResourcePool(currentHp: 20),
       );
 
       final stats = CharacterEvaluationEngine.evaluate(character);
