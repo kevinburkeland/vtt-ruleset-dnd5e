@@ -1,3 +1,4 @@
+import 'package:vtt_engine_core/crdt/replica_id.dart';
 import 'dart:math' as math;
 import 'package:vtt_engine_core/currency/i_currency_system.dart';
 import 'package:vtt_engine_core/models/party_purse.dart';
@@ -158,8 +159,8 @@ extension Dnd5ePurseExtension on PartyPurse {
       (pp * 10.0) + gp.toDouble() + (ep * 0.5) + (sp * 0.1) + (cp * 0.01);
 
   PartyPurse modifyCoin(String denomination, int delta,
-          {required String nodeId}) =>
-      modifyDenomination(denomination, delta, nodeId: nodeId);
+          {required ReplicaId replicaId}) =>
+      modifyDenomination(denomination, delta, replicaId: replicaId);
 
   PartyPurse setCoins({
     int? cp,
@@ -167,14 +168,14 @@ extension Dnd5ePurseExtension on PartyPurse {
     int? ep,
     int? gp,
     int? pp,
-    required String nodeId,
+    required ReplicaId replicaId,
   }) {
     var p = this;
-    if (cp != null) p = p.setDenomination('cp', cp, nodeId: nodeId);
-    if (sp != null) p = p.setDenomination('sp', sp, nodeId: nodeId);
-    if (ep != null) p = p.setDenomination('ep', ep, nodeId: nodeId);
-    if (gp != null) p = p.setDenomination('gp', gp, nodeId: nodeId);
-    if (pp != null) p = p.setDenomination('pp', pp, nodeId: nodeId);
+    if (cp != null) p = p.setDenomination('cp', cp, replicaId: replicaId);
+    if (sp != null) p = p.setDenomination('sp', sp, replicaId: replicaId);
+    if (ep != null) p = p.setDenomination('ep', ep, replicaId: replicaId);
+    if (gp != null) p = p.setDenomination('gp', gp, replicaId: replicaId);
+    if (pp != null) p = p.setDenomination('pp', pp, replicaId: replicaId);
     return p;
   }
 
@@ -184,14 +185,14 @@ extension Dnd5ePurseExtension on PartyPurse {
     int ep = 0,
     int gp = 0,
     int pp = 0,
-    required String nodeId,
+    required ReplicaId replicaId,
   }) {
     var p = this;
-    if (cp > 0) p = p.modifyDenomination('cp', cp, nodeId: nodeId);
-    if (sp > 0) p = p.modifyDenomination('sp', sp, nodeId: nodeId);
-    if (ep > 0) p = p.modifyDenomination('ep', ep, nodeId: nodeId);
-    if (gp > 0) p = p.modifyDenomination('gp', gp, nodeId: nodeId);
-    if (pp > 0) p = p.modifyDenomination('pp', pp, nodeId: nodeId);
+    if (cp > 0) p = p.modifyDenomination('cp', cp, replicaId: replicaId);
+    if (sp > 0) p = p.modifyDenomination('sp', sp, replicaId: replicaId);
+    if (ep > 0) p = p.modifyDenomination('ep', ep, replicaId: replicaId);
+    if (gp > 0) p = p.modifyDenomination('gp', gp, replicaId: replicaId);
+    if (pp > 0) p = p.modifyDenomination('pp', pp, replicaId: replicaId);
     return p;
   }
 
@@ -201,32 +202,28 @@ extension Dnd5ePurseExtension on PartyPurse {
     int ep = 0,
     int gp = 0,
     int pp = 0,
-    required String nodeId,
+    required ReplicaId replicaId,
   }) {
     var p = this;
     if (cp > 0) {
-      p = p.modifyDenomination('cp', -math.min(cp, p.cp), nodeId: nodeId);
+      p = p.modifyDenomination('cp', -math.min(cp, p.cp), replicaId: replicaId);
     }
     if (sp > 0) {
-      p = p.modifyDenomination('sp', -math.min(sp, p.sp), nodeId: nodeId);
+      p = p.modifyDenomination('sp', -math.min(sp, p.sp), replicaId: replicaId);
     }
     if (ep > 0) {
-      p = p.modifyDenomination('ep', -math.min(ep, p.ep), nodeId: nodeId);
+      p = p.modifyDenomination('ep', -math.min(ep, p.ep), replicaId: replicaId);
     }
     if (gp > 0) {
-      p = p.modifyDenomination('gp', -math.min(gp, p.gp), nodeId: nodeId);
+      p = p.modifyDenomination('gp', -math.min(gp, p.gp), replicaId: replicaId);
     }
     if (pp > 0) {
-      p = p.modifyDenomination('pp', -math.min(pp, p.pp), nodeId: nodeId);
+      p = p.modifyDenomination('pp', -math.min(pp, p.pp), replicaId: replicaId);
     }
     return p;
   }
 
-  PartyPurse deductGpEquivalent(double costGp, {required String nodeId}) {
-    if (nodeId.trim().isEmpty || nodeId.trim().toLowerCase() == 'local') {
-      throw ArgumentError.value(
-          nodeId, 'nodeId', 'CRDT mutations cannot use "local" as replica identity.');
-    }
+  PartyPurse deductGpEquivalent(double costGp, {required ReplicaId replicaId}) {
     if (costGp <= 0) return this;
     final costInCp = (costGp * 100).round();
     int balanceInCp = (pp * 1000) + (gp * 100) + (ep * 50) + (sp * 10) + cp;
@@ -256,7 +253,7 @@ extension Dnd5ePurseExtension on PartyPurse {
       ep: newEp,
       gp: newGp,
       pp: newPp,
-      nodeId: nodeId,
+      replicaId: replicaId,
     );
   }
 
@@ -264,11 +261,8 @@ extension Dnd5ePurseExtension on PartyPurse {
     int playerCount, {
     bool includeLiquidatedGemsAndArt = false,
     double liquidatedGemsAndArtGp = 0.0,
-    String nodeId = 'split',
+    required ReplicaId replicaId,
   }) {
-    if (nodeId.trim().isEmpty || nodeId.trim().toLowerCase() == 'local') {
-      throw ArgumentError.value(nodeId, 'nodeId', 'Valid, non-local nodeId required for split remainder purse.');
-    }
     if (playerCount <= 0) {
       return PartyPurseSplit(
         playerCount: 1,
@@ -299,7 +293,7 @@ extension Dnd5ePurseExtension on PartyPurse {
         epPerPlayer: 0,
         gpPerPlayer: floorPerPlayer.toInt(),
         ppPerPlayer: 0,
-        remainderPurse: const PartyPurse.empty().setCoins(gp: remainder.round(), nodeId: nodeId),
+        remainderPurse: const PartyPurse.empty().setCoins(gp: remainder.round(), replicaId: replicaId),
         liquidatedGemsAndArtIncluded: true,
       );
     }
@@ -337,7 +331,7 @@ extension Dnd5ePurseExtension on PartyPurse {
         ep: epRem,
         gp: gpRem,
         pp: ppRem,
-        nodeId: nodeId,
+        replicaId: replicaId,
       ),
       liquidatedGemsAndArtIncluded: false,
     );
