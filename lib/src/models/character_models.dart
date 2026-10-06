@@ -337,12 +337,27 @@ class InventoryItemInstance extends core.InventoryItemInstance {
 
   factory InventoryItemInstance.fromMap(Map<String, dynamic> map) {
     final base = core.InventoryItemInstance.fromMap(map);
+    EquipmentSlot? resolvedSlot;
+    final rawSlot = map['equippedSlot'] ?? base.equippedSlot;
+    if (rawSlot is EquipmentSlot) {
+      resolvedSlot = rawSlot;
+    } else if (rawSlot is String) {
+      final normalized = rawSlot.trim().toLowerCase();
+      for (final s in EquipmentSlot.values) {
+        if (s.name.toLowerCase() == normalized ||
+            s.displayName.toLowerCase() == normalized) {
+          resolvedSlot = s;
+          break;
+        }
+      }
+    }
+
     return InventoryItemInstance(
       itemRef: base.itemRef,
       instanceId: base.instanceId,
       quantity: base.quantity,
       isEquipped: base.isEquipped,
-      equippedSlot: base.equippedSlot,
+      equippedSlot: resolvedSlot ?? base.equippedSlot,
       customProperties: base.customProperties,
       customName: map['customName']?.toString() ?? base.customProperties['customName']?.toString(),
       notes: map['notes']?.toString() ?? base.customProperties['notes']?.toString(),
