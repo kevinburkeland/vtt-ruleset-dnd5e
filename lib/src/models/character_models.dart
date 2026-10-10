@@ -275,13 +275,19 @@ class InventoryItemInstance extends core.InventoryItemInstance {
     required super.instanceId,
     super.quantity = 1,
     super.isEquipped = false,
-    super.equippedSlot,
+    dynamic equippedSlot,
     super.customProperties = const {},
     this.customName,
     this.notes,
     this.isAttuned = false,
     this.requiresAttunement = false,
-  });
+  }) : super(
+          equippedSlot: equippedSlot is EquipmentSlot
+              ? equippedSlot
+              : (equippedSlot is String
+                  ? _parseEquipmentSlot(equippedSlot)
+                  : null),
+        );
 
   const InventoryItemInstance.constant({
     required super.itemRef,
@@ -296,7 +302,35 @@ class InventoryItemInstance extends core.InventoryItemInstance {
   }) : super.constant();
 
   @override
+  EquipmentSlot? get equippedSlot =>
+      super.equippedSlot is EquipmentSlot ? super.equippedSlot as EquipmentSlot : null;
+
+  @override
   String get displayName => customName ?? itemRef.displayName;
+
+  static EquipmentSlot? _parseEquipmentSlot(dynamic rawSlot) {
+    if (rawSlot is EquipmentSlot) return rawSlot;
+    if (rawSlot is! String) return null;
+    final normalized = rawSlot.trim().toLowerCase();
+    if (normalized.isEmpty) return null;
+    final trimmed = normalized.startsWith('equipmentslot.')
+        ? normalized.substring('equipmentslot.'.length)
+        : normalized;
+    for (final s in EquipmentSlot.values) {
+      if (s.name.toLowerCase() == trimmed ||
+          s.displayName.toLowerCase() == trimmed) {
+        return s;
+      }
+    }
+    return switch (trimmed) {
+      'main_hand' || 'mainhand' => EquipmentSlot.mainHand,
+      'off_hand' || 'offhand' => EquipmentSlot.offHand,
+      'two_hand' || 'twohand' || 'two_handed' || 'twohanded' => EquipmentSlot.twoHand,
+      'ring_1' || 'ring 1' => EquipmentSlot.ring1,
+      'ring_2' || 'ring 2' => EquipmentSlot.ring2,
+      _ => null,
+    };
+  }
 
   @override
   InventoryItemInstance copyWith({
@@ -311,13 +345,21 @@ class InventoryItemInstance extends core.InventoryItemInstance {
     bool? isAttuned,
     bool? requiresAttunement,
   }) {
+    final EquipmentSlot? resolvedSlot;
+    if (isEquipped == false) {
+      resolvedSlot = null;
+    } else if (equippedSlot != null) {
+      resolvedSlot = _parseEquipmentSlot(equippedSlot);
+    } else {
+      resolvedSlot = this.equippedSlot;
+    }
+
     return InventoryItemInstance(
       itemRef: itemRef ?? this.itemRef,
       instanceId: instanceId ?? this.instanceId,
       quantity: quantity ?? this.quantity,
       isEquipped: isEquipped ?? this.isEquipped,
-      equippedSlot:
-          isEquipped == false ? null : (equippedSlot ?? this.equippedSlot),
+      equippedSlot: resolvedSlot,
       customProperties: customProperties ?? this.customProperties,
       customName: customName ?? this.customName,
       notes: notes ?? this.notes,
@@ -327,28 +369,35 @@ class InventoryItemInstance extends core.InventoryItemInstance {
   }
 
   @override
-  Map<String, dynamic> toMap() => {
-        ...super.toMap(),
-        'isAttuned': isAttuned,
-        'requiresAttunement': requiresAttunement,
-        if (customName != null) 'customName': customName,
-        if (notes != null) 'notes': notes,
-      };
+  Map<String, dynamic> toMap() {
+    final base = super.toMap();
+    if (equippedSlot != null) {
+      base['equippedSlot'] = equippedSlot!.name;
+    } else {
+      base.remove('equippedSlot');
+    }
+    return {
+      ...base,
+      'isAttuned': isAttuned,
+      'requiresAttunement': requiresAttunement,
+      if (customName != null) 'customName': customName,
+      if (notes != null) 'notes': notes,
+    };
+  }
 
   factory InventoryItemInstance.fromMap(Map<String, dynamic> map) {
     final base = core.InventoryItemInstance.fromMap(map);
-    EquipmentSlot? resolvedSlot;
     final rawSlot = map['equippedSlot'] ?? base.equippedSlot;
-    if (rawSlot is EquipmentSlot) {
-      resolvedSlot = rawSlot;
-    } else if (rawSlot is String) {
-      final normalized = rawSlot.trim().toLowerCase();
-      for (final s in EquipmentSlot.values) {
-        if (s.name.toLowerCase() == normalized ||
-            s.displayName.toLowerCase() == normalized) {
-          resolvedSlot = s;
-          break;
-        }
+    final resolvedSlot = _parseEquipmentSlot(rawSlot);
+
+    final customProperties = Map<String, dynamic>.from(base.customProperties);
+    if (resolvedSlot == null && rawSlot != null) {
+      final rawStr = rawSlot.toString().trim();
+      if (rawStr.isNotEmpty) {
+        // Option A: Unknown historical string slot has no valid domain meaning.
+        // DO NOT leave in equippedSlot as a String.
+        // Preserve original string in customProperties as legacy metadata.
+        customProperties['legacyEquippedSlot'] = rawStr;
       }
     }
 
@@ -357,8 +406,8 @@ class InventoryItemInstance extends core.InventoryItemInstance {
       instanceId: base.instanceId,
       quantity: base.quantity,
       isEquipped: base.isEquipped,
-      equippedSlot: resolvedSlot ?? base.equippedSlot,
-      customProperties: base.customProperties,
+      equippedSlot: resolvedSlot,
+      customProperties: customProperties,
       customName: map['customName']?.toString() ?? base.customProperties['customName']?.toString(),
       notes: map['notes']?.toString() ?? base.customProperties['notes']?.toString(),
       isAttuned: map['isAttuned'] == true,
