@@ -47,3 +47,4 @@ export 'src/models/spell_monster_equipment.dart';
 export 'src/models/character_models.dart';
 export 'src/models/i_entity_resolver.dart';
 export 'package:vtt_engine_core/models/entity_reference.dart';
+export 'src/catalog/dnd5e_catalog.dart';

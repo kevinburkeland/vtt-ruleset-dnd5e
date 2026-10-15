@@ -1,3 +1,4 @@
+import '../catalog/dnd5e_catalog.dart';
 import 'package:meta/meta.dart';
 import 'package:vtt_engine_core/models/entity_reference.dart';
 import 'package:vtt_engine_core/simulation/combat_rider.dart';
@@ -221,8 +222,6 @@ class Spell extends DomainEntity {
   @override
   final Map<String, dynamic> customProperties;
 
-  /// Optional pluggable hook for extracting combat riders from markdown at boundary.
-  static List<CombatEffectRider> Function(String markdown)? riderExtractor;
 
   const Spell({
     required this.id,
@@ -309,8 +308,7 @@ class Spell extends DomainEntity {
     }
 
     final desc = map['descriptionMarkdown']?.toString() ?? '';
-    final extractedRiders =
-        riderExtractor?.call(desc) ?? const <CombatEffectRider>[];
+    final extractedRiders = Dnd5eRuleset.catalog.extractRiders(desc);
 
     return Spell(
       id: EntityId.fromMap(Map<String, dynamic>.from(map['id'] as Map? ?? {})),

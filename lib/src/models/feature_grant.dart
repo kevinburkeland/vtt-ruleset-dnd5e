@@ -1,3 +1,4 @@
+import '../catalog/dnd5e_catalog.dart';
 import 'package:meta/meta.dart';
 
 /// Atomic token types for declarative mechanic grants emitted by feats,
@@ -86,13 +87,7 @@ class FeatureGrant {
   /// Optional human-readable label for display in the UI.
   final String? label;
 
-  /// Optional hooks for ACL parser implementations in the infrastructure/application layer.
-  static Map<String, bool> Function(dynamic addSpellsData)?
-      spellDescriptorExtractor;
-  static Set<String> Function(dynamic addSpellsData)? spellNameExtractor;
-  static List<FeatureGrant> Function(
-          dynamic addSpellsData, String ownerPrefix, String ownerSlug)?
-      bonusSpellsExtractor;
+
 
   const FeatureGrant({
     required this.type,
@@ -382,135 +377,18 @@ class FeatureGrant {
       );
 
   /// Exhaustively extracts clean spell names and cantrip flags from compendium additionalSpells / subclassSpells structures.
-  static Map<String, bool> extractSpellDescriptors(dynamic addSpellsData) {
-    if (spellDescriptorExtractor != null) {
-      return spellDescriptorExtractor!(addSpellsData);
-    }
-    if (addSpellsData == null) return const {};
-    final descriptors = <String, bool>{};
-
-    void processSpellItem(dynamic item, {bool isCantripContext = false}) {
-      if (item == null) return;
-      if (item is String) {
-        final isCantrip = isCantripContext || item.contains('#c');
-        final clean = item.split('|').first.replaceAll('#c', '').trim();
-        if (clean.isNotEmpty && !clean.startsWith('{')) {
-          descriptors[clean] = (descriptors[clean] ?? false) || isCantrip;
-        }
-      } else if (item is List) {
-        for (final subItem in item) {
-          processSpellItem(subItem, isCantripContext: isCantripContext);
-        }
-      } else if (item is Map) {
-        if (item.containsKey('choose')) {
-          final ch = item['choose'];
-          if (ch is Map && ch['from'] != null) {
-            processSpellItem(ch['from'], isCantripContext: isCantripContext);
-          } else if (ch is String && ch.isNotEmpty) {
-            final isCantrip = isCantripContext || ch.contains('#c');
-            final clean = ch.split('|').first.replaceAll('#c', '').trim();
-            if (!clean.contains('=')) {
-              descriptors[clean] = (descriptors[clean] ?? false) || isCantrip;
-            }
-          }
-        }
-        if (item.containsKey('from')) {
-          processSpellItem(item['from'], isCantripContext: isCantripContext);
-        }
-        for (final entry in item.entries) {
-          final k = entry.key.toString().toLowerCase();
-          if (k == 'choose' || k == 'count' || k == 'all' || k == 'from')
-            continue;
-          final isSubCantrip =
-              isCantripContext || k == '_' || k == '0' || k == 's0';
-          processSpellItem(entry.value, isCantripContext: isSubCantrip);
-        }
-      }
-    }
-
-    void processSpellGroup(dynamic group) {
-      if (group == null) return;
-      if (group is List) {
-        for (final item in group) {
-          processSpellGroup(item);
-        }
-      } else if (group is Map) {
-        bool hadKnownSubkey = false;
-        for (final key in [
-          'prepared',
-          'expanded',
-          'innate',
-          'known',
-          'spells'
-        ]) {
-          if (group.containsKey(key)) {
-            hadKnownSubkey = true;
-            processSpellItem(group[key]);
-          }
-        }
-        if (!hadKnownSubkey) {
-          for (final entry in group.entries) {
-            final k = entry.key.toString().toLowerCase();
-            if (k == 'name' ||
-                k == 'source' ||
-                k == 'class' ||
-                k == 'subclass' ||
-                k == 'choose' ||
-                k == 'count' ||
-                k == 'all') {
-              continue;
-            }
-            final isSubCantrip = k == '_' || k == '0' || k == 's0';
-            processSpellItem(entry.value, isCantripContext: isSubCantrip);
-          }
-        }
-      } else if (group is String) {
-        processSpellItem(group);
-      }
-    }
-
-    processSpellGroup(addSpellsData);
-    return descriptors;
-  }
+  static Map<String, bool> extractSpellDescriptors(dynamic addSpellsData) =>
+      Dnd5eRuleset.catalog.extractSpellDescriptors(addSpellsData);
 
   /// Exhaustively extracts clean spell names from compendium additionalSpells / subclassSpells structures.
-  static Set<String> extractSpellNames(dynamic addSpellsData) {
-    if (spellNameExtractor != null) {
-      return spellNameExtractor!(addSpellsData);
-    }
-    return extractSpellDescriptors(addSpellsData).keys.toSet();
-  }
+  static Set<String> extractSpellNames(dynamic addSpellsData) =>
+      Dnd5eRuleset.catalog.extractSpellNames(addSpellsData);
 
   /// Exhaustively extracts [FeatureGrant.bonusSpell] grants from compendium additionalSpells data.
   static List<FeatureGrant> extractBonusSpells(
-      dynamic addSpellsData, String ownerPrefix, String ownerSlug) {
-    if (bonusSpellsExtractor != null) {
-      return bonusSpellsExtractor!(addSpellsData, ownerPrefix, ownerSlug);
-    }
-    final descriptors = extractSpellDescriptors(addSpellsData);
-    final grants = <FeatureGrant>[];
-    final seenSlugs = <String>{};
-
-    for (final entry in descriptors.entries) {
-      final clean = entry.key;
-      final isCantrip = entry.value;
-      final slug = clean
-          .toLowerCase()
-          .replaceAll(RegExp(r"['’]"), '')
-          .replaceAll(RegExp(r'[^a-z0-9]+'), '-')
-          .replaceAll(RegExp(r'^-+|-+$'), '');
-      if (slug.isNotEmpty && seenSlugs.add(slug)) {
-        grants.add(FeatureGrant.bonusSpell(
-          grantId: '$ownerPrefix-$ownerSlug-spell-$slug',
-          slug: slug,
-          displayName: clean,
-          isCantrip: isCantrip,
-          label: clean,
-        ));
-      }
-    }
-    return grants;
-  }
+          dynamic addSpellsData, String ownerPrefix, String ownerSlug) =>
+      Dnd5eRuleset.catalog.extractBonusSpells(
+          addSpellsData, ownerPrefix, ownerSlug);
 
   /// Darkvision at [feet] range (stacks to max with existing darkvision).
   factory FeatureGrant.darkvisionRange(

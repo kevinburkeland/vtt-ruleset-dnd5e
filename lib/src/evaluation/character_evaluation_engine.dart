@@ -1,3 +1,4 @@
+import '../catalog/dnd5e_catalog.dart';
 import '../rules/ruleset_edition.dart';
 import '../mechanics/weapon_mastery.dart';
 import '../spellcasting/spellcasting_rules_engine.dart';
@@ -88,10 +89,7 @@ class EvaluatedCharacterStats {
 /// Pure Dart derivation engine for computing dynamic stats from base Character models,
 /// equipped & attuned inventory items, and class progression.
 class CharacterEvaluationEngine {
-  /// Pluggable compendium lookup hooks
-  static dynamic Function(String idOrName)? magicItemLookupHook;
-  static dynamic Function(String slug)? featLookupHook;
-  static dynamic Function(String slug)? classLookupHook;
+
   /// Evaluates a [Character] model into [EvaluatedCharacterStats].
   /// Optionally accepts a [IEntityResolver] if item references need compendium fallback.
   static EvaluatedCharacterStats evaluate(
@@ -157,9 +155,9 @@ class CharacterEvaluationEngine {
 
       // Fallback: Lookup from MagicItemLibrary if customProperties lacks bonus keys
       final rawSlug = instance.itemRef.slug.toLowerCase().replaceAll('-', '_');
-      final dynamic magicItem = CharacterEvaluationEngine.magicItemLookupHook?.call(rawSlug) ??
-          CharacterEvaluationEngine.magicItemLookupHook?.call('item_$rawSlug') ??
-          CharacterEvaluationEngine.magicItemLookupHook?.call(instance.displayName);
+      final dynamic magicItem = Dnd5eRuleset.catalog.findMagicItem(rawSlug) ??
+          Dnd5eRuleset.catalog.findMagicItem('item_$rawSlug') ??
+          Dnd5eRuleset.catalog.findMagicItem(instance.displayName);
       if (magicItem != null) {
         merged.putIfAbsent('category', () => magicItem.category.name);
         merged.putIfAbsent('tags', () => magicItem.tags);
@@ -665,7 +663,7 @@ class CharacterEvaluationEngine {
     // 7. Skill Modifiers
     final grantedExpertises = <SkillType>{};
     for (final featRef in character.feats) {
-      final dynamic feat = CharacterEvaluationEngine.featLookupHook?.call(featRef.slug);
+      final dynamic feat = Dnd5eRuleset.catalog.findFeat(featRef.slug);
       if (feat != null && feat.grants.isNotEmpty) {
         grantedExpertises.addAll(GrantEvaluator.evaluateExpertiseGrants(feat.grants).map(SkillType.fromLooseString).whereType<SkillType>());
       }
@@ -981,7 +979,7 @@ class CharacterEvaluationEngine {
         case 'warlock':
           warlockLevels += cls.level;
         default:
-          final customCls = CharacterEvaluationEngine.classLookupHook?.call(slug);
+          final customCls = Dnd5eRuleset.catalog.findClass(slug);
           final prog = customCls?.customProperties['spellcastingProgression']
                   ?.toString()
                   .toLowerCase() ??

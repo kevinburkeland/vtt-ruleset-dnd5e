@@ -1,3 +1,4 @@
+import '../catalog/dnd5e_catalog.dart';
 import 'dart:math' as math;
 import 'package:meta/meta.dart';
 
@@ -82,8 +83,7 @@ class SpellValidationResult {
 
 /// Pure Dart rules validator enforcing SRD 5.1 (2014) and SRD 5.2.1 (2024) RAW spell invariants.
 class SpellAllocationValidator {
-  /// Pluggable hook for looking up always prepared subclass spells
-  static List<String> Function({required String classSlug, String? subclassSlug, required int classLevel, required RulesetEdition edition})? alwaysPreparedSpellsHook;
+
   SpellAllocationValidator._();
 
   /// Known spells progression table for Bard (levels 1-20)
@@ -347,14 +347,12 @@ class SpellAllocationValidator {
       case 'cleric':
         final cantrips = (lvl >= 10) ? 5 : ((lvl >= 4) ? 4 : 3);
         final maxPrepared = math.max(1, lvl + abilityModifier);
-        final alwaysPreparedCount = SpellAllocationValidator.alwaysPreparedSpellsHook != null
-            ? SpellAllocationValidator.alwaysPreparedSpellsHook!(
-                classSlug: 'cleric',
-                subclassSlug: subclassSlug,
-                classLevel: lvl,
-                edition: edition,
-              ).length
-            : ((subclassSlug != null && subclassSlug.isNotEmpty) ? math.min(5, maxTier) * 2 : 0);
+        final alwaysPreparedCount = Dnd5eRuleset.catalog.getAlwaysPreparedSpells(
+          classSlug: 'cleric',
+          subclassSlug: subclassSlug,
+          classLevel: lvl,
+          edition: edition,
+        ).length;
 
         return SpellAllocationLimits(
           maxCantrips: cantrips,
@@ -369,14 +367,12 @@ class SpellAllocationValidator {
       case 'druid':
         final cantrips = (lvl >= 10) ? 4 : ((lvl >= 4) ? 3 : 2);
         final maxPrepared = math.max(1, lvl + abilityModifier);
-        final alwaysPreparedCount = SpellAllocationValidator.alwaysPreparedSpellsHook != null
-            ? SpellAllocationValidator.alwaysPreparedSpellsHook!(
-                classSlug: 'druid',
-                subclassSlug: subclassSlug,
-                classLevel: lvl,
-                edition: edition,
-              ).length
-            : ((subclassSlug != null && subclassSlug.isNotEmpty) ? math.min(5, maxTier) * 2 : 0);
+        final alwaysPreparedCount = Dnd5eRuleset.catalog.getAlwaysPreparedSpells(
+          classSlug: 'druid',
+          subclassSlug: subclassSlug,
+          classLevel: lvl,
+          edition: edition,
+        ).length;
 
         return SpellAllocationLimits(
           maxCantrips: cantrips,
@@ -413,14 +409,12 @@ class SpellAllocationValidator {
         final maxPrepared = (edition == RulesetEdition.v2024)
             ? math.max(1, ((lvl + 1) ~/ 2) + abilityModifier)
             : (lvl < 2 ? 0 : math.max(1, (lvl ~/ 2) + abilityModifier));
-        final alwaysPreparedCount = SpellAllocationValidator.alwaysPreparedSpellsHook != null
-            ? SpellAllocationValidator.alwaysPreparedSpellsHook!(
-                classSlug: 'paladin',
-                subclassSlug: subclassSlug,
-                classLevel: lvl,
-                edition: edition,
-              ).length
-            : ((subclassSlug != null && subclassSlug.isNotEmpty) ? math.min(5, maxTier) * 2 : 0);
+        final alwaysPreparedCount = Dnd5eRuleset.catalog.getAlwaysPreparedSpells(
+          classSlug: 'paladin',
+          subclassSlug: subclassSlug,
+          classLevel: lvl,
+          edition: edition,
+        ).length;
 
         return SpellAllocationLimits(
           maxCantrips: 0,

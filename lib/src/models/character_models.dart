@@ -1,3 +1,4 @@
+import '../catalog/dnd5e_catalog.dart';
 import 'package:vtt_engine_core/utils/deep_immutable.dart';
 import '../modules/dnd5e_ruleset_module.dart';
 import 'dart:math' as math;
@@ -929,18 +930,12 @@ class Character extends core.Character {
         _ => RulesetEdition.v2024,
       };
 
-  /// Optional injected evaluator for complex ruleset-specific max HP calculations.
-  static int Function(Character character)? maxHpEvaluator;
 
-  /// Evaluated maximum Hit Points, checking customProperties, injected evaluator, or vitals.
+
+  /// Evaluated maximum Hit Points, checking customProperties or vitals.
   int get evaluatedMaxHp {
     if (customProperties['maxHp'] is num) {
       return (customProperties['maxHp'] as num).toInt();
-    }
-    if (maxHpEvaluator != null) {
-      try {
-        return maxHpEvaluator!(this);
-      } catch (_) {}
     }
     final mhp = resources.hitPoints.maxHp;
     if (mhp > 0 && mhp != 9999) return mhp;
@@ -977,14 +972,12 @@ class Character extends core.Character {
   int getAttributeScore(String key, [int fallback = 10]) =>
       attributeScores[key.trim().toLowerCase()] ?? fallback;
 
-  /// Pluggable resolver callback to determine a spell's level from its slug
-  /// when entity references lack embedded level metadata.
-  static int? Function(String slug)? spellLevelResolver;
+
 
   bool _isCantripRef(String? slotGroupKey, EntityReference<Spell> ref) {
     if (ref.customProperties['isCantrip'] == true) return true;
     final level =
-        ref.customProperties['level'] ?? spellLevelResolver?.call(ref.slug);
+        ref.customProperties['level'] ?? Dnd5eRuleset.catalog.getSpellLevel(ref.slug);
     if (level is num && level == 0) return true;
     if (level is String && (level == '0' || level.toLowerCase() == 'cantrip'))
       return true;
@@ -999,7 +992,7 @@ class Character extends core.Character {
   bool _isLeveledSpellRef(String? slotGroupKey, EntityReference<Spell> ref) {
     if (_isCantripRef(slotGroupKey, ref)) return false;
     final level =
-        ref.customProperties['level'] ?? spellLevelResolver?.call(ref.slug);
+        ref.customProperties['level'] ?? Dnd5eRuleset.catalog.getSpellLevel(ref.slug);
     if (level is num && level > 0) return true;
     if (level is String && int.tryParse(level) != null && int.parse(level) > 0)
       return true;

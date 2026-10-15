@@ -1,3 +1,4 @@
+import '../catalog/dnd5e_catalog.dart';
 import '../spellcasting/spellcasting_rules_engine.dart';
 import 'dart:math' as math;
 import 'package:meta/meta.dart';
@@ -109,8 +110,7 @@ class LevelUpValidationResult {
 
 /// Pure Dart progression service providing 5e RAW / 2024 revised mechanics for leveling up.
 class CharacterProgressionEngine {
-  /// Pluggable hook for looking up class definitions when computing caster levels
-  static dynamic Function(String slug)? classLookupHook;
+
   CharacterProgressionEngine._();
 
   /// Standard 5e Multiclass Prerequisites mapping class slug to required attribute threshold options.
@@ -757,7 +757,7 @@ class CharacterProgressionEngine {
         case 'warlock':
           warlockLevels += cls.level;
         default:
-          final customCls = CharacterProgressionEngine.classLookupHook?.call(slug);
+          final customCls = Dnd5eRuleset.catalog.findClass(slug);
           final prog = customCls?.customProperties['spellcastingProgression']
                   ?.toString()
                   .toLowerCase() ??

@@ -1,7 +1,17 @@
+import '../helpers/test_dnd5e_catalog.dart';
 import 'package:test/test.dart';
 import 'package:vtt_ruleset_dnd5e/vtt_ruleset_dnd5e.dart';
 void main() {
   group('CharacterEvaluationEngine Tests', () {
+    setUp(() {
+      Dnd5eRuleset.resetForTesting();
+      Dnd5eRuleset.install(const TestDnd5eCatalog());
+    });
+
+    tearDown(() {
+      Dnd5eRuleset.resetForTesting();
+    });
+
     test('Calculates standard unarmored AC (10 + DEX)', () {
       const character = Character(
         id: EntityId(slug: 'hero-1', ruleset: RulesetVersion.v2024),

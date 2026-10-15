@@ -1,5 +1,5 @@
+import '../catalog/dnd5e_catalog.dart';
 import 'dart:math';
-import 'package:vtt_engine_core/models/entity_reference.dart';
 import '../rules/ruleset_edition.dart';
 import '../models/character_models.dart';
 import '../models/core_types.dart';
@@ -31,8 +31,7 @@ enum SpellClass {
 }
 
 class MulticlassSlotMatrix {
-  /// Pluggable hook for class definitions
-  static DomainEntity? Function(String slug)? classLookupHook;
+
   MulticlassSlotMatrix._();
 
   static const Map<int, List<int>> _standardSlotProgression = {
@@ -286,7 +285,7 @@ class MulticlassSlotMatrix {
         case 'warlock':
           warlockLevels += cls.level;
         default:
-          final customCls = MulticlassSlotMatrix.classLookupHook?.call(slug);
+          final customCls = Dnd5eRuleset.catalog.findClass(slug);
           final progression = customCls
               ?.customProperties['spellcastingProgression']
               ?.toString()

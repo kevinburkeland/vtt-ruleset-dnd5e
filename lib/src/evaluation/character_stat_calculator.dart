@@ -1,3 +1,4 @@
+import '../catalog/dnd5e_catalog.dart';
 import '../mechanics/weapon_mastery.dart';
 import '../spellcasting/spellcasting_rules_engine.dart';
 import 'dart:math' as math;
@@ -169,8 +170,7 @@ class _PhaseCActiveEffectsResult {
 
 /// Pure 4-Phase Derivation Pipeline for Character Stats adhering to 5e rules.
 class CharacterStatCalculator {
-  /// Pluggable hook for looking up class definitions when computing caster levels
-  static dynamic Function(String slug)? classLookupHook;
+
   /// Evaluates a Character and its equipped items against the reference resolver
   /// across 4 deterministic derivation phases:
   ///
@@ -967,7 +967,7 @@ class CharacterStatCalculator {
         case 'warlock':
           warlockLevels += cls.level;
         default:
-          final customCls = CharacterStatCalculator.classLookupHook?.call(slug);
+          final customCls = Dnd5eRuleset.catalog.findClass(slug);
           final prog = customCls?.customProperties['spellcastingProgression']
                   ?.toString()
                   .toLowerCase() ??
