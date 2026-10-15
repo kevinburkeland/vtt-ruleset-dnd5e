@@ -44,6 +44,15 @@ abstract interface class Dnd5eCatalog {
 }
 
 /// Singleton gateway managing the installation and retrieval of the active [Dnd5eCatalog].
+/// Error thrown when [Dnd5eRuleset.catalog] is accessed before any catalog has been installed.
+class CatalogNotInstalledError extends StateError {
+  CatalogNotInstalledError([
+    super.message = 'Dnd5eCatalog has not been installed. Call Dnd5eRuleset.install(catalog) '
+        'during application or test startup before accessing ruleset capabilities.',
+  ]);
+}
+
+/// Singleton gateway managing the installation and retrieval of the active [Dnd5eCatalog].
 class Dnd5eRuleset {
   Dnd5eRuleset._();
 
@@ -51,14 +60,11 @@ class Dnd5eRuleset {
 
   /// Retrieves the installed [Dnd5eCatalog].
   ///
-  /// Throws [StateError] if no catalog has been installed yet.
+  /// Throws [CatalogNotInstalledError] if no catalog has been installed yet.
   static Dnd5eCatalog get catalog {
     final cat = _catalog;
     if (cat == null) {
-      throw StateError(
-        'Dnd5eCatalog has not been installed. Call Dnd5eRuleset.install(catalog) '
-        'during application or test startup before accessing ruleset capabilities.',
-      );
+      throw CatalogNotInstalledError();
     }
     return cat;
   }

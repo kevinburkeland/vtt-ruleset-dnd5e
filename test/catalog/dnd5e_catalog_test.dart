@@ -12,15 +12,20 @@ void main() {
       Dnd5eRuleset.resetForTesting();
     });
 
-    test('accessing catalog before install throws StateError', () {
+    test('accessing catalog before install throws CatalogNotInstalledError which is StateError', () {
       expect(
         () => Dnd5eRuleset.catalog,
-        throwsA(isA<StateError>().having(
+        throwsA(isA<CatalogNotInstalledError>().having(
           (e) => e.message,
           'message',
           contains('Dnd5eCatalog has not been installed'),
         )),
       );
+      expect(
+        () => Dnd5eRuleset.catalog,
+        throwsA(isA<StateError>()),
+      );
+      expect(CatalogNotInstalledError(), isA<StateError>());
     });
 
     test('installing a second different catalog without reset throws StateError', () {
