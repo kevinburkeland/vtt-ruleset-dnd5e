@@ -159,7 +159,13 @@ class CharacterEvaluationEngine {
           Dnd5eRuleset.catalog.findMagicItem('item_$rawSlug') ??
           Dnd5eRuleset.catalog.findMagicItem(instance.displayName);
       if (magicItem != null) {
-        merged.putIfAbsent('category', () => magicItem.category.name);
+        final cat = magicItem.category;
+        final catName = (cat is Enum)
+            ? cat.name
+            : cat?.toString().split('.').last;
+        if (catName != null) {
+          merged.putIfAbsent('category', () => catName);
+        }
         merged.putIfAbsent('tags', () => magicItem.tags);
       }
 
