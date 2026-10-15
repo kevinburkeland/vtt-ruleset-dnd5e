@@ -4,7 +4,7 @@ import 'package:vtt_ruleset_dnd5e/vtt_ruleset_dnd5e.dart';
 /// Test fixture catalog that returns what the old null hooks produced:
 /// nothing found, empty lists.
 class TestDnd5eCatalog implements Dnd5eCatalog {
-  final dynamic Function(String slug)? onFindClass;
+  final DomainEntity? Function(String slug)? onFindClass;
   final dynamic Function(String slug)? onFindFeat;
   final dynamic Function(String idOrName)? onFindMagicItem;
   final List<String> Function(String classSlug, String? subclassSlug, int classLevel, RulesetEdition edition)? onGetAlwaysPreparedSpells;
@@ -27,7 +27,7 @@ class TestDnd5eCatalog implements Dnd5eCatalog {
   });
 
   @override
-  dynamic findClass(String slug) => onFindClass != null ? onFindClass!(slug) : null;
+  DomainEntity? findClass(String slug) => onFindClass != null ? onFindClass!(slug) : null;
 
   @override
   dynamic findFeat(String slug) => onFindFeat != null ? onFindFeat!(slug) : null;

@@ -7,7 +7,7 @@ import '../rules/ruleset_edition.dart';
 /// and compendium token parsing required by the D&D 5e rules engine.
 abstract interface class Dnd5eCatalog {
   /// Looks up a class definition by its slug.
-  dynamic findClass(String slug);
+  DomainEntity? findClass(String slug);
 
   /// Looks up a feat definition by its slug.
   dynamic findFeat(String slug);
