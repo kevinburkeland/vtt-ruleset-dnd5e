@@ -655,5 +655,34 @@ void main() {
       expect(daggerAtk.attackBonus, equals(5));
       expect(daggerAtk.isOffhand, isTrue);
     });
+      test('customProperties maxHp override overrides computed hit points', () {
+      const character = Character(
+        id: EntityId(slug: 'override-hero', ruleset: RulesetVersion.v2024),
+        name: 'Override Hero',
+        speciesRef: EntityReference<DomainEntity>.empty(
+          refType: EntityType.species,
+          slug: 'human',
+          displayName: 'Human',
+        ),
+        progression: CharacterProgression(
+          classes: [
+            ClassLevelProgression(
+              classRef: EntityReference<DomainEntity>.empty(
+                refType: EntityType.classDefinition,
+                slug: 'fighter',
+                displayName: 'Fighter',
+              ),
+              level: 1,
+              hitDie: 'd10',
+            ),
+          ],
+        ),
+        baseScores: AbilityScores(constitution: 10),
+        resources: CharacterResourcePool(currentHp: 10),
+        customProperties: {'maxHp': 99},
+      );
+      final stats = CharacterEvaluationEngine.evaluate(character);
+      expect(stats.maxHp, equals(99));
+    });
   });
 }

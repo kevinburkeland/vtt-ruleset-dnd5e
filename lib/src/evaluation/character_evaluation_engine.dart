@@ -572,6 +572,9 @@ class CharacterEvaluationEngine {
 
     // 5. HP, Speed, and Initiative (Retroactive CON Scaling across all Hit Dice)
     var maxHp = 0;
+    if (character.customProperties['maxHp'] is num) {
+      maxHp = (character.customProperties['maxHp'] as num).toInt();
+    } else {
     final conMod = abilityMods[AbilityType.constitution]!;
     for (int i = 0; i < character.progression.classes.length; i++) {
       final c = character.progression.classes[i];
@@ -616,8 +619,9 @@ class CharacterEvaluationEngine {
     }
 
     // Apply 2014 Exhaustion Tier 4 (halve max HP)
-    if (exhaustion.maxHpMultiplier < 1.0) {
-      maxHp = (maxHp * exhaustion.maxHpMultiplier).floor();
+      if (exhaustion.maxHpMultiplier < 1.0) {
+        maxHp = (maxHp * exhaustion.maxHpMultiplier).floor();
+      }
     }
     if (maxHp <= 0) maxHp = 1;
 
