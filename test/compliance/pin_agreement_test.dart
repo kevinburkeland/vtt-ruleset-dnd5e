@@ -1,51 +1,70 @@
 import 'dart:io';
 import 'package:test/test.dart';
-import 'package:yaml/yaml.dart';
 
 List<String> checkRulesetCorePin(String pubspecYamlContent) {
-  final yaml = loadYaml(pubspecYamlContent);
-  if (yaml is! YamlMap) {
-    return ['pubspec.yaml is not a valid YAML mapping'];
-  }
-
+  final lines = pubspecYamlContent.split('\n');
   final problems = <String>[];
 
-  // 1. Invariant: no dependency_overrides naming vtt_engine_core
-  if (yaml.containsKey('dependency_overrides')) {
-    final overrides = yaml['dependency_overrides'];
-    if (overrides is YamlMap && overrides.containsKey('vtt_engine_core')) {
-      problems.add('dependency_overrides must not contain vtt_engine_core');
+  bool inDependencyOverrides = false;
+  bool inDependencies = false;
+  bool inVttEngineCore = false;
+  bool isGit = false;
+  String? ref;
+
+  for (final rawLine in lines) {
+    final trimmed = rawLine.trim();
+    if (trimmed.isEmpty || trimmed.startsWith('#')) continue;
+
+    // Check top-level sections (0 indentation)
+    if (!rawLine.startsWith(' ') && !rawLine.startsWith('\t')) {
+      if (trimmed.startsWith('dependency_overrides:')) {
+        inDependencyOverrides = true;
+        inDependencies = false;
+      } else if (trimmed.startsWith('dependencies:')) {
+        inDependencies = true;
+        inDependencyOverrides = false;
+      } else {
+        inDependencyOverrides = false;
+        inDependencies = false;
+      }
+      inVttEngineCore = false;
+      continue;
+    }
+
+    if (inDependencyOverrides) {
+      if (trimmed.startsWith('vtt_engine_core:')) {
+        problems.add('dependency_overrides must not contain vtt_engine_core');
+      }
+    } else if (inDependencies) {
+      // Indented under dependencies
+      if (rawLine.startsWith('  ') && !rawLine.startsWith('    ')) {
+        if (trimmed.startsWith('vtt_engine_core:')) {
+          inVttEngineCore = true;
+        } else {
+          inVttEngineCore = false;
+        }
+      } else if (inVttEngineCore) {
+        if (trimmed.startsWith('git:')) {
+          isGit = true;
+        }
+        if (trimmed.startsWith('ref:')) {
+          ref = trimmed.substring('ref:'.length).trim().replaceAll('"', '').replaceAll("'", '');
+        }
+      }
     }
   }
 
-  // 2. Invariant: vtt_engine_core is under dependencies
-  final deps = yaml['dependencies'];
-  if (deps is! YamlMap || !deps.containsKey('vtt_engine_core')) {
-    problems.add('dependencies must contain vtt_engine_core');
-    return problems;
-  }
-
-  final coreDep = deps['vtt_engine_core'];
-  if (coreDep is! YamlMap || !coreDep.containsKey('git')) {
+  if (!isGit) {
     problems.add('vtt_engine_core must be specified as a git dependency');
-    return problems;
   }
 
-  final git = coreDep['git'];
-  if (git is! YamlMap || !git.containsKey('ref')) {
-    problems.add('vtt_engine_core git dependency must specify a ref');
-    return problems;
-  }
-
-  final ref = git['ref']?.toString();
   if (ref == null) {
-    problems.add('vtt_engine_core ref cannot be null');
-    return problems;
-  }
-
-  final hexRegex = RegExp(r'^[0-9a-f]{40}$');
-  if (!hexRegex.hasMatch(ref)) {
-    problems.add('vtt_engine_core ref must be a 40-character lowercase SHA, got: $ref');
+    problems.add('vtt_engine_core git dependency must specify a ref');
+  } else {
+    final hexRegex = RegExp(r'^[0-9a-f]{40}$');
+    if (!hexRegex.hasMatch(ref)) {
+      problems.add('vtt_engine_core ref must be a 40-character lowercase SHA, got: $ref');
+    }
   }
 
   return problems;
