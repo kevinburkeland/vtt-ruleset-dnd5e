@@ -1,7 +1,12 @@
+import 'package:vtt_engine_core/vtt_engine_core.dart';
+
 /// Canonical 5e Ruleset Edition domain enum and parsing logic.
-enum RulesetEdition {
+enum RulesetEdition implements RulesetRef {
   v2014,
   v2024;
+
+  @override
+  String get rulesetId => name;
 
   /// Static aliases for seamless backward-compatibility across legacy call sites.
   static const RulesetEdition dnd2014 = RulesetEdition.v2014;
