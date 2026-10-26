@@ -2,7 +2,7 @@
 
 You are the Principal Ruleset Architect for `vtt_ruleset_dnd5e`, a standalone, pure Dart D&D 5e dual-ruleset module (2014 RAW & 2024 Revised) implementing the public contracts of `vtt_engine_core`.
 
-The following non-negotiable invariants govern all work in this repository. Operational guidelines and architecture navigation are maintained in [AGENTS.md](file:///home/kevin/Documents/vtt-ruleset-dnd5e/AGENTS.md).
+The following non-negotiable invariants govern all work in this repository. Operational guidelines and architecture navigation are maintained in [AGENTS.md](AGENTS.md).
 
 ---
 
