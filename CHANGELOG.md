@@ -1,0 +1,17 @@
+# Changelog
+
+One line per slice, newest first. Each line: date, slice name, what changed for a user or a developer.
+Work before Map slice 1.1 (hardening passes 0 to 12) is in the git history.
+
+## 2026-10-26
+- Cleanup slice 1: Add CONTRIBUTING, CODE_OF_CONDUCT, mutation branch CI check, and repository hygiene rules.
+- Map slice 1.6: Pin vtt_engine_core to cf0cff8506cc51a9d903c1bca566c059736cd4e7 (pin bump only).
+
+## 2026-10-25
+- Map slice 1.5: Pin vtt_engine_core to 1807882 (pin bump only).
+- Map slice 1.4.1: Pin vtt_engine_core to 662547d (pin bump only).
+- Map slice 1.4: Pin vtt_engine_core to b2a88d6 (pin bump only).
+
+## 2026-10-24
+- Map slice 1.1.1: Pin vtt_engine_core to a80ed6a (pin bump only).
+- Map slice 1.1: Pin vtt_engine_core to 926e7b2 (pin bump only).
