@@ -54,6 +54,10 @@ dart analyze
 dart test
 ```
 
+### Repository Hygiene & Mutation Branches
+- Mutation branches are named `mutation/<slice-id>-<id>` and exist only while their slice is under review. Don't delete them yourself. After the review closes, the reviewer archives them as patches and a later prompt deletes them by exact SHA. CI fails above 20 per repo.
+- READMEs and docs never state test counts or hand-typed status; use generated badges.
+
 ---
 
 ## 🔄 Cross-Boundary Repository Pivot Protocol
