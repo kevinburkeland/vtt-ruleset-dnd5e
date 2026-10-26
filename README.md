@@ -23,6 +23,11 @@ dangerously_nerdy_5e_toolkit (Flutter Tabletop Companion & Presentation Host)
 - **2024 Weapon Mastery:** Native evaluation of weapon mastery properties (Cleave, Graze, Nick, Push, Sap, Slow, Topple, Vex).
 - **Pure Dart & Zero Flutter:** Fully decoupled from UI frameworks, presentation widgets, and platform-specific databases.
 
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines and developer setup.
+All community participants must adhere to our [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
 ## License
 
 GNU AGPLv3. Copyright (C) 2026 Kevin Burkeland.
