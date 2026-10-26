@@ -75,3 +75,9 @@ jobs:
       - name: 📜 Verify Commit Sign-offs
         # Ruleset repository has a fully signed commit history from root.
         run: ./scripts/check_dco.sh "" HEAD
+
+      - name: 🧪 Run Mutation Branch Script Self-Tests
+        run: ./scripts/test_check_mutation_branches.sh
+
+      - name: 🔒 Check Mutation Branches Limit
+        run: ./scripts/check_mutation_branches.sh 20
