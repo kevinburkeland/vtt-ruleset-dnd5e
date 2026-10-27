@@ -74,3 +74,8 @@ When inspecting, editing, refactoring, or running commands inside `../vtt-engine
 3. Run `dart pub get`, `dart analyze`, and `dart test`.
 4. Commit changes with DCO sign-off (`git commit -s`) to produce a concrete ruleset commit SHA.
 5. Downstream applications (e.g. `dangerously_nerdy_5e_toolkit`) update their pinned Git dependencies accordingly.
+
+---
+
+## 🧹 Mutation Branch Retirement Protocol
+Mutation branches are retired with `scripts/retire_mutation_branches.sh <slice-id>` at the start of the next slice, after the review closes. Never delete them by hand.
