@@ -16,23 +16,32 @@ vtt_ruleset_dnd5e/
 ├── lib/
 │   ├── vtt_ruleset_dnd5e.dart        # Primary public library entry point & barrel
 │   └── src/
-│       ├── modules/                  # Dnd5eRulesetModule, Dnd5e2014Module, Dnd5e2024Module
-│       ├── combat/                   # Dnd5eCombatResolver, attack declaration & resolution
-│       ├── currency/                 # Dnd5eCurrencySystem, Dnd5eCurrency
 │       ├── attributes/               # Dnd5eAttributeSystem, AbilityScores, Dnd5eScoreMath
-│       ├── mechanics/                # ExhaustionState, WeaponMastery, RestMechanic, ActionEconomy
-│       ├── progression/              # CharacterProgressionEngine, LevelUpRequest, HpProgressionChoice
+│       ├── catalog/                  # Dnd5eCatalog
+│       ├── combat/                   # Dnd5eCombatResolver, attack declaration & resolution
+│       ├── currency/                 # Dnd5eCurrencySystem
 │       ├── evaluation/               # CharacterEvaluationEngine, CharacterStatCalculator, ComputedAttackProfile
-│       ├── spellcasting/             # SpellcastingRulesEngine, SpellAllocationValidator
-│       ├── simulation/               # Dnd5eDprSimulationStrategy, DprCalculatorEngine, AoeResolver
-│       ├── models/                   # Character, CharacterProgression, FeatureGrant, CoreTypes
-│       └── rules/                    # RulesetEdition, RulesetContext, DndRulesetStrategy
+│       ├── mechanics/                # ExhaustionState, WeaponMasteryProperty, WeaponMasteryValidator
+│       ├── models/                   # Character, CharacterProgression, FeatureGrant
+│       ├── modules/                  # Dnd5eRulesetModule, Dnd5e2014Module, Dnd5e2024Module
+│       ├── progression/              # CharacterProgressionEngine, LevelUpRequest, HpProgressionChoice
+│       ├── rules/                    # RulesetEdition, RulesetStrategy, Ruleset2014Strategy, Ruleset2024Strategy
+│       ├── simulation/               # Dnd5eDprSimulationStrategy (DPR calculation for the app lives in the app)
+│       └── spellcasting/             # SpellcastingRulesEngine, SpellAllocationValidator
 └── test/                             # Automated test suite
-    ├── compliance/                   # Domain purity & SRD legal compliance
-    ├── modules/                      # Ruleset module & capability tests
-    ├── progression/                  # Progression & level up tests
+    ├── attributes/                   # Ability score math tests
+    ├── boundary/                     # Package boundary integration tests
+    ├── catalog/                      # Bundled catalog verification tests
+    ├── combat/                       # Combat resolver tests
+    ├── compliance/                   # Domain purity, docs truth & SRD legal compliance
+    ├── currency/                     # Currency system tests
     ├── evaluation/                   # Character stat & evaluation tests
-    └── boundary/                     # Package boundary integration tests
+    ├── helpers/                      # Test doubles and fixtures
+    ├── mechanics/                    # Weapon mastery & exhaustion state tests
+    ├── models/                       # Entity serialization & map flavour tests
+    ├── modules/                      # Ruleset module & capability tests
+    ├── rules/                        # Ruleset edition reference tests
+    └── spellcasting/                 # Spellcasting rules engine tests
 ```
 
 ---
@@ -56,7 +65,8 @@ dart test
 
 ### Repository Hygiene & Mutation Branches
 - `strict-casts`, `strict-raw-types` and `strict-inference` are on. Never turn them off, never add an `errors:` override, never add an `ignore` comment. `scripts/check_strict_analysis.sh` proves the options work. A strict fix must keep runtime behaviour: never narrow a type test, never add a default or a catch.
-- Mutation branches are named `mutation/<slice-id>-<id>` and exist only while their slice is under review. Don't delete them yourself. After the review closes, the reviewer archives them as patches and a later prompt deletes them by exact SHA. CI fails above 20 per repo.
+- Mutation branches are named `mutation/<slice-id>-<id>` and exist only while their slice is under review. Mutation branches are retired with `scripts/retire_mutation_branches.sh` and are never deleted by hand. CI fails above 20 per repo.
+- `AGENTS.md` and `.antigravityrules` are checked by `test/compliance/agents_docs_truth_test.dart`: every tree path, every type name and every repo path must exist.
 - READMEs and docs never state test counts or hand-typed status; use generated badges.
 
 ---
@@ -79,4 +89,4 @@ When inspecting, editing, refactoring, or running commands inside `../vtt-engine
 ---
 
 ## 🧹 Mutation Branch Retirement Protocol
-Mutation branches are retired with `scripts/retire_mutation_branches.sh <slice-id>` at the start of the next slice, after the review closes. Never delete them by hand.
+Mutation branches are retired with `scripts/retire_mutation_branches.sh` at the start of the next slice, after the review closes. Never delete them by hand.
