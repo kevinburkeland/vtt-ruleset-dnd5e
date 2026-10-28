@@ -20,6 +20,7 @@ vtt_ruleset_dnd5e/
 │       ├── catalog/                  # Dnd5eCatalog
 │       ├── combat/                   # Dnd5eCombatResolver, attack declaration & resolution
 │       ├── currency/                 # Dnd5eCurrencySystem
+│       ├── dice/                     # DiceExpression, tabletop dice notation parser
 │       ├── evaluation/               # CharacterEvaluationEngine, CharacterStatCalculator, ComputedAttackProfile
 │       ├── mechanics/                # ExhaustionState, WeaponMasteryProperty, WeaponMasteryValidator
 │       ├── models/                   # Character, CharacterProgression, FeatureGrant
@@ -35,6 +36,7 @@ vtt_ruleset_dnd5e/
     ├── combat/                       # Combat resolver tests
     ├── compliance/                   # Domain purity, docs truth & SRD legal compliance
     ├── currency/                     # Currency system tests
+    ├── dice/                         # Dice expression and parsing law tests
     ├── evaluation/                   # Character stat & evaluation tests
     ├── helpers/                      # Test doubles and fixtures
     ├── mechanics/                    # Weapon mastery & exhaustion state tests

@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:vtt_engine_core/models/generic_tabletop_primitives.dart';
 import 'package:vtt_engine_core/models/value_objects/hit_points.dart';
 import 'package:vtt_engine_core/rules/i_combat_resolver.dart';
+import '../dice/dice_expression.dart';
 
 /// Concrete D&D 5e Combat Resolver implementing core SRD combat calculations:
 /// - d20 roll + attack bonus vs Target Armor Class
@@ -69,42 +70,24 @@ class Dnd5eCombatResolver implements ICombatResolver {
     required bool isCrit,
     required Random rng,
   }) {
-    // Basic parser for NdS+M or flat scalars
-    final clean = damageExpression.replaceAll(' ', '').toLowerCase();
-    if (clean.isEmpty) return 0;
-
-    var numDice = 1;
-    var dieSides = 0;
-    var modifier = 0;
-
-    final dIndex = clean.indexOf('d');
-    if (dIndex != -1) {
-      final diceCountStr = clean.substring(0, dIndex);
-      numDice = diceCountStr.isEmpty ? 1 : (int.tryParse(diceCountStr) ?? 1);
-
-      final rest = clean.substring(dIndex + 1);
-      final plusIndex = rest.indexOf('+');
-      final minusIndex = rest.indexOf('-');
-
-      if (plusIndex != -1) {
-        dieSides = int.tryParse(rest.substring(0, plusIndex)) ?? 6;
-        modifier = int.tryParse(rest.substring(plusIndex + 1)) ?? 0;
-      } else if (minusIndex != -1) {
-        dieSides = int.tryParse(rest.substring(0, minusIndex)) ?? 6;
-        modifier = -(int.tryParse(rest.substring(minusIndex + 1)) ?? 0);
-      } else {
-        dieSides = int.tryParse(rest) ?? 6;
+    final expr = DiceExpression.parse(damageExpression);
+    var total = 0;
+    for (final term in expr.terms) {
+      if (term is DiceRollTerm) {
+        final count = isCrit ? term.count * 2 : term.count;
+        var diceSum = 0;
+        for (var i = 0; i < count; i++) {
+          diceSum += rng.nextInt(term.sides) + 1;
+        }
+        total += term.isNegative ? -diceSum : diceSum;
+      } else if (term is DiceConstantTerm) {
+        total += term.isNegative ? -term.value : term.value;
+      } else if (term is DiceModTerm) {
+        throw FormatException(
+            'mod is not supported in rollDamage without an ability modifier',
+            damageExpression);
       }
-    } else {
-      return int.tryParse(clean) ?? 0;
     }
-
-    final effectiveDice = isCrit ? numDice * 2 : numDice;
-    var total = modifier;
-    for (var i = 0; i < effectiveDice; i++) {
-      total += (dieSides > 0 ? rng.nextInt(dieSides) + 1 : 0);
-    }
-
     return max(0, total);
   }
 

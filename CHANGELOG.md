@@ -4,7 +4,7 @@ One line per slice, newest first. Each line: date, slice name, what changed for 
 Work before Map slice 1.1 (hardening passes 0 to 12) is in the git history.
 
 ## 2026-10-28
-- Cleanup slice 5: Test-name ratchet script, self-test suite, CI workflow integration, documentation truth compliance test suite, and adjustDamageForDefenses.
+- Cleanup slice 5: Test-name ratchet script, self-test suite, CI workflow integration, documentation truth compliance test suite, adjustDamageForDefenses, and unified DiceExpression parser with laws and regex source bar.
 
 ## 2026-10-27
 - Cleanup slice 4.1: Enable strict-casts, strict-raw-types, and strict-inference with canary verification script, map-flavour round-trip law, and pin vtt_engine_core to 59d7178dea6527a18a2cac3b7fe0f110fb93717a.

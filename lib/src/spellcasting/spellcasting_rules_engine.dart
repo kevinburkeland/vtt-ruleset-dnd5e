@@ -1,5 +1,6 @@
 import '../catalog/dnd5e_catalog.dart';
 import 'dart:math';
+import '../dice/dice_expression.dart';
 import '../rules/ruleset_edition.dart';
 import '../models/character_models.dart';
 import '../models/core_types.dart';
@@ -454,20 +455,22 @@ class CantripScalingEngine {
     return 1;
   }
 
-  static final RegExp _cantripFormulaPattern = RegExp(r'^(\d+)d(\d+)(.*)$');
-
   /// Adjusts dice count in a formula like "1d10" or "1d6" based on total character level.
   static String scaleCantripFormula(
       String baseFormula, int totalCharacterLevel) {
-    final match = _cantripFormulaPattern.firstMatch(baseFormula.trim());
-    if (match == null) return baseFormula;
-
-    final baseCount = int.parse(match.group(1)!);
-    final sides = match.group(2)!;
-    final suffix = match.group(3)!;
-    final multiplier = getMultiplier(totalCharacterLevel);
-
-    return '${baseCount * multiplier}d$sides$suffix';
+    try {
+      final expr = DiceExpression.parse(baseFormula);
+      final multiplier = getMultiplier(totalCharacterLevel);
+      final scaledTerms = expr.terms.map((term) {
+        if (term is DiceRollTerm) {
+          return term.copyWith(count: term.count * multiplier);
+        }
+        return term;
+      }).toList();
+      return DiceExpression(scaledTerms).format();
+    } on FormatException {
+      return baseFormula;
+    }
   }
 }
 
@@ -523,62 +526,69 @@ class SpellRollResult {
 class SpellRollEngine {
   SpellRollEngine._();
 
-  static final RegExp _diceFormulaPattern = RegExp(r'(\d+)d(\d+)');
-  static final RegExp _staticModPattern = RegExp(r'([+-])(\d+)$');
-
-  /// Evaluates and rolls a spell formula (e.g. "8d6", "2d8 + mod", "1d4 + 4")
-  /// using the cryptographically secure RNG and resolves ability modifiers.
-  static SpellRollResult roll({
+  /// Evaluates and rolls a spell formula using [Random] (or an optional [rng]) and resolves ability modifiers.
+  /// Returns null when the formula is not valid dice notation.
+  static SpellRollResult? roll({
     required String formula,
     int abilityModifier = 0,
+    Random? rng,
   }) {
-    final clean = formula.replaceAll(' ', '');
-    final match = _diceFormulaPattern.firstMatch(clean);
-
-    if (match == null) {
-      // Fallback for static numbers or unsupported custom formulas
-      final staticNum = int.tryParse(clean) ?? 0;
-      return SpellRollResult(
-        individualDice: [],
-        modifier: staticNum,
-        total: staticNum,
-        formulaDescription: formula,
-      );
+    final DiceExpression expr;
+    try {
+      expr = DiceExpression.parse(formula);
+    } on FormatException {
+      return null;
     }
 
-    final count = int.tryParse(match.group(1) ?? '1') ?? 1;
-    final sides = int.tryParse(match.group(2) ?? '6') ?? 6;
+    final random = rng ?? Random();
+    final individualDice = <int>[];
+    int diceTotal = 0;
+    final diceTerms = <DiceRollTerm>[];
 
-    final random = Random();
-    final rolls = List.generate(count, (_) => random.nextInt(sides) + 1);
-    final diceTotal = rolls.fold<int>(0, (sum, val) => sum + val);
-
-    int finalModifier = 0;
-    if (clean.contains('+mod')) {
-      finalModifier = abilityModifier;
-    } else if (clean.contains('-mod')) {
-      finalModifier = -abilityModifier;
-    } else {
-      final staticMatch = _staticModPattern.firstMatch(clean);
-      if (staticMatch != null) {
-        final sign = staticMatch.group(1);
-        final val = int.tryParse(staticMatch.group(2) ?? '0') ?? 0;
-        finalModifier = (sign == '-') ? -val : val;
+    for (final term in expr.terms) {
+      if (term is DiceRollTerm) {
+        diceTerms.add(term);
+        for (var i = 0; i < term.count; i++) {
+          final roll = random.nextInt(term.sides) + 1;
+          individualDice.add(roll);
+          if (term.isNegative) {
+            diceTotal -= roll;
+          } else {
+            diceTotal += roll;
+          }
+        }
       }
     }
 
-    final total = diceTotal + finalModifier;
-    final modText = finalModifier != 0
-        ? (finalModifier > 0
-            ? ' + $finalModifier'
-            : ' - ${finalModifier.abs()}')
-        : '';
+    int modifier = 0;
+    for (final term in expr.terms) {
+      if (term is DiceConstantTerm) {
+        modifier += term.isNegative ? -term.value : term.value;
+      } else if (term is DiceModTerm) {
+        modifier += term.isNegative ? -abilityModifier : abilityModifier;
+      }
+    }
+
+    final total = diceTotal + modifier;
+
+    String formulaDescription;
+    if (diceTerms.isNotEmpty) {
+      final diceCanonical = DiceExpression(diceTerms).format();
+      if (modifier != 0) {
+        final sign = modifier > 0 ? '+' : '-';
+        formulaDescription = '$diceCanonical $sign ${modifier.abs()}';
+      } else {
+        formulaDescription = diceCanonical;
+      }
+    } else {
+      formulaDescription = '$modifier';
+    }
 
     return SpellRollResult(
-      individualDice: rolls,
-      modifier: finalModifier,
+      individualDice: individualDice,
+      modifier: modifier,
       total: total,
-      formulaDescription: '$count' 'd$sides$modText',
+      formulaDescription: formulaDescription,
     );
   }
 }

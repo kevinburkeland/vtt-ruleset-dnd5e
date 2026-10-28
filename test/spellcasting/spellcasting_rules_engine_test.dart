@@ -165,14 +165,14 @@ void main() {
     });
 
     test('SpellRollEngine evaluates formulas and adds modifiers', () {
-      final roll1 = SpellRollEngine.roll(formula: '8d6');
+      final roll1 = SpellRollEngine.roll(formula: '8d6')!;
       expect(roll1.individualDice.length, 8);
       expect(roll1.modifier, 0);
       expect(roll1.total, greaterThanOrEqualTo(8));
       expect(roll1.total, lessThanOrEqualTo(48));
 
       final roll2 =
-          SpellRollEngine.roll(formula: '2d8 + mod', abilityModifier: 4);
+          SpellRollEngine.roll(formula: '2d8 + mod', abilityModifier: 4)!;
       expect(roll2.individualDice.length, 2);
       expect(roll2.modifier, 4);
       expect(roll2.total, greaterThanOrEqualTo(6));

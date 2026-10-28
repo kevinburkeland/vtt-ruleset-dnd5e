@@ -15,6 +15,9 @@ export 'src/rules/dnd_ruleset_strategy.dart';
 export 'src/combat/dnd_5e_combat_resolver.dart';
 export 'src/combat/damage_adjustment.dart';
 
+// Dice
+export 'src/dice/dice_expression.dart';
+
 // Currency
 export 'src/currency/dnd_5e_currency_system.dart';
 
