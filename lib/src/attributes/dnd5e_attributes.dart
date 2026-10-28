@@ -391,7 +391,7 @@ class AbilityScores extends core.AttributePool {
           intelligence == other.intelligence &&
           wisdom == other.wisdom &&
           charisma == other.charisma &&
-          const MapEquality().equals(scores, other.scores);
+          const MapEquality<String, int>().equals(scores, other.scores);
 
   @override
   int get hashCode => Object.hash(
@@ -401,7 +401,7 @@ class AbilityScores extends core.AttributePool {
         intelligence,
         wisdom,
         charisma,
-        const MapEquality().hash(scores),
+        const MapEquality<String, int>().hash(scores),
       );
 }
 

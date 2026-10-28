@@ -668,8 +668,8 @@ class CharacterEvaluationEngine {
     final grantedExpertises = <SkillType>{};
     for (final featRef in character.feats) {
       final dynamic feat = Dnd5eRuleset.catalog.findFeat(featRef.slug);
-      if (feat != null && feat.grants.isNotEmpty) {
-        grantedExpertises.addAll(GrantEvaluator.evaluateExpertiseGrants(feat.grants).map(SkillType.fromLooseString).whereType<SkillType>());
+      if (feat != null && (feat.grants.isNotEmpty as bool)) {
+        grantedExpertises.addAll(GrantEvaluator.evaluateExpertiseGrants(feat.grants as List<FeatureGrant>).map(SkillType.fromLooseString).whereType<SkillType>());
       }
     }
 

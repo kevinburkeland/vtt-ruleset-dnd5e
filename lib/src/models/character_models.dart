@@ -22,9 +22,9 @@ import 'feature_grant.dart';
 import 'spell_monster_equipment.dart';
 
 
-bool _listEquals<T>(List<T>? a, List<T>? b) => const ListEquality().equals(a, b);
-bool _mapEquals<K, V>(Map<K, V>? a, Map<K, V>? b) => const MapEquality().equals(a, b);
-bool _setEquals<T>(Set<T>? a, Set<T>? b) => const SetEquality().equals(a, b);
+bool _listEquals<T>(List<T>? a, List<T>? b) => ListEquality<T>().equals(a, b);
+bool _mapEquals<K, V>(Map<K, V>? a, Map<K, V>? b) => MapEquality<K, V>().equals(a, b);
+bool _setEquals<T>(Set<T>? a, Set<T>? b) => SetEquality<T>().equals(a, b);
 
 @immutable
 
@@ -519,7 +519,7 @@ class SpellSlotPool {
 
   @override
   int get hashCode =>
-      const MapEquality().hash(currentSlots) ^
+      const MapEquality<int, int>().hash(currentSlots) ^
       currentSlots.length.hashCode ^
       maxSlots.length.hashCode ^
       pactMagicSlotLevel.hashCode ^
@@ -816,7 +816,7 @@ class Character extends core.Character {
   CharacterProgression get progression =>
       super.progression is CharacterProgression
           ? super.progression as CharacterProgression
-          : CharacterProgression.fromMap(super.progression.toMap());
+          : CharacterProgression.fromMap(super.progression.toMap() as Map<String, dynamic>);
 
   @override
   CharacterResourcePool get resources =>
@@ -1419,7 +1419,7 @@ class Character extends core.Character {
       rawAllocated.forEach((k, v) {
         if (v is List) {
           parsedAllocated[k.toString()] = v
-              .whereType<Map>()
+              .whereType<Map<dynamic, dynamic>>()
               .map((s) =>
                   EntityReference<Spell>.fromMap(Map<String, dynamic>.from(s)))
               .toList();
@@ -1428,13 +1428,13 @@ class Character extends core.Character {
     }
 
     final parsedCantrips = (map['cantrips'] as List? ?? [])
-        .whereType<Map>()
+        .whereType<Map<dynamic, dynamic>>()
         .map(
             (c) => EntityReference<Spell>.fromMap(Map<String, dynamic>.from(c)))
         .toList();
 
     final parsedSpellsKnown = (map['spellsKnown'] as List? ?? [])
-        .whereType<Map>()
+        .whereType<Map<dynamic, dynamic>>()
         .map(
             (s) => EntityReference<Spell>.fromMap(Map<String, dynamic>.from(s)))
         .toList();
@@ -1475,7 +1475,7 @@ class Character extends core.Character {
           .whereType<String>()
           .toList(),
       inventory: (map['inventory'] as List? ?? [])
-          .whereType<Map>()
+          .whereType<Map<dynamic, dynamic>>()
           .map((i) =>
               InventoryItemInstance.fromMap(Map<String, dynamic>.from(i)))
           .toList(),
@@ -1487,12 +1487,12 @@ class Character extends core.Character {
       cantrips: parsedCantrips,
       spellsKnown: parsedSpellsKnown,
       spellsPrepared: (map['spellsPrepared'] as List? ?? [])
-          .whereType<Map>()
+          .whereType<Map<dynamic, dynamic>>()
           .map((s) =>
               EntityReference<Spell>.fromMap(Map<String, dynamic>.from(s)))
           .toList(),
       feats: (map['feats'] as List? ?? [])
-          .whereType<Map>()
+          .whereType<Map<dynamic, dynamic>>()
           .map((f) => EntityReference<DomainEntity>.fromMap(
               Map<String, dynamic>.from(f)))
           .toList(),
@@ -1516,7 +1516,7 @@ class Character extends core.Character {
                   if (map['ex'] != null) 'exhaustionLevel': map['ex'],
                 }),
       conditions: (map['conditions'] as List? ?? [])
-          .whereType<Map>()
+          .whereType<Map<dynamic, dynamic>>()
           .map((c) => CharacterCondition.fromMap(Map<String, dynamic>.from(c)))
           .toList(),
       maxAttunementSlots: (map['maxAttunementSlots'] as num?)?.toInt() ?? 3,
@@ -1577,7 +1577,7 @@ class Character extends core.Character {
       speciesRef: speciesRef ?? this.speciesRef,
       backgroundRef: backgroundRef ?? this.backgroundRef,
       progression: progression != null
-          ? (progression is CharacterProgression ? progression : CharacterProgression.fromMap(progression.toMap()))
+          ? (progression is CharacterProgression ? progression : CharacterProgression.fromMap(progression.toMap() as Map<String, dynamic>))
           : this.progression,
       baseScores: baseScores != null
           ? (baseScores is AbilityScores ? baseScores : AbilityScores.fromMap(baseScores.toMap()))

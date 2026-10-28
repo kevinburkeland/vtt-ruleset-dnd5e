@@ -328,11 +328,11 @@ class Spell extends DomainEntity {
       descriptionMarkdown: desc,
       higherLevelsMarkdown: map['higherLevelsMarkdown']?.toString(),
       damageMath: (map['damageMath'] as List? ?? [])
-          .whereType<Map>()
+          .whereType<Map<dynamic, dynamic>>()
           .map((d) => EvaluationMath.fromMap(Map<String, dynamic>.from(d)))
           .toList(),
       relatedEntityRefs: (map['relatedEntityRefs'] as List? ?? [])
-          .whereType<Map>()
+          .whereType<Map<dynamic, dynamic>>()
           .map((r) => EntityReference.fromMap(Map<String, dynamic>.from(r)))
           .toList(),
       riders: extractedRiders,
@@ -450,12 +450,12 @@ class Monster extends DomainEntity {
       challengeRating: map['challengeRating']?.toString() ?? '1',
       actionsMarkdown: map['actionsMarkdown']?.toString() ?? '',
       innateSpells: (map['innateSpells'] as List? ?? [])
-          .whereType<Map>()
+          .whereType<Map<dynamic, dynamic>>()
           .map((s) =>
               EntityReference<Spell>.fromMap(Map<String, dynamic>.from(s)))
           .toList(),
       attackMath: (map['attackMath'] as List? ?? [])
-          .whereType<Map>()
+          .whereType<Map<dynamic, dynamic>>()
           .map((a) => EvaluationMath.fromMap(Map<String, dynamic>.from(a)))
           .toList(),
       customProperties:
@@ -548,7 +548,7 @@ class EquipmentItem extends DomainEntity {
       requiresAttunement: map['requiresAttunement'] == true,
       descriptionMarkdown: map['descriptionMarkdown']?.toString() ?? '',
       grants: (map['grants'] as List? ?? [])
-          .whereType<Map>()
+          .whereType<Map<dynamic, dynamic>>()
           .map((g) => FeatureGrant.fromMap(Map<String, dynamic>.from(g)))
           .toList(),
       customProperties:
