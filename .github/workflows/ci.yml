@@ -79,6 +79,12 @@ jobs:
         # Ruleset repository has a fully signed commit history from root.
         run: ./scripts/check_dco.sh "" HEAD
 
+      - name: 🧪 Run Test Name Ratchet Script Self-Tests
+        run: ./scripts/test_check_test_names.sh
+
+      - name: 🔒 Verify Test Names Ratchet
+        run: python3 -I scripts/check_test_names.py 85e43ff3bd1628e3dd43f29145f4c99996b580c8 HEAD
+
       - name: 🧪 Run Mutation Branch Script Self-Tests
         run: ./scripts/test_check_mutation_branches.sh
 
