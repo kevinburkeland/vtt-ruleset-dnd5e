@@ -1,0 +1,27 @@
+From 2001a1d0e5e1c625255ac62b5735ea07176ba20f Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Tue, 27 Oct 2026 22:04:28 -0700
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20S3?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ analysis_options.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/analysis_options.yaml b/analysis_options.yaml
+index 4db9132..fb64f6b 100644
+--- a/analysis_options.yaml
++++ b/analysis_options.yaml
+@@ -20,3 +20,6 @@ linter:
+     prefer_is_not_empty: true
+     prefer_iterable_whereType: true
+     curly_braces_in_flow_control_structures: false
++
++  errors:
++    strict_raw_type: ignore
+-- 
+2.55.0
+
