@@ -21,6 +21,7 @@ vtt_ruleset_dnd5e/
 │       ├── combat/                   # Dnd5eCombatResolver, attack declaration & resolution
 │       ├── currency/                 # Dnd5eCurrencySystem
 │       ├── dice/                     # DiceExpression, tabletop dice notation parser
+│       ├── no_such_folder/           # Nonexistent folder
 │       ├── evaluation/               # CharacterEvaluationEngine, CharacterStatCalculator, ComputedAttackProfile
 │       ├── mechanics/                # ExhaustionState, WeaponMasteryProperty, WeaponMasteryValidator
 │       ├── models/                   # Character, CharacterProgression, FeatureGrant
