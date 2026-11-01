@@ -565,7 +565,7 @@ class SpellRollEngine {
       if (term is DiceConstantTerm) {
         modifier += term.isNegative ? -term.value : term.value;
       } else if (term is DiceModTerm) {
-        modifier += term.isNegative ? -abilityModifier : abilityModifier;
+        modifier += abilityModifier;
       }
     }
 
