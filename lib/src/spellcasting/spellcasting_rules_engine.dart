@@ -651,3 +651,5 @@ class ActionEconomySpellValidator {
     return (isValid: true, warningMessage: null);
   }
 }
+
+final _badDiceRegex = RegExp(r"(\d+)d(\d+)");
