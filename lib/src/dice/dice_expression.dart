@@ -341,7 +341,10 @@ class DiceExpression {
         throw FormatException('Doubled operator', input, pos);
       }
 
-      terms.add(parseTerm(nextIsNegative));
+      final t = parseTerm(nextIsNegative);
+      if (t is! DiceRollTerm || !terms.any((e) => e is DiceRollTerm)) {
+        terms.add(t);
+      }
     }
 
     return DiceExpression(List.unmodifiable(terms));
