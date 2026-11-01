@@ -13,11 +13,11 @@ int adjustDamageForDefenses(
   if (immune) return 0;
 
   var adjusted = amount;
-  if (resistant) {
-    adjusted = adjusted ~/ 2;
-  }
   if (vulnerable) {
     adjusted = adjusted * 2;
+  }
+  if (resistant) {
+    adjusted = adjusted ~/ 2;
   }
   return math.max(0, adjusted);
 }
