@@ -273,8 +273,7 @@ class DiceExpression {
           }
           pos++; // skip 'd'
           if (pos >= len || !isDigit(input[pos])) {
-            throw FormatException(
-                'Dice term missing sides after "d"', input, pos);
+            return DiceRollTerm(count: count, sides: 6, isNegative: isNegative);
           }
           final sidesStart = pos;
           while (pos < len && isDigit(input[pos])) {
