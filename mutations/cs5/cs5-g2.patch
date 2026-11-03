@@ -1,0 +1,27 @@
+From 9d8e528ba899586b7ba5f23933e7c021d75236f6 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Tue, 3 Nov 2026 15:05:54 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20G2?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ .antigravityrules | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/.antigravityrules b/.antigravityrules
+index 0bf4860..5cb5d75 100644
+--- a/.antigravityrules
++++ b/.antigravityrules
+@@ -59,3 +59,6 @@ The following non-negotiable invariants govern all work in this repository. Oper
+ dart analyze
+ dart test
+ ```
++
++
++`NoSuchResolver`
+-- 
+2.55.0
+

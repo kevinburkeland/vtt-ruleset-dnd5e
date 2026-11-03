@@ -1,0 +1,35 @@
+From 5efdf8294c85f6e70fbce021ff5ddd3fa821ff73 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Sat, 31 Oct 2026 17:18:22 -0700
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20V1?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/combat/damage_adjustment.dart | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/lib/src/combat/damage_adjustment.dart b/lib/src/combat/damage_adjustment.dart
+index b7df688..be558d1 100644
+--- a/lib/src/combat/damage_adjustment.dart
++++ b/lib/src/combat/damage_adjustment.dart
+@@ -13,11 +13,11 @@ int adjustDamageForDefenses(
+   if (immune) return 0;
+ 
+   var adjusted = amount;
+-  if (resistant) {
+-    adjusted = adjusted ~/ 2;
+-  }
+   if (vulnerable) {
+     adjusted = adjusted * 2;
+   }
++  if (resistant) {
++    adjusted = adjusted ~/ 2;
++  }
+   return math.max(0, adjusted);
+ }
+-- 
+2.55.0
+

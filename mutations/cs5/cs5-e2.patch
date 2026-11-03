@@ -1,0 +1,30 @@
+From 57589e4f0b0a5d0c3f39990d2bc26bc1993aa5df Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Sat, 31 Oct 2026 17:19:54 -0700
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20E2?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/dice/dice_expression.dart | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/lib/src/dice/dice_expression.dart b/lib/src/dice/dice_expression.dart
+index 401316a..16385ed 100644
+--- a/lib/src/dice/dice_expression.dart
++++ b/lib/src/dice/dice_expression.dart
+@@ -273,8 +273,7 @@ class DiceExpression {
+           }
+           pos++; // skip 'd'
+           if (pos >= len || !isDigit(input[pos])) {
+-            throw FormatException(
+-                'Dice term missing sides after "d"', input, pos);
++            return DiceRollTerm(count: count, sides: 6, isNegative: isNegative);
+           }
+           final sidesStart = pos;
+           while (pos < len && isDigit(input[pos])) {
+-- 
+2.55.0
+

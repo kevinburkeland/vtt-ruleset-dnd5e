@@ -1,0 +1,29 @@
+From 1f13e629fbd3b7039bfe01e5d715816bfd4d7287 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Sat, 31 Oct 2026 17:20:07 -0700
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20E3?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/spellcasting/spellcasting_rules_engine.dart | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/src/spellcasting/spellcasting_rules_engine.dart b/lib/src/spellcasting/spellcasting_rules_engine.dart
+index 6c239be..5caacf8 100644
+--- a/lib/src/spellcasting/spellcasting_rules_engine.dart
++++ b/lib/src/spellcasting/spellcasting_rules_engine.dart
+@@ -565,7 +565,7 @@ class SpellRollEngine {
+       if (term is DiceConstantTerm) {
+         modifier += term.isNegative ? -term.value : term.value;
+       } else if (term is DiceModTerm) {
+-        modifier += term.isNegative ? -abilityModifier : abilityModifier;
++        modifier += abilityModifier;
+       }
+     }
+ 
+-- 
+2.55.0
+

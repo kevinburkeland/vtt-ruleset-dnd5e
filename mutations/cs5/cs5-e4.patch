@@ -1,0 +1,26 @@
+From 4f3dc651a9c7df30b8988d0157bd907f8efa2f28 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Sat, 31 Oct 2026 17:20:20 -0700
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20E4?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/spellcasting/spellcasting_rules_engine.dart | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/lib/src/spellcasting/spellcasting_rules_engine.dart b/lib/src/spellcasting/spellcasting_rules_engine.dart
+index 6c239be..75256b7 100644
+--- a/lib/src/spellcasting/spellcasting_rules_engine.dart
++++ b/lib/src/spellcasting/spellcasting_rules_engine.dart
+@@ -651,3 +651,5 @@ class ActionEconomySpellValidator {
+     return (isValid: true, warningMessage: null);
+   }
+ }
++
++final _badDiceRegex = RegExp(r"(\d+)d(\d+)");
+-- 
+2.55.0
+
