@@ -1,0 +1,29 @@
+From d1300fcb83a3ad79bf01ea72912b716f1b6d2426 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Tue, 3 Nov 2026 17:51:07 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20R3?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ scripts/check_test_names.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/scripts/check_test_names.py b/scripts/check_test_names.py
+index ad5a4f4..3982fad 100755
+--- a/scripts/check_test_names.py
++++ b/scripts/check_test_names.py
+@@ -237,7 +237,7 @@ def main():
+         short_c = c[:7]
+         # Parent commit is first parent c^1
+         p = f"{c}^1"
+-        diff_res = subprocess.run(['git', 'diff', '--no-renames', '--name-only', p, c], capture_output=True, text=True)
++        diff_res = subprocess.run(['git', 'diff', '--name-only', p, c], capture_output=True, text=True)
+         if diff_res.returncode != 0:
+             problems.append(f"{short_c}: failed to diff against parent {p}")
+             continue
+-- 
+2.55.0
+
