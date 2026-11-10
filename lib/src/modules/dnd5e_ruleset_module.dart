@@ -430,7 +430,7 @@ class Dnd5eRulesetModule implements IRulesetModule {
     // Check attack ability substitution grants
     final allGrants = [
       ...character.activeGrants,
-      if (additionalGrants != null) ...additionalGrants
+      ...?additionalGrants,
     ];
     for (final grant in allGrants) {
       if (grant.type == GrantType.attackAbilitySubstitution) {

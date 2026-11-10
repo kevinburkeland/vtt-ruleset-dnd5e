@@ -1,6 +1,6 @@
 /// Standalone, pure Dart D&D 5e dual-ruleset module (2014 RAW & 2024 Revised)
 /// implementing the public contracts of `vtt_engine_core`.
-library vtt_ruleset_dnd5e;
+library;
 
 // Ruleset Modules & Core SPI Implementations
 export 'src/modules/dnd5e_ruleset_module.dart';

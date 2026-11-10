@@ -5,16 +5,16 @@ publish_to: 'none'
 repository: https://github.com/kevinburkeland/vtt-ruleset-dnd5e
 
 environment:
-  sdk: '>=3.3.0 <4.0.0'
+  sdk: '^3.13.0'
 
 dependencies:
   vtt_engine_core:
     git:
       url: https://github.com/kevinburkeland/vtt-engine-core.git
-      ref: 59d7178dea6527a18a2cac3b7fe0f110fb93717a
+      ref: a2b85747cd5b3d0157a41a7a48a1833fa9e01fcf
   meta: ^1.12.0
   collection: ^1.18.0
 
 dev_dependencies:
   test: ^1.24.0
-  lints: ^3.0.0
+  lints: ^6.1.0

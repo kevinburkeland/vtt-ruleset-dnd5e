@@ -131,7 +131,7 @@ class FeatureGrant {
         payload: {
           'formula': 'unarmored_defense',
           'primaryAbility': primaryAbility,
-          if (secondaryAbility != null) 'secondaryAbility': secondaryAbility,
+          'secondaryAbility': ?secondaryAbility,
           'requiresNoArmor': true,
           'requiresNoShield': requiresNoShield,
         },
@@ -189,7 +189,7 @@ class FeatureGrant {
         payload: {
           'stat': stat,
           'formula': formula,
-          if (flat != null) 'flat': flat,
+          'flat': ?flat,
         },
         label: label,
       );
@@ -219,7 +219,7 @@ class FeatureGrant {
         grantId: grantId,
         payload: {
           'count': count,
-          if (pool != null) 'pool': pool,
+          'pool': ?pool,
         },
         label: label,
       );
@@ -299,7 +299,7 @@ class FeatureGrant {
         'ability': abilityName,
         if (isMagic) 'requiresMagic': true,
         if (isMagic) 'requiresMagicWeapon': true,
-        if (condition != null) 'condition': condition,
+        'condition': ?condition,
       },
       label: label,
     );
@@ -332,8 +332,8 @@ class FeatureGrant {
         grantId: grantId,
         payload: {
           'formula': 'armor_modifier',
-          if (flatBonus != null) 'amount': flatBonus,
-          if (maxDexCap != null) 'maxDexCap': maxDexCap,
+          'amount': ?flatBonus,
+          'maxDexCap': ?maxDexCap,
           if (requiresArmor) 'requiresArmor': true,
           if (requiresMediumArmor) 'requiresMediumArmor': true,
         },
@@ -352,7 +352,7 @@ class FeatureGrant {
         grantId: grantId,
         payload: {
           'count': count,
-          if (castingAbility != null) 'castingAbility': castingAbility,
+          'castingAbility': ?castingAbility,
         },
         label: label,
       );

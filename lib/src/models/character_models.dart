@@ -807,8 +807,8 @@ class CharacterResourcePool extends core.CharacterResourcePool {
 
 class Character extends core.Character {
   final Map<String, List<EntityReference<Spell>>> allocatedSpells;
-  final List<EntityReference<Spell>> _cantrips;
-  final List<EntityReference<Spell>> _spellsKnown;
+  final List<EntityReference<Spell>> _rawCantrips;
+  final List<EntityReference<Spell>> _rawSpellsKnown;
   final List<EntityReference<Spell>> spellsPrepared;
   final int maxAttunementSlots;
 
@@ -873,8 +873,8 @@ class Character extends core.Character {
     String rulesetId = 'dnd5e_2014',
     RulesetEdition? rulesEdition,
     super.customProperties = const {},
-  })  : _cantrips = cantrips,
-        _spellsKnown = spellsKnown,
+  })  : _rawCantrips = cantrips,
+        _rawSpellsKnown = spellsKnown,
         super(
           baseScores: baseScores,
           bonusScores: bonusScores,
@@ -1022,7 +1022,7 @@ class Character extends core.Character {
         }
       }
     }
-    for (final c in _cantrips) {
+    for (final c in _rawCantrips) {
       if (!list.any((e) => e.slug == c.slug)) {
         list.add(c);
       }
@@ -1042,7 +1042,7 @@ class Character extends core.Character {
         }
       }
     }
-    for (final s in _spellsKnown) {
+    for (final s in _rawSpellsKnown) {
       if (!list.any((e) => e.slug == s.slug)) {
         list.add(s);
       }
@@ -1603,9 +1603,9 @@ class Character extends core.Character {
           ? Map.unmodifiable(allocatedSpells.map((k, v) =>
               MapEntry(k, List<EntityReference<Spell>>.unmodifiable(v))))
           : this.allocatedSpells,
-      cantrips: cantrips != null ? List.unmodifiable(cantrips) : _cantrips,
+      cantrips: cantrips != null ? List.unmodifiable(cantrips) : _rawCantrips,
       spellsKnown:
-          spellsKnown != null ? List.unmodifiable(spellsKnown) : _spellsKnown,
+          spellsKnown != null ? List.unmodifiable(spellsKnown) : _rawSpellsKnown,
       spellsPrepared: spellsPrepared != null
           ? List.unmodifiable(spellsPrepared)
           : this.spellsPrepared,
