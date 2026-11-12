@@ -1,0 +1,43 @@
+From be874cafe33d317014d5202d68ebb303638a10bf Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Tue, 10 Nov 2026 14:12:33 -0800
+Subject: [PATCH] Bonus slice 1: mutation bs1-p1: P1 catch
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ pubspec.yaml | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/pubspec.yaml b/pubspec.yaml
+index bb4317f..027f5e3 100644
+--- a/pubspec.yaml
++++ b/pubspec.yaml
+@@ -1,20 +1,23 @@
+ name: vtt_ruleset_dnd5e
+ description: Standalone, pure Dart D&D 5e dual-ruleset module (2014 RAW & 2024 Revised) implementing vtt_engine_core contracts.
+ version: 1.0.0
+-publish_to: 'none'
++publish_to: "none"
+ repository: https://github.com/kevinburkeland/vtt-ruleset-dnd5e
+ 
+ environment:
+-  sdk: '^3.13.0'
++  sdk: ">=3.3.0 <4.0.0"
++  sdk: "^3.13.0"
+ 
+ dependencies:
+   vtt_engine_core:
+     git:
+       url: https://github.com/kevinburkeland/vtt-engine-core.git
++      ref: 59d7178dea6527a18a2cac3b7fe0f110fb93717a
+       ref: a2b85747cd5b3d0157a41a7a48a1833fa9e01fcf
+   meta: ^1.12.0
+   collection: ^1.18.0
+ 
+ dev_dependencies:
+   test: ^1.24.0
++  lints: ^3.0.0
+   lints: ^6.1.0
+-- 
+2.55.0
+
