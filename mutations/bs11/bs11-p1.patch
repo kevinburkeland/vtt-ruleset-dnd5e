@@ -1,0 +1,26 @@
+From 4606e1acb3c9f9d45fd651c97e3b96c657518fa7 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Wed, 11 Nov 2026 19:25:55 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20P1?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ pubspec.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pubspec.yaml b/pubspec.yaml
+index d201987..4d64919 100644
+--- a/pubspec.yaml
++++ b/pubspec.yaml
+@@ -17,4 +17,4 @@ dependencies:
+ 
+ dev_dependencies:
+   test: ^1.33.0
+-  lints: ^6.1.0
++  lints: ^3.0.0
+-- 
+2.55.0
+
