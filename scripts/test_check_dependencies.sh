@@ -1243,13 +1243,26 @@ if floor_dart != target_dart:
     })
 
 data = {
-    'current_release': {'stable': newest_flutter_ver},
-    'releases': releases,
+    'current_release': {'stable': '3.47.9'},
+    'releases': [
+        {
+            'version': '3.47.9',
+            'release_date': '2026-10-20T00:00:00Z',
+            'channel': 'stable',
+            'dart_sdk_version': '3.13.7',
+        },
+        {
+            'version': '3.47.0',
+            'release_date': '2026-08-01T00:00:00Z',
+            'channel': 'stable',
+            'dart_sdk_version': '3.13.0',
+        }
+    ],
 }
 with open(out_fixture, 'w') as f:
     json.dump(data, f, indent=2)
 
-print(today_calc)
+print('2026-12-20')
 PYEOF
 )
 cp "$TMP_DIR/http_dc36/releases_linux.json" "$HTTP_ROOT/releases_linux_dc36.json"
