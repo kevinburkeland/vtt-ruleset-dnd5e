@@ -1,0 +1,29 @@
+From 57c6a2b066e359c5872541472bf733236f74d309 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Thu, 12 Nov 2026 03:10:02 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20Y1?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ pubspec.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pubspec.yaml b/pubspec.yaml
+index 164a332..771f769 100644
+--- a/pubspec.yaml
++++ b/pubspec.yaml
+@@ -5,7 +5,7 @@ publish_to: 'none'
+ repository: https://github.com/kevinburkeland/vtt-ruleset-dnd5e
+ 
+ environment:
+-  sdk: '^3.14.0'
++  sdk: '^3.13.0'
+ 
+ dependencies:
+   vtt_engine_core:
+-- 
+2.55.0
+
