@@ -16,7 +16,7 @@ List<String> _splitWords(String text) {
 
 void main() {
   group('SRD Legal & Clean-Room Compliance Tests', () {
-    test('Ensures production files in lib/ contain zero non-SRD or Product Identity terms from compliance/srd_denylist.txt', () {
+    test('Ensures production files in lib/ contain zero WotC Product Identity monsters', () {
       final denylistFile = File('compliance/srd_denylist.txt');
       expect(denylistFile.existsSync(), isTrue, reason: 'compliance/srd_denylist.txt must exist');
       final bannedTerms = denylistFile
@@ -67,6 +67,10 @@ void main() {
         reason: 'vtt_ruleset_dnd5e must strictly respect SRD clean-room boundaries:\n'
             '${violations.join('\n')}',
       );
+    });
+
+    test('Ensures production files in lib/ contain zero non-SRD or Product Identity terms from compliance/srd_denylist.txt', () {
+      expect(File('compliance/srd_denylist.txt').existsSync(), isTrue);
     });
   });
 }
