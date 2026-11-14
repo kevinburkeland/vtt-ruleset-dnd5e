@@ -684,5 +684,38 @@ void main() {
       final stats = CharacterEvaluationEngine.evaluate(character);
       expect(stats.maxHp, equals(99));
     });
+
+    test('Fix 5.2 Powerful Build: species with slug goliath gets Powerful Build; homebrew species with any other slug does not unless customProperties[powerfulBuild] is true', () {
+      Character makeChar({required String speciesSlug, Map<String, dynamic> customProperties = const {}}) {
+        return Character(
+          id: const EntityId(slug: 'hero-pb', ruleset: RulesetVersion.v2024),
+          name: 'Hero',
+          speciesRef: EntityReference<DomainEntity>.empty(
+            refType: EntityType.species,
+            slug: speciesSlug,
+            displayName: speciesSlug,
+          ),
+          progression: const CharacterProgression(classes: []),
+          baseScores: const AbilityScores(strength: 10),
+          resources: const CharacterResourcePool(currentHp: 10),
+          customProperties: customProperties,
+        );
+      }
+
+      // Goliath (SRD 5.2.1) gets Powerful Build (doubled carry capacity: 10 * 15 * 2 = 300 lbs)
+      final goliath = CharacterEvaluationEngine.evaluate(makeChar(speciesSlug: 'goliath'));
+      expect(goliath.encumbrance?.carryCapacityLbs, equals(300.0));
+
+      // Homebrew species slug does not get Powerful Build (standard capacity: 10 * 15 * 1 = 150 lbs)
+      final homebrewWithout = CharacterEvaluationEngine.evaluate(makeChar(speciesSlug: 'custom-giant'));
+      expect(homebrewWithout.encumbrance?.carryCapacityLbs, equals(150.0));
+
+      // Homebrew species with data path customProperties['powerfulBuild'] = true gets Powerful Build
+      final homebrewWithData = CharacterEvaluationEngine.evaluate(makeChar(
+        speciesSlug: 'custom-giant',
+        customProperties: {'powerfulBuild': true},
+      ));
+      expect(homebrewWithData.encumbrance?.carryCapacityLbs, equals(300.0));
+    });
   });
 }

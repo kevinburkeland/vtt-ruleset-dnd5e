@@ -363,8 +363,7 @@ class CharacterEvaluationEngine {
     // Encumbrance
     final isPowerfulBuild =
         character.customProperties['powerfulBuild'] == true ||
-            character.speciesRef.slug.toLowerCase().contains('goliath') ||
-            character.speciesRef.slug.toLowerCase().contains('firbolg');
+            character.speciesRef.slug.toLowerCase().contains('goliath');
     final encumbrance = strategy.calculateEncumbrance(
       strengthScore: effectiveScores.strength,
       inventory: character.inventory,

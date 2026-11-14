@@ -92,6 +92,63 @@ void main() {
       expect(reviveDead.updatedVitals.isDead, isFalse);
     });
 
+    group('Fix 5.4: Massive damage at 0 HP kills', () {
+      test('example cases: 0/20 with 25 dmg kills, 1/20 with 25 kills, 0/20 with 19 dmg does not kill', () {
+        // current 0, max 20, damage 25 -> dead
+        final atZeroExcess25 = resolver.resolveVitalsChange(
+          currentVitals: const EntityVitals(currentHp: 0, maxHp: 20, temporaryHp: 0),
+          delta: -25,
+        );
+        expect(atZeroExcess25.updatedVitals.isDead, isTrue, reason: 'Damage 25 >= maxHp 20 at 0 HP must cause death');
+        expect(atZeroExcess25.triggeredDeath, isTrue);
+
+        // control: current 1, max 20, damage 25 -> dead (absorbed 1 current, 24 excess >= 20 -> dead)
+        final atOneExcess25 = resolver.resolveVitalsChange(
+          currentVitals: const EntityVitals(currentHp: 1, maxHp: 20, temporaryHp: 0),
+          delta: -25,
+        );
+        expect(atOneExcess25.updatedVitals.isDead, isTrue, reason: 'Damage 25 from 1 HP causes 24 excess >= 20 max HP -> dead');
+        expect(atOneExcess25.triggeredDeath, isTrue);
+
+        // current 0, max 20, damage 19 -> not dead (19 excess < 20 max HP)
+        final atZeroExcess19 = resolver.resolveVitalsChange(
+          currentVitals: const EntityVitals(currentHp: 0, maxHp: 20, temporaryHp: 0),
+          delta: -19,
+        );
+        expect(atZeroExcess19.updatedVitals.isDead, isFalse, reason: 'Damage 19 < maxHp 20 at 0 HP must NOT cause death');
+        expect(atZeroExcess19.triggeredDeath, isFalse);
+      });
+
+      test('mathematical law over full parameter grid (767,140 cases)', () {
+        for (var maxHp = 1; maxHp <= 40; maxHp++) {
+          for (var curHp = 0; curHp <= maxHp; curHp++) {
+            for (var tempHp = 0; tempHp <= 10; tempHp++) {
+              final initial = EntityVitals(
+                currentHp: curHp,
+                maxHp: maxHp,
+                temporaryHp: tempHp,
+                isDowned: curHp <= 0,
+                isDead: false,
+              );
+              for (var dmg = 0; dmg <= 3 * maxHp; dmg++) {
+                final result = resolver.resolveVitalsChange(
+                  currentVitals: initial,
+                  delta: -dmg,
+                );
+                final tempAbsorbed = min(tempHp, dmg);
+                final expectedDead = (dmg - tempAbsorbed - curHp) >= maxHp;
+                expect(
+                  result.updatedVitals.isDead,
+                  equals(expectedDead),
+                  reason: 'Failed at maxHp=$maxHp, curHp=$curHp, tempHp=$tempHp, dmg=$dmg',
+                );
+              }
+            }
+          }
+        }
+      });
+    });
+
     test('executes DprSimulator.runWithResolver using Dnd5eCombatResolver', () {
       const simulator = DprSimulator();
       const attack = AttackIntent(

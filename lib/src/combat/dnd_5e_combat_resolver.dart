@@ -124,9 +124,9 @@ class Dnd5eCombatResolver implements ICombatResolver {
       final newHp = max(0, hpBefore - remainingDamage);
       final excessDamage = remainingDamage - hpBefore;
 
-      // 5e RAW: Massive damage that exceeds remaining HP plus maxHp causes instant death
+      // 5e RAW: Massive damage that exceeds remaining HP plus maxHp causes instant death (including at 0 HP)
       final triggeredDeath =
-          (hpBefore > 0 && excessDamage >= currentVitals.maxHp) ||
+          (excessDamage >= currentVitals.maxHp) ||
               currentVitals.isDead;
 
       final updated = currentVitals.copyWith(

@@ -276,8 +276,7 @@ class CharacterStatCalculator {
     // 3. Species physical traits
     final isPowerfulBuild =
         character.customProperties['powerfulBuild'] == true ||
-            character.speciesRef.slug.toLowerCase().contains('goliath') ||
-            character.speciesRef.slug.toLowerCase().contains('firbolg');
+            character.speciesRef.slug.toLowerCase().contains('goliath');
 
     int racialHpBonus = 0;
     if (character.speciesRef.slug.toLowerCase().contains('dwarf') &&
