@@ -4,6 +4,7 @@ One line per slice, newest first. Each line: date, slice name, what changed for 
 Work before Map slice 1.1 (hardening passes 0 to 12) is in the git history.
 
 ## 2026-11-13
+- Cleanup slice 11: Add DiceExpression.tryParse, DiceExpression.findAll with DiceMatch, and read-only helpers (Fix 7.1).
 - Cleanup slice 11: Add shared SRD denylist and scanner check_srd_terms.py (Fix 5.1), remove non-SRD species check (Fix 5.2), and massive damage at 0 HP kills (Fix 5.4).
 - Cleanup slice 11: Enforce fail-closed input validation by schema table in check_dependencies.py (Fix 3.1) and generate dynamic table-driven damage and valid tests in test_check_dependencies.sh (Fix 3.2).
 - Cleanup slice 11: Retire bs2 mutation branches, and teach check_test_names to refuse live and invented test names in test/removed_test_names.txt.

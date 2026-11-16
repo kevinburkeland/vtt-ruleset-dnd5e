@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:meta/meta.dart';
 
 /// Represents a single signed term in a [DiceExpression].
@@ -131,6 +132,35 @@ class DiceExpression {
   final List<DiceExpressionTerm> terms;
 
   const DiceExpression(this.terms);
+
+  /// All terms that represent dice rolls (e.g. 2d6).
+  ///
+  /// Used by: `character_sheet_controller.dart`, `homebrew_persistence_service.dart`,
+  /// `monster_codex_data.dart`, `stat_block_acl_parser.dart`.
+  List<DiceRollTerm> get diceTerms => terms.whereType<DiceRollTerm>().toList();
+
+  /// The net sum of all constant terms in this expression.
+  ///
+  /// Used by: `character_sheet_controller.dart`, `monster_codex_data.dart`,
+  /// `stat_block_acl_parser.dart`, `homebrew_persistence_service.dart`.
+  int get constantSum => terms.whereType<DiceConstantTerm>().fold(
+      0, (sum, t) => sum + (t.isNegative ? -t.value : t.value));
+
+  /// The largest number of sides among all dice terms, or 0 if none.
+  ///
+  /// Used by: `monster_codex_data.dart`, `homebrew_persistence_service.dart`.
+  int get largestDie =>
+      diceTerms.isEmpty ? 0 : diceTerms.map((t) => t.sides).reduce(max);
+
+  /// The total count of all dice in this expression.
+  ///
+  /// Used by: `monster_codex_data.dart`, `homebrew_persistence_service.dart`.
+  int get totalDiceCount => diceTerms.fold(0, (sum, t) => sum + t.count);
+
+  /// Whether this expression contains at least one dice roll term.
+  ///
+  /// Used by: `homebrew_other_category.dart`, `ingestion_field_descriptor.dart`.
+  bool get hasDice => diceTerms.isNotEmpty;
 
   /// Formats terms in canonical order joined by ` + ` or ` - `, dice as `NdS`, `mod` as `mod`,
   /// and a negative first term with a leading `-` and no space.
@@ -347,6 +377,120 @@ class DiceExpression {
     return DiceExpression(List.unmodifiable(terms));
   }
 
+  /// Parses a tabletop dice formula according to the grammar.
+  /// Returns `null` instead of throwing [FormatException] if the input cannot be strictly parsed.
+  static DiceExpression? tryParse(String input) {
+    try {
+      return parse(input);
+    } on FormatException {
+      return null;
+    }
+  }
+
+  /// Scans [text] and returns all longest runs of text that [parse] accepts and
+  /// that contain at least one dice term ([DiceRollTerm]).
+  static List<DiceMatch> findAll(String text) {
+    final matches = <DiceMatch>[];
+    int pos = 0;
+    final len = text.length;
+
+    bool isDigit(int code) => code >= 48 && code <= 57;
+    bool isLetter(int code) =>
+        (code >= 65 && code <= 90) || (code >= 97 && code <= 122);
+    bool isAlphanumericCode(int code) => isDigit(code) || isLetter(code);
+
+    while (pos < len) {
+      final code = text.codeUnitAt(pos);
+
+      // A candidate match cannot begin immediately inside an alphanumeric word
+      if (pos > 0 && isAlphanumericCode(text.codeUnitAt(pos - 1))) {
+        pos++;
+        continue;
+      }
+
+      // Check if current character can start an expression:
+      // Can be: digit, 'd'/'D' (if followed by digit), or '-' (if followed by digit or 'd'/'D')
+      bool canStart = false;
+      if (isDigit(code)) {
+        canStart = true;
+      } else if (code == 100 || code == 68) { // 'd' or 'D'
+        if (pos + 1 < len && isDigit(text.codeUnitAt(pos + 1))) {
+          canStart = true;
+        }
+      } else if (code == 45) { // '-'
+        int next = pos + 1;
+        while (next < len && (text.codeUnitAt(next) == 32 || text.codeUnitAt(next) == 9)) {
+          next++;
+        }
+        if (next < len) {
+          final nextCode = text.codeUnitAt(next);
+          if (isDigit(nextCode) ||
+              ((nextCode == 100 || nextCode == 68) &&
+                  next + 1 < len &&
+                  isDigit(text.codeUnitAt(next + 1)))) {
+            canStart = true;
+          }
+        }
+      }
+
+      if (!canStart) {
+        pos++;
+        continue;
+      }
+
+      // Scan forward while characters belong to the allowed dice expression alphabet:
+      // digits, d/D, +, -, spaces, tabs, m/M, o/O
+      int scanEnd = pos;
+      while (scanEnd < len) {
+        final c = text.codeUnitAt(scanEnd);
+        if (isDigit(c) ||
+            c == 100 || c == 68 || // d, D
+            c == 43 || c == 45 || // +, -
+            c == 32 || c == 9 ||  // space, tab
+            c == 109 || c == 77 || // m, M
+            c == 111 || c == 79) { // o, O
+          scanEnd++;
+        } else {
+          break;
+        }
+      }
+
+      // Search for the longest candidate substring from scanEnd down to pos+1
+      DiceMatch? bestMatch;
+      for (int end = scanEnd; end > pos; end--) {
+        final lastChar = text.codeUnitAt(end - 1);
+        // An expression can only end on a digit or 'd'/'D' (from mod)
+        if (!isDigit(lastChar) && lastChar != 100 && lastChar != 68) {
+          continue;
+        }
+        // If end < len, text[end] cannot be alphanumeric (cannot end in the middle of a word)
+        if (end < len && isAlphanumericCode(text.codeUnitAt(end))) {
+          continue;
+        }
+
+        final candidate = text.substring(pos, end);
+        final expr = tryParse(candidate);
+        if (expr != null && expr.diceTerms.isNotEmpty) {
+          bestMatch = DiceMatch(
+            start: pos,
+            end: end,
+            expression: expr,
+          );
+          break;
+        }
+      }
+
+      if (bestMatch != null) {
+        matches.add(bestMatch);
+        pos = bestMatch.end;
+      } else {
+        pos++;
+      }
+    }
+
+    return List.unmodifiable(matches);
+  }
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
@@ -363,4 +507,41 @@ class DiceExpression {
 
   @override
   String toString() => format();
+}
+
+/// A match produced by [DiceExpression.findAll] within a source text.
+@immutable
+class DiceMatch {
+  /// The inclusive start character index of this match in the source text.
+  final int start;
+
+  /// The exclusive end character index of this match in the source text.
+  final int end;
+
+  /// The parsed [DiceExpression] corresponding to `text.substring(start, end)`.
+  final DiceExpression expression;
+
+  const DiceMatch({
+    required this.start,
+    required this.end,
+    required this.expression,
+  });
+
+  /// Returns the matched slice of [source].
+  String text(String source) => source.substring(start, end);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is DiceMatch &&
+          runtimeType == other.runtimeType &&
+          start == other.start &&
+          end == other.end &&
+          expression == other.expression;
+
+  @override
+  int get hashCode => Object.hash(start, end, expression);
+
+  @override
+  String toString() => 'DiceMatch($start..$end: $expression)';
 }

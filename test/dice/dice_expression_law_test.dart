@@ -316,5 +316,256 @@ void main() {
       expect(CantripScalingEngine.scaleCantripFormula('2d6 + 1d4', 17), equals('8d6 + 4d4'));
       expect(CantripScalingEngine.scaleCantripFormula('not dice', 5), equals('not dice'));
     });
+
+    test('DX8 (tryParse law over valid and garbage strings)', () {
+      final badChars = ['x', '(', '.', '*', '/', ',', 'a', 'b', 'c', 'e', 'f', 'g', 'h', 'z'];
+      for (var seed = 0; seed < 1000; seed++) {
+        final rng = Random(seed);
+        final e = generateRandomExpression(rng, allowMod: true);
+        final canonical = e.format();
+
+        if (seed % 2 == 0) {
+          // Valid expression
+          final parsed = DiceExpression.tryParse(canonical);
+          expect(parsed, isNotNull,
+              reason: 'Seed $seed tryParse should not be null on "$canonical"');
+          expect(parsed, equals(e),
+              reason: 'Seed $seed tryParse should equal e on "$canonical"');
+        } else {
+          // Corrupted garbage
+          final badChar = badChars[rng.nextInt(badChars.length)];
+          final insertPos = rng.nextInt(canonical.length + 1);
+          final corrupted = canonical.substring(0, insertPos) +
+              badChar +
+              canonical.substring(insertPos);
+
+          final tryResult = DiceExpression.tryParse(corrupted);
+          var parseThrew = false;
+          try {
+            DiceExpression.parse(corrupted);
+          } on FormatException {
+            parseThrew = true;
+          }
+          expect(tryResult == null, equals(parseThrew),
+              reason: 'Seed $seed tryParse null-check failed on corrupted "$corrupted"');
+        }
+      }
+
+      const fixedGarbage = [
+        '',
+        '   ',
+        'd',
+        '1d',
+        '0d6',
+        '1d0',
+        '2d6+',
+        '2d6++3',
+        '+2d6',
+        '1d10 (fire)',
+        '2d6 fire',
+        '1.5d6',
+        '1d6*2',
+        'abc',
+        '2d6x',
+        '1000d6',
+        '1d1001',
+      ];
+      for (final g in fixedGarbage) {
+        expect(DiceExpression.tryParse(g), isNull,
+            reason: 'tryParse must be null for fixed garbage "$g"');
+      }
+    });
+
+    test('DX9 (findAll isolated expression law)', () {
+      for (var seed = 0; seed < 1000; seed++) {
+        final rng = Random(seed + 10000);
+        // Ensure at least one dice roll term
+        final termCount = rng.nextInt(4) + 1;
+        final terms = <DiceExpressionTerm>[];
+        // Term 0: guaranteed DiceRollTerm
+        terms.add(DiceRollTerm(
+          count: rng.nextInt(10) + 1,
+          sides: sideOptions[rng.nextInt(sideOptions.length)],
+          isNegative: false,
+        ));
+        for (var i = 1; i < termCount; i++) {
+          final isNegative = rng.nextBool();
+          final termKind = rng.nextInt(3);
+          if (termKind == 0) {
+            terms.add(DiceRollTerm(
+              count: rng.nextInt(10) + 1,
+              sides: sideOptions[rng.nextInt(sideOptions.length)],
+              isNegative: isNegative,
+            ));
+          } else if (termKind == 1) {
+            terms.add(DiceConstantTerm(value: rng.nextInt(30), isNegative: isNegative));
+          } else {
+            terms.add(DiceModTerm(isNegative: isNegative));
+          }
+        }
+        final e = DiceExpression(terms);
+        final canonical = e.format();
+
+        final matches = DiceExpression.findAll(canonical);
+        expect(matches.length, equals(1),
+            reason: 'Seed $seed failed on "$canonical"');
+        expect(matches.first.start, equals(0));
+        expect(matches.first.end, equals(canonical.length));
+        expect(matches.first.expression, equals(e),
+            reason: 'Seed $seed expression mismatch on "$canonical"');
+      }
+    });
+
+    test('DX10 (findAll surrounded expression law)', () {
+      const allowedLetters = 'abcefghijklmnpqrstuvwxyz'; // NO 'd'
+      String randomWord(Random rng) {
+        final len = rng.nextInt(6) + 2;
+        final sb = StringBuffer();
+        for (var i = 0; i < len; i++) {
+          sb.write(allowedLetters[rng.nextInt(allowedLetters.length)]);
+        }
+        return sb.toString();
+      }
+
+      for (var seed = 0; seed < 1000; seed++) {
+        final rng = Random(seed + 20000);
+        final termCount = rng.nextInt(3) + 1;
+        final terms = <DiceExpressionTerm>[];
+        terms.add(DiceRollTerm(
+          count: rng.nextInt(10) + 1,
+          sides: sideOptions[rng.nextInt(sideOptions.length)],
+          isNegative: false,
+        ));
+        for (var i = 1; i < termCount; i++) {
+          final isNegative = rng.nextBool();
+          final termKind = rng.nextInt(3);
+          if (termKind == 0) {
+            terms.add(DiceRollTerm(
+              count: rng.nextInt(10) + 1,
+              sides: sideOptions[rng.nextInt(sideOptions.length)],
+              isNegative: isNegative,
+            ));
+          } else if (termKind == 1) {
+            terms.add(DiceConstantTerm(value: rng.nextInt(20), isNegative: isNegative));
+          } else {
+            terms.add(DiceModTerm(isNegative: isNegative));
+          }
+        }
+        final e = DiceExpression(terms);
+        final canonical = e.format();
+
+        final prefix = '${randomWord(rng)} ${randomWord(rng)}';
+        final suffix = '${randomWord(rng)} ${randomWord(rng)}';
+        final text = '$prefix $canonical $suffix';
+
+        final matches = DiceExpression.findAll(text);
+        expect(matches.length, equals(1),
+            reason: 'Seed $seed surrounded fail on "$text"');
+        expect(matches.first.expression, equals(e),
+            reason: 'Seed $seed expression mismatch on "$text"');
+        expect(text.substring(matches.first.start, matches.first.end), equals(canonical));
+      }
+    });
+
+    test('DX11 (findAll two expressions joined by and law)', () {
+      for (var seed = 0; seed < 1000; seed++) {
+        final rng = Random(seed + 30000);
+        DiceExpression genExpr() {
+          final termCount = rng.nextInt(3) + 1;
+          final terms = <DiceExpressionTerm>[];
+          terms.add(DiceRollTerm(
+            count: rng.nextInt(10) + 1,
+            sides: sideOptions[rng.nextInt(sideOptions.length)],
+            isNegative: false,
+          ));
+          for (var i = 1; i < termCount; i++) {
+            final isNegative = rng.nextBool();
+            if (rng.nextBool()) {
+              terms.add(DiceRollTerm(
+                count: rng.nextInt(10) + 1,
+                sides: sideOptions[rng.nextInt(sideOptions.length)],
+                isNegative: isNegative,
+              ));
+            } else {
+              terms.add(DiceConstantTerm(value: rng.nextInt(15), isNegative: isNegative));
+            }
+          }
+          return DiceExpression(terms);
+        }
+
+        final e1 = genExpr();
+        final e2 = genExpr();
+        final text = '${e1.format()} and ${e2.format()}';
+
+        final matches = DiceExpression.findAll(text);
+        expect(matches.length, equals(2),
+            reason: 'Seed $seed joined by and fail on "$text"');
+        expect(matches[0].expression, equals(e1),
+            reason: 'Seed $seed first expression mismatch on "$text"');
+        expect(matches[1].expression, equals(e2),
+            reason: 'Seed $seed second expression mismatch on "$text"');
+      }
+    });
+
+    test('DX12 (findAll match text roundtrip and non-dice rejection)', () {
+      // Prompt examples
+      final match1 = DiceExpression.findAll('2d6 + 1d8 fire');
+      expect(match1.length, equals(1));
+      expect(match1.first.expression, equals(DiceExpression.parse('2d6 + 1d8')));
+      expect(match1.first.start, equals(0));
+      expect(match1.first.end, equals(9));
+
+      final match2 = DiceExpression.findAll('1d8 slashing plus 2d6 fire');
+      expect(match2.length, equals(2));
+      expect(match2[0].expression, equals(DiceExpression.parse('1d8')));
+      expect(match2[1].expression, equals(DiceExpression.parse('2d6')));
+
+      final match3 = DiceExpression.findAll('takes 5 damage');
+      expect(match3, isEmpty);
+
+      final match4 = DiceExpression.findAll('2d6+');
+      expect(match4.length, equals(1));
+      expect(match4.first.expression, equals(DiceExpression.parse('2d6')));
+      expect(match4.first.end, equals(3));
+
+      // 1000 seeded expressions roundtrip text to parse
+      for (var seed = 0; seed < 1000; seed++) {
+        final rng = Random(seed + 40000);
+        final count = rng.nextInt(6) + 1;
+        final sides = sideOptions[rng.nextInt(sideOptions.length)];
+        final bonus = rng.nextInt(10);
+        final text = 'Deals $count d$sides + $bonus radiant damage on a critical hit';
+        final matches = DiceExpression.findAll(text);
+        expect(matches, isNotEmpty, reason: 'Seed $seed should find dice in "$text"');
+        for (final m in matches) {
+          final matchedSlice = text.substring(m.start, m.end);
+          expect(DiceExpression.parse(matchedSlice), equals(m.expression),
+              reason: 'Seed $seed matched slice "$matchedSlice" must parse to expression');
+        }
+      }
+    });
+
+    test('DX13 (read-only helpers on DiceExpression)', () {
+      final e1 = DiceExpression.parse('2d6 + 1d8 - 3 + mod');
+      expect(e1.diceTerms.length, equals(2));
+      expect(e1.diceTerms[0], equals(const DiceRollTerm(count: 2, sides: 6)));
+      expect(e1.diceTerms[1], equals(const DiceRollTerm(count: 1, sides: 8)));
+      expect(e1.constantSum, equals(-3));
+      expect(e1.largestDie, equals(8));
+      expect(e1.totalDiceCount, equals(3));
+      expect(e1.hasDice, isTrue);
+
+      final e2 = DiceExpression.parse('5');
+      expect(e2.diceTerms, isEmpty);
+      expect(e2.constantSum, equals(5));
+      expect(e2.largestDie, equals(0));
+      expect(e2.totalDiceCount, equals(0));
+      expect(e2.hasDice, isFalse);
+
+      final e3 = DiceExpression.parse('1d12 + 4 + 2');
+      expect(e3.constantSum, equals(6));
+      expect(e3.largestDie, equals(12));
+      expect(e3.totalDiceCount, equals(1));
+    });
   });
 }
