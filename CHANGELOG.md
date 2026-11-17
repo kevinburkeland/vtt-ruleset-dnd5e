@@ -3,6 +3,9 @@
 One line per slice, newest first. Each line: date, slice name, what changed for a user or a developer.
 Work before Map slice 1.1 (hardening passes 0 to 12) is in the git history.
 
+## 2026-11-17
+- Cleanup slice 12: Scan lib/ against compliance/srd_denylist.txt in srd_legal_compliance_test and add meta-test guarding against existsSync-only test bodies (Fix 5.2).
+
 ## 2026-11-13
 - Cleanup slice 11: Add DiceExpression.tryParse, DiceExpression.findAll with DiceMatch, and read-only helpers (Fix 7.1).
 - Cleanup slice 11: Add shared SRD denylist and scanner check_srd_terms.py (Fix 5.1), remove non-SRD species check (Fix 5.2), and massive damage at 0 HP kills (Fix 5.4).
