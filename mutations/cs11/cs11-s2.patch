@@ -1,0 +1,30 @@
+From af0d2607300dcf6fe3749a906e97841fecc103fe Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Mon, 16 Nov 2026 19:15:55 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20S2?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/evaluation/character_stat_calculator.dart | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/lib/src/evaluation/character_stat_calculator.dart b/lib/src/evaluation/character_stat_calculator.dart
+index bce9a1e..f57c2bf 100644
+--- a/lib/src/evaluation/character_stat_calculator.dart
++++ b/lib/src/evaluation/character_stat_calculator.dart
+@@ -276,7 +276,8 @@ class CharacterStatCalculator {
+     // 3. Species physical traits
+     final isPowerfulBuild =
+         character.customProperties['powerfulBuild'] == true ||
+-            character.speciesRef.slug.toLowerCase().contains('goliath');
++            character.speciesRef.slug.toLowerCase().contains('goliath') ||
++            character.speciesRef.slug.toLowerCase().contains('firbolg');
+ 
+     int racialHpBonus = 0;
+     if (character.speciesRef.slug.toLowerCase().contains('dwarf') &&
+-- 
+2.55.0
+
