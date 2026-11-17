@@ -470,7 +470,7 @@ class DiceExpression {
 
         final candidate = text.substring(pos, end);
         final expr = tryParse(candidate);
-        if (expr != null && expr.diceTerms.isNotEmpty) {
+        if (expr != null && expr.diceTerms.length == 1) {
           bestMatch = DiceMatch(
             start: pos,
             end: end,
