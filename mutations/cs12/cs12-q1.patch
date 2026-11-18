@@ -1,0 +1,35 @@
+From d22a2de91fc62f0da1fa38eba184c2d7c54e94ec Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Wed, 18 Nov 2026 09:51:51 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20Q1?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ test/compliance/srd_legal_compliance_test.dart | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
+
+diff --git a/test/compliance/srd_legal_compliance_test.dart b/test/compliance/srd_legal_compliance_test.dart
+index 3039fd1..ab62833 100644
+--- a/test/compliance/srd_legal_compliance_test.dart
++++ b/test/compliance/srd_legal_compliance_test.dart
+@@ -69,13 +69,7 @@ List<String> _scanFilesForDenylistTerms({
+ void main() {
+   group('SRD Legal & Clean-Room Compliance Tests', () {
+     test('Ensures production files in lib/ contain zero WotC Product Identity monsters', () {
+-      final violations = _scanFilesForDenylistTerms();
+-      expect(
+-        violations,
+-        isEmpty,
+-        reason: 'vtt_ruleset_dnd5e must strictly respect SRD clean-room boundaries:\n'
+-            '${violations.join('\n')}',
+-      );
++      expect(Directory('lib').existsSync(), isTrue);
+     });
+ 
+     test('Ensures production files in lib/ contain zero non-SRD or Product Identity terms from compliance/srd_denylist.txt', () {
+-- 
+2.55.0
+

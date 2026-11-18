@@ -1,0 +1,31 @@
+From 147d525035e789131b43baabf72478f12161755d Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Wed, 18 Nov 2026 09:53:49 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20S1?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/combat/combat_odds.dart | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/lib/src/combat/combat_odds.dart b/lib/src/combat/combat_odds.dart
+index 0cd9475..649bbf3 100644
+--- a/lib/src/combat/combat_odds.dart
++++ b/lib/src/combat/combat_odds.dart
+@@ -166,8 +166,8 @@ SaveDamageResult computeSaveDamage({
+     return saved
+         ? const SaveDamageResult(damageTaken: 0, outcome: SaveDamageOutcome.none)
+         : SaveDamageResult(
+-            damageTaken: rawDamage ~/ 2,
+-            outcome: SaveDamageOutcome.half,
++            damageTaken: rawDamage,
++            outcome: SaveDamageOutcome.full,
+           );
+   }
+ 
+-- 
+2.55.0
+

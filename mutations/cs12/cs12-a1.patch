@@ -1,0 +1,29 @@
+From 7a2421fd4a8c0ff77ee4888f52f855ad67f180ce Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Wed, 18 Nov 2026 09:53:17 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20A1?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/combat/combat_odds.dart | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/src/combat/combat_odds.dart b/lib/src/combat/combat_odds.dart
+index 0cd9475..4965fb1 100644
+--- a/lib/src/combat/combat_odds.dart
++++ b/lib/src/combat/combat_odds.dart
+@@ -47,7 +47,7 @@ AttackOdds computeAttackOdds({
+   for (var face = 1; face <= 20; face++) {
+     final isCrit = face != 1 && face >= critThreshold;
+     final isHit = face == 20 ||
+-        (face != 1 && (face + attackBonus >= targetAc || face >= critThreshold));
++        (face != 1 && face + attackBonus >= targetAc);
+     if (isHit) hitFaces++;
+     if (isCrit) critFaces++;
+   }
+-- 
+2.55.0
+
