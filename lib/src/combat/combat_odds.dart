@@ -47,7 +47,7 @@ AttackOdds computeAttackOdds({
   for (var face = 1; face <= 20; face++) {
     final isCrit = face != 1 && face >= critThreshold;
     final isHit = face == 20 ||
-        (face != 1 && (face + attackBonus >= targetAc || face >= critThreshold));
+        (face != 1 && face + attackBonus >= targetAc);
     if (isHit) hitFaces++;
     if (isCrit) critFaces++;
   }
