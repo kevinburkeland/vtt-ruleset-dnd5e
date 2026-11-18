@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:test/test.dart';
 import 'package:vtt_ruleset_dnd5e/vtt_ruleset_dnd5e.dart';
 
@@ -184,8 +185,7 @@ void main() {
           }
         }
       }
-      // ignore: avoid_print
-      print('Fix 7.1 AttackOdds oracle law verified $cases cases.');
+      stdout.writeln('Fix 7.1 AttackOdds oracle law verified $cases cases.');
     });
   });
 
@@ -220,8 +220,7 @@ void main() {
           }
         }
       }
-      // ignore: avoid_print
-      print('Fix 7.2 SaveFailureProbability oracle law verified $cases cases.');
+      stdout.writeln('Fix 7.2 SaveFailureProbability oracle law verified $cases cases.');
     });
   });
 
@@ -273,8 +272,7 @@ void main() {
           }
         }
       }
-      // ignore: avoid_print
-      print('Fix 7.3 SaveDamage law verified $cases cases.');
+      stdout.writeln('Fix 7.3 SaveDamage law verified $cases cases.');
     });
   });
 }
