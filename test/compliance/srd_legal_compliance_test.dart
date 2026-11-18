@@ -89,6 +89,50 @@ void main() {
     });
 
     test('Every zero or contain compliance test calls expect on a list or count of violations, not only on existsSync', () {
+      // 1. Behavioral guard: exercise _scanFilesForDenylistTerms on a temp dir
+      // with a planted denylisted term read at runtime, and on a clean file.
+      final denylistFile = File('compliance/srd_denylist.txt');
+      expect(denylistFile.existsSync(), isTrue);
+      final firstTerm = denylistFile
+          .readAsLinesSync()
+          .map((l) => l.trim())
+          .firstWhere((l) => l.isNotEmpty && !l.startsWith('#'));
+
+      final tempDir = Directory.systemTemp.createTempSync('srd_guard_test_');
+      try {
+        final plantedFile = File('${tempDir.path}/planted.dart');
+        plantedFile.writeAsStringSync("const sample = '$firstTerm';\n");
+
+        final plantedViolations = _scanFilesForDenylistTerms(
+          dirPath: tempDir.path,
+          denylistPath: denylistFile.path,
+        );
+        expect(
+          plantedViolations,
+          equals(['${plantedFile.path}:1: $firstTerm']),
+          reason: 'Scanner must catch a planted denylisted term with exact file, line, and term',
+        );
+
+        plantedFile.deleteSync();
+        final cleanFile = File('${tempDir.path}/clean.dart');
+        cleanFile.writeAsStringSync("const sample = 'generic_fighter_ability';\n");
+
+        final cleanViolations = _scanFilesForDenylistTerms(
+          dirPath: tempDir.path,
+          denylistPath: denylistFile.path,
+        );
+        expect(
+          cleanViolations,
+          isEmpty,
+          reason: 'Scanner must report zero violations on a clean file',
+        );
+      } finally {
+        if (tempDir.existsSync()) {
+          tempDir.deleteSync(recursive: true);
+        }
+      }
+
+      // 2. Source guard: retain static check against existsSync-only compliance tests.
       final complianceDir = Directory('test/compliance');
       expect(complianceDir.existsSync(), isTrue);
 
