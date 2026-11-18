@@ -3,6 +3,9 @@
 One line per slice, newest first. Each line: date, slice name, what changed for a user or a developer.
 Work before Map slice 1.1 (hardening passes 0 to 12) is in the git history.
 
+## 2026-11-18
+- Cleanup slice 12: Add exact computeAttackOdds, computeSaveFailureProbability, and computeSaveDamage (with Evasion) and oracle law tests (Fixes 7.1, 7.2, 7.3).
+
 ## 2026-11-17
 - Cleanup slice 12: Move pure ruleset tests home with InMemoryEntityResolver (Fix 6.1), and add monotonic coverage floor script check_coverage_floor.py, coverage_floors.tsv, and CI enforcement (Fix 6.2).
 - Cleanup slice 12: Scan lib/ against compliance/srd_denylist.txt in srd_legal_compliance_test and add meta-test guarding against existsSync-only test bodies (Fix 5.2).
