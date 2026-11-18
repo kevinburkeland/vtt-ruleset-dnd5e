@@ -166,8 +166,8 @@ SaveDamageResult computeSaveDamage({
     return saved
         ? const SaveDamageResult(damageTaken: 0, outcome: SaveDamageOutcome.none)
         : SaveDamageResult(
-            damageTaken: rawDamage ~/ 2,
-            outcome: SaveDamageOutcome.half,
+            damageTaken: rawDamage,
+            outcome: SaveDamageOutcome.full,
           );
   }
 
