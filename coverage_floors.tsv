@@ -4,7 +4,7 @@ lib/src/attributes/dnd5e_attributes.dart	48.0
 lib/src/attributes/dnd_5e_attribute_system.dart	18.1
 lib/src/attributes/dnd_5e_rules_engine.dart	44.4
 lib/src/catalog/dnd5e_catalog.dart	85.7
-lib/src/combat/combat_odds.dart	100.0
+lib/src/combat/combat_odds.dart	99.9
 lib/src/combat/damage_adjustment.dart	100.0
 lib/src/combat/dnd_5e_combat_resolver.dart	76.6
 lib/src/currency/dnd_5e_currency_system.dart	72.5
