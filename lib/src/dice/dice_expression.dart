@@ -162,6 +162,18 @@ class DiceExpression {
   /// Used by: `homebrew_other_category.dart`, `ingestion_field_descriptor.dart`.
   bool get hasDice => diceTerms.isNotEmpty;
 
+  /// Returns the sole [DiceRollTerm] if and only if this expression contains
+  /// exactly one dice group and it is non-negative (`!isNegative`), otherwise `null`.
+  ///
+  /// Used by: `dnd5e_class_field_extractor.dart`, `dnd5e_ingestion_capability.dart`,
+  /// `stat_block_acl_parser.dart`, `dpr_models.dart`, `monster_codex_data.dart`.
+  DiceRollTerm? get singleDieGroup {
+    final dt = diceTerms;
+    if (dt.length != 1) return null;
+    final only = dt.first;
+    return only.isNegative ? null : only;
+  }
+
   /// Formats terms in canonical order joined by ` + ` or ` - `, dice as `NdS`, `mod` as `mod`,
   /// and a negative first term with a leading `-` and no space.
   String format() {

@@ -4,6 +4,7 @@ One line per slice, newest first. Each line: date, slice name, what changed for 
 Work before Map slice 1.1 (hardening passes 0 to 12) is in the git history.
 
 ## 2026-11-18
+- Cleanup slice 13: Add DiceExpression.singleDieGroup read-only helper and law test (Fix 3.3).
 - Cleanup slice 13: Retire cs12 mutation branches and strengthen SRD denylist guard test to plant a real denylist term in a temp directory (Fixes 2.1, 2.2).
 - Cleanup slice 13: Expand shared SRD compliance denylist and tighten check_srd_terms.py to scan test/removed_test_names.txt except rows with the slice 13 SRD removal reason (Fix 1.3).
 - Cleanup slice 12: Add exact computeAttackOdds, computeSaveFailureProbability, and computeSaveDamage (with Evasion) and oracle law tests (Fixes 7.1, 7.2, 7.3).
