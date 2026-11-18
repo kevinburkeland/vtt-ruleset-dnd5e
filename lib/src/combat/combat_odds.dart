@@ -101,7 +101,7 @@ double computeSaveFailureProbability({
   var passFaces = 0;
   var face1Passes = false;
   for (var face = 1; face <= 20; face++) {
-    if (face + saveBonus >= saveDc) {
+    if (face == 20 || face + saveBonus >= saveDc) {
       passFaces++;
       if (face == 1) face1Passes = true;
     }
