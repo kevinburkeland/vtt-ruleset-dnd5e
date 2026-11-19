@@ -1,9 +1,6 @@
 import 'ruleset_edition.dart';
 export 'ruleset_edition.dart';
 
-/// Canonical RulesetEdition alias for backward compatibility.
-typedef RulesetVersion = RulesetEdition;
-
 enum DndActionCost { action, bonusAction, reaction, free }
 
 abstract class RulesetEngine {

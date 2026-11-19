@@ -8,7 +8,7 @@ export 'src/modules/dnd_5e_modules.dart';
 
 // Ruleset Edition & Context
 export 'src/rules/ruleset_edition.dart';
-export 'src/rules/ruleset_context.dart' hide RulesetVersion;
+export 'src/rules/ruleset_context.dart';
 export 'src/rules/dnd_ruleset_strategy.dart';
 
 // Combat & Resolution

@@ -219,7 +219,7 @@ class CharacterProgressionEngine {
   static bool isSubclassMilestone(
     String classSlug,
     int newClassLevel, {
-    RulesetVersion ruleset = RulesetVersion.v2024,
+    RulesetEdition ruleset = RulesetEdition.v2024,
     dynamic characterClass,
   }) {
     if (characterClass != null) {
@@ -232,7 +232,7 @@ class CharacterProgressionEngine {
           : ((characterClass.customProperties['subclassLevel'] as num?)?.toInt() ??
               (characterClass.subclassSelectionLevel as num?)?.toInt());
       if (lvl != null) {
-        if (ruleset == RulesetVersion.v2014) {
+        if (ruleset == RulesetEdition.v2014) {
           final slug = classSlug.toLowerCase();
           if (['cleric', 'sorcerer', 'warlock'].contains(slug)) return newClassLevel == 1;
           if (['druid', 'wizard'].contains(slug)) return newClassLevel == 2;
@@ -240,7 +240,7 @@ class CharacterProgressionEngine {
         return newClassLevel == lvl;
       }
     }
-    if (ruleset == RulesetVersion.v2014) {
+    if (ruleset == RulesetEdition.v2014) {
       final slug = classSlug.toLowerCase();
       if (['cleric', 'sorcerer', 'warlock'].contains(slug)) {
         return newClassLevel == 1;

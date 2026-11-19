@@ -1,8 +1,8 @@
-import 'package:vtt_engine_core/models/core_types.dart' as core;
-export 'package:vtt_engine_core/models/core_types.dart' hide EntityType;
+import 'package:vtt_engine_core/models/core_types.dart';
+export 'package:vtt_engine_core/models/core_types.dart';
 
-/// 5E Domain Entity Classification extending core EntityType for type compatibility.
-class EntityType extends core.EntityType {
+/// 5E Domain Entity Classification extending core TabletopEntityType for type compatibility.
+class EntityType extends TabletopEntityType {
   const EntityType(super.key);
 
   static const EntityType spell = EntityType('spell');
@@ -46,8 +46,8 @@ class EntityType extends core.EntityType {
     return EntityType(key);
   }
 
-  /// Bridge to generic core [core.EntityType].
-  core.EntityType toCore() => this;
+  /// Bridge to generic core [TabletopEntityType].
+  TabletopEntityType toCore() => this;
 }
 
 /// Standardized Action Types for 5e activation economy

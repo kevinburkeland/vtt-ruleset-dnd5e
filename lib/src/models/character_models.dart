@@ -8,11 +8,8 @@ import 'package:vtt_engine_core/rules/i_ruleset_module.dart';
 import 'package:vtt_engine_core/models/party_purse.dart';
 import 'package:vtt_engine_core/models/value_objects/hit_points.dart';
 import 'package:meta/meta.dart';
-import 'package:vtt_engine_core/models/character_models.dart' as core;
-import 'package:vtt_engine_core/models/character_models.dart'
-    hide Character, CharacterResourcePool, StartingEquipmentItemRequest, InventoryItemInstance;
-export 'package:vtt_engine_core/models/character_models.dart'
-    hide Character, CharacterResourcePool, StartingEquipmentItemRequest, InventoryItemInstance;
+import 'package:vtt_engine_core/models/character_models.dart';
+export 'package:vtt_engine_core/models/character_models.dart';
 export '../attributes/dnd5e_attributes.dart';
 import '../attributes/dnd5e_attributes.dart';
 import '../rules/ruleset_edition.dart';
@@ -265,7 +262,7 @@ class CharacterProgression {
 
 
 @immutable
-class InventoryItemInstance extends core.InventoryItemInstance {
+class InventoryItemInstance extends TabletopItemInstance {
   final bool isAttuned;
   final bool requiresAttunement;
   final String? customName;
@@ -387,7 +384,7 @@ class InventoryItemInstance extends core.InventoryItemInstance {
   }
 
   factory InventoryItemInstance.fromMap(Map<String, dynamic> map) {
-    final base = core.InventoryItemInstance.fromMap(map);
+    final base = TabletopItemInstance.fromMap(map);
     final rawSlot = map['equippedSlot'] ?? base.equippedSlot;
     final resolvedSlot = _parseEquipmentSlot(rawSlot);
 
@@ -529,7 +526,7 @@ class SpellSlotPool {
 
 /// Character resource pools (HP, Hit Dice, Spell Slots, Class charges, Death Saves, Exhaustion, Inspiration)
 @immutable
-class CharacterResourcePool extends core.CharacterResourcePool {
+class CharacterResourcePool extends TabletopResourcePool {
   final EntityVitals? _vitals;
   final int _currentHp;
   final int _tempHp;
@@ -805,7 +802,7 @@ class CharacterResourcePool extends core.CharacterResourcePool {
 
 /// Active Condition and Temporary Status Effect
 
-class Character extends core.Character {
+class Character extends TabletopCharacter {
   final Map<String, List<EntityReference<Spell>>> allocatedSpells;
   final List<EntityReference<Spell>> _rawCantrips;
   final List<EntityReference<Spell>> _rawSpellsKnown;
@@ -1325,7 +1322,7 @@ class Character extends core.Character {
 
   AbilityType getEffectiveAttackAbility(
     InventoryItemInstance instance, {
-    core.AttributePool? scores,
+    AttributePool? scores,
     List<FeatureGrant>? additionalGrants,
   }) {
     return Dnd5eRulesetModule.resolveEffectiveAttackAbility(
@@ -1534,22 +1531,22 @@ class Character extends core.Character {
     EntityReference<DomainEntity>? speciesRef,
     EntityReference<DomainEntity>? backgroundRef,
     dynamic progression,
-    core.AttributePool? baseScores,
-    core.AttributePool? bonusScores,
+    AttributePool? baseScores,
+    AttributePool? bonusScores,
     Map<dynamic, dynamic>? traitProficiencies,
     dynamic skillProficiencies,
     Set<dynamic>? savingThrowProficiencies,
     List<String>? toolProficiencies,
     List<String>? languages,
-    List<core.InventoryItemInstance>? inventory,
+    List<TabletopItemInstance>? inventory,
     PartyPurse? purse,
     Map<String, List<EntityReference<Spell>>>? allocatedSpells,
     List<EntityReference<Spell>>? cantrips,
     List<EntityReference<Spell>>? spellsKnown,
     List<EntityReference<Spell>>? spellsPrepared,
     List<EntityReference<DomainEntity>>? feats,
-    core.CharacterResourcePool? resources,
-    List<core.CharacterCondition>? conditions,
+    TabletopResourcePool? resources,
+    List<CharacterCondition>? conditions,
     int? maxAttunementSlots,
     int? baseSpeedFeet,
     int? baseSpeed,
