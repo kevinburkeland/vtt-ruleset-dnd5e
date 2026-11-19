@@ -21,3 +21,5 @@ int adjustDamageForDefenses(
   }
   return math.max(0, adjusted);
 }
+
+class TabletopCharacter {}
