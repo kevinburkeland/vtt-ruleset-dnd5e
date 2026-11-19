@@ -543,14 +543,17 @@ class CharacterEvaluationEngine {
           .map((c) => c.classRef.slug.toLowerCase())
           .toSet();
 
-      if (classSlugs.contains('barbarian')) {
+      if (classSlugs.contains('barbarian') &&
+          abilityMods[AbilityType.constitution]! > 0) {
         final conBonus = abilityMods[AbilityType.constitution]!;
         baseAc = 10;
         dexAcBonus = abilityMods[AbilityType.dexterity]!;
         armorDesc =
             '10 (Unarmored) + $dexAcBonus DEX + $conBonus CON (Barbarian)';
         baseAc += conBonus;
-      } else if (classSlugs.contains('monk') && shieldBonus == 0) {
+      } else if (classSlugs.contains('monk') &&
+          shieldBonus == 0 &&
+          abilityMods[AbilityType.wisdom]! > 0) {
         final wisBonus = abilityMods[AbilityType.wisdom]!;
         baseAc = 10;
         dexAcBonus = abilityMods[AbilityType.dexterity]!;
