@@ -3,6 +3,9 @@
 One line per slice, newest first. Each line: date, slice name, what changed for a user or a developer.
 Work before Map slice 1.1 (hardening passes 0 to 12) is in the git history.
 
+## 2026-11-19
+- Cleanup slice 14: Retire cs13 mutation branches, allow renamed-test reasons in check_srd_terms.py, and enforce append-only history on test/removed_test_names.txt in check_test_names.py (Fixes 1.1-1.3).
+
 ## 2026-11-18
 - Cleanup slice 13: Re-pin vtt_engine_core to 87011633eb26d170a67b7992132cae9866cd297b, declare moved D&D fields and typed model fields directly on Character/InventoryItemInstance (zero super.* conversions), implement IRulesetModule<Character>, add Dnd5eRulesetModule.forEdition, route Character.queryStat through edition module with ArgumentError on unknown keys, align customProperties['armorClass'/'ac'] override with CharacterEvaluationEngine, and add typed contract laws, no-super-conversion bar, and Step 8 golden diff-guard (Fixes 8.1-8.5).
 - Cleanup slice 13: Re-pin vtt_engine_core to db2e90c5e657a6c6ccba631764e999816d2e14fd, extend TabletopCharacter/TabletopResourcePool/TabletopItemInstance/TabletopEntityType, delete RulesetVersion alias, remove all hide combinators on core/ruleset URIs, and add unique-type-names and no-package-hide compliance bars (Fixes 7.1, 7.2).
