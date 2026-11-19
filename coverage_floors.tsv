@@ -1,5 +1,5 @@
 path	floor
-TOTAL	57.9
+TOTAL	62.9
 lib/src/attributes/dnd5e_attributes.dart	48.0
 lib/src/attributes/dnd_5e_attribute_system.dart	18.1
 lib/src/attributes/dnd_5e_rules_engine.dart	44.4
@@ -8,7 +8,7 @@ lib/src/combat/combat_odds.dart	100.0
 lib/src/combat/damage_adjustment.dart	100.0
 lib/src/combat/dnd_5e_combat_resolver.dart	76.6
 lib/src/currency/dnd_5e_currency_system.dart	72.5
-lib/src/dice/dice_expression.dart	76.8
+lib/src/dice/dice_expression.dart	77.3
 lib/src/evaluation/character_evaluation_engine.dart	67.5
 lib/src/evaluation/character_stat_calculator.dart	76.2
 lib/src/mechanics/exhaustion_state.dart	79.0
@@ -25,6 +25,6 @@ lib/src/rules/dnd_ruleset_strategy.dart	31.0
 lib/src/rules/ruleset_context.dart	95.8
 lib/src/rules/ruleset_edition.dart	54.5
 lib/src/simulation/dnd_5e_dpr_simulation_strategy.dart	100.0
-lib/src/spellcasting/spell_allocation_validator.dart	0.9
+lib/src/spellcasting/spell_allocation_validator.dart	97.1
 lib/src/spellcasting/spellcasting_rules_engine.dart	63.6
 lib/vtt_ruleset_dnd5e.dart	0.0
