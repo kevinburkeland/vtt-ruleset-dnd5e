@@ -6,6 +6,7 @@ import 'package:vtt_engine_core/rules/i_ruleset_module.dart';
 import '../attributes/dnd_5e_attribute_system.dart';
 import '../combat/dnd_5e_combat_resolver.dart';
 import '../currency/dnd_5e_currency_system.dart';
+import '../models/character_models.dart';
 import 'dnd5e_ruleset_module.dart';
 
 // ============================================================================
@@ -13,7 +14,7 @@ import 'dnd5e_ruleset_module.dart';
 // ============================================================================
 
 /// 2014 Ruleset (SRD 5.1) module implementation.
-class Dnd5e2014Module implements IRulesetModule {
+class Dnd5e2014Module implements IRulesetModule<Character> {
   const Dnd5e2014Module();
 
   @override
@@ -72,7 +73,7 @@ class Dnd5e2014Module implements IRulesetModule {
 
   @override
   int calculateDerivedStat({
-    required dynamic character,
+    required Character character,
     required String statKey,
     Map<String, dynamic> context = const {},
   }) {
@@ -101,7 +102,7 @@ class Dnd5e2014ExhaustionMechanic implements IExhaustionMechanic {
   int get maxExhaustionTiers => 6;
 
   @override
-  int calculateD20Penalty(int tier) =>
+  int calculateRollPenalty(int tier) =>
       0; // 2014 imposes disadvantage rather than linear penalty
 
   @override
@@ -164,7 +165,7 @@ class Dnd5e2014ActionEconomy implements IActionEconomy {
 // ============================================================================
 
 /// 2024 Revised Ruleset (SRD 5.2.1) module implementation.
-class Dnd5e2024Module implements IRulesetModule {
+class Dnd5e2024Module implements IRulesetModule<Character> {
   const Dnd5e2024Module();
 
   @override
@@ -223,7 +224,7 @@ class Dnd5e2024Module implements IRulesetModule {
 
   @override
   int calculateDerivedStat({
-    required dynamic character,
+    required Character character,
     required String statKey,
     Map<String, dynamic> context = const {},
   }) {
@@ -252,7 +253,7 @@ class Dnd5e2024ExhaustionMechanic implements IExhaustionMechanic {
   int get maxExhaustionTiers => 6;
 
   @override
-  int calculateD20Penalty(int tier) => (tier.clamp(0, 6)) * 2;
+  int calculateRollPenalty(int tier) => (tier.clamp(0, 6)) * 2;
 
   @override
   int calculateSpeedPenalty(int tier, int baseSpeed) => (tier.clamp(0, 6)) * 5;

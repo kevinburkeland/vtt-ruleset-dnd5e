@@ -41,7 +41,7 @@ void main() {
       final exhaustion = module.getCapability<IExhaustionMechanic>();
       expect(exhaustion, isNotNull);
       expect(exhaustion!.maxExhaustionTiers, equals(6));
-      expect(exhaustion.calculateD20Penalty(2), equals(4)); // 2024: -4 to D20 tests
+      expect(exhaustion.calculateRollPenalty(2), equals(4)); // 2024: -4 to D20 tests
       expect(exhaustion.isFatal(6), isTrue);
 
       expect(module.hasCapability<IRestMechanic>(), isTrue);
@@ -68,7 +68,7 @@ void main() {
       expect(module2014.rulesetVersion, equals('SRD 5.1'));
 
       final exhaustion2014 = module2014.getCapability<IExhaustionMechanic>()!;
-      expect(exhaustion2014.calculateD20Penalty(2), equals(0)); // 2014 uses disadvantage, not linear penalty
+      expect(exhaustion2014.calculateRollPenalty(2), equals(0)); // 2014 uses disadvantage, not linear penalty
       expect(exhaustion2014.calculateSpeedPenalty(2, 30), equals(15)); // 2014 level 2: speed halved
 
       final economy2014 = module2014.getCapability<IActionEconomy>()!;

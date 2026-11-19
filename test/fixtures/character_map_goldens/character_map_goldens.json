@@ -165,7 +165,7 @@
       "id": "existing_1",
       "input": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "Soldier",
           "grantedSkills": [],
@@ -312,7 +312,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "Soldier",
           "grantedSkills": [],
@@ -460,7 +460,7 @@
       "id": "existing_2",
       "input": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 14,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 10,
@@ -575,7 +575,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 14,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 10,
@@ -701,7 +701,7 @@
             }
           ]
         },
-        "armorClass": 10,
+        "armorClass": 12,
         "backgroundRef": {
           "displayName": "Sage",
           "grantedSkills": [],
@@ -841,7 +841,7 @@
             }
           ]
         },
-        "armorClass": 10,
+        "armorClass": 12,
         "backgroundRef": {
           "displayName": "Sage",
           "grantedSkills": [],
@@ -1175,7 +1175,7 @@
       "id": "existing_5",
       "input": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 10,
@@ -1274,7 +1274,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 10,
@@ -1374,7 +1374,7 @@
       "id": "existing_6",
       "input": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 8,
@@ -1473,7 +1473,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 8,
@@ -1589,7 +1589,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 10,
@@ -1956,7 +1956,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -2164,7 +2164,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -2435,7 +2435,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -2731,7 +2731,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -3015,7 +3015,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 11,
@@ -3559,7 +3559,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -3840,7 +3840,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 10,
@@ -4076,7 +4076,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -4264,7 +4264,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 14,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 20,
@@ -4455,7 +4455,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 20,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -4909,7 +4909,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -5087,7 +5087,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -5255,7 +5255,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 9,
@@ -5450,7 +5450,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -5709,7 +5709,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 14,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -6199,7 +6199,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -6440,7 +6440,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 14,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -6676,7 +6676,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 29,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 10,
@@ -6943,7 +6943,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -7266,7 +7266,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -7749,7 +7749,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -7993,7 +7993,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 13,
@@ -8204,7 +8204,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 20,
@@ -8432,7 +8432,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 12,
@@ -8685,7 +8685,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -9153,7 +9153,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 20,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -9423,7 +9423,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 20,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -9685,7 +9685,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -9971,7 +9971,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -10222,7 +10222,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -10680,7 +10680,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -10909,7 +10909,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -11155,7 +11155,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 12,
@@ -11368,7 +11368,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 19,
@@ -11608,7 +11608,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 20,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -12097,7 +12097,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 19,
@@ -12332,7 +12332,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 12,
@@ -12507,7 +12507,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 15,
@@ -12709,7 +12709,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -13003,7 +13003,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 23,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -13575,7 +13575,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 28,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 19,
@@ -13812,7 +13812,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -14049,7 +14049,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 22,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -14299,7 +14299,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -14563,7 +14563,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 20,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -15137,7 +15137,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 20,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -15399,7 +15399,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -15691,7 +15691,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -15923,7 +15923,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 27,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -16144,7 +16144,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 25,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 14,
@@ -16627,7 +16627,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -16922,7 +16922,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 15,
@@ -17141,7 +17141,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -17378,7 +17378,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -17650,7 +17650,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -18181,7 +18181,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -18431,7 +18431,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 9,
@@ -18683,7 +18683,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -18905,7 +18905,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -19133,7 +19133,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 14,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -19640,7 +19640,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -19928,7 +19928,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -20212,7 +20212,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 22,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 13,
@@ -20413,7 +20413,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 9,
@@ -20636,7 +20636,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -21088,7 +21088,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -21381,7 +21381,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 24,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 19,
@@ -21620,7 +21620,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -21864,7 +21864,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 20,
@@ -22134,7 +22134,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -22661,7 +22661,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 20,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -22893,7 +22893,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 26,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 16,
@@ -23077,7 +23077,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 10,
@@ -23293,7 +23293,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 13,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -23570,7 +23570,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -24005,7 +24005,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 26,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -24250,7 +24250,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -24544,7 +24544,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -24807,7 +24807,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -25116,7 +25116,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -25610,7 +25610,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 21,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 13,
@@ -25829,7 +25829,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -26094,7 +26094,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 13,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 12,
@@ -26406,7 +26406,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -26725,7 +26725,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -27285,7 +27285,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -27542,7 +27542,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 16,
@@ -27776,7 +27776,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 12,
@@ -27996,7 +27996,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 19,
@@ -28267,7 +28267,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 11,
@@ -28878,7 +28878,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -29174,7 +29174,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -29465,7 +29465,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 25,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -29756,7 +29756,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -30041,7 +30041,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 11,
@@ -30542,7 +30542,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -30794,7 +30794,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 14,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -31024,7 +31024,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -31334,7 +31334,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -31598,7 +31598,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 12,
@@ -32003,7 +32003,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 14,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -32310,7 +32310,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 21,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -32580,7 +32580,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 20,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -32804,7 +32804,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -33055,7 +33055,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -33507,7 +33507,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -33746,7 +33746,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 27,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -33960,7 +33960,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -34227,7 +34227,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 21,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 14,
@@ -34520,7 +34520,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 16,
@@ -34986,7 +34986,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -35258,7 +35258,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -35508,7 +35508,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -35747,7 +35747,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -35989,7 +35989,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 19,
@@ -36497,7 +36497,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -36741,7 +36741,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 23,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -36934,7 +36934,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -37131,7 +37131,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -37314,7 +37314,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 20,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 10,
@@ -37830,7 +37830,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -38097,7 +38097,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 20,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -38308,7 +38308,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 20,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 11,
@@ -38579,7 +38579,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -38853,7 +38853,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 21,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -39314,7 +39314,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 11,
@@ -39569,7 +39569,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -39796,7 +39796,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -40037,7 +40037,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -40335,7 +40335,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 20,
@@ -40909,7 +40909,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -41178,7 +41178,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -41480,7 +41480,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -41768,7 +41768,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 16,
@@ -42015,7 +42015,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -42469,7 +42469,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 25,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -42703,7 +42703,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 21,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 14,
@@ -42971,7 +42971,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 11,
@@ -43207,7 +43207,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -43443,7 +43443,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 8,
@@ -43995,7 +43995,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 26,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 11,
@@ -44234,7 +44234,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 24,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 8,
@@ -44479,7 +44479,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -44746,7 +44746,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 14,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -45003,7 +45003,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 12,
@@ -45639,7 +45639,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -45984,7 +45984,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -46289,7 +46289,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -46512,7 +46512,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 20,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -46750,7 +46750,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 22,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -47267,7 +47267,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 17,
@@ -47524,7 +47524,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 20,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -47804,7 +47804,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -48059,7 +48059,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 17,
@@ -48270,7 +48270,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -48788,7 +48788,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -49032,7 +49032,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -49246,7 +49246,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -49523,7 +49523,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 16,
@@ -49786,7 +49786,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 18,
@@ -50359,7 +50359,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 12,
@@ -50596,7 +50596,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 25,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -50811,7 +50811,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 8,
@@ -51000,7 +51000,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -51262,7 +51262,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 21,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -51739,7 +51739,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 21,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 10,
@@ -52020,7 +52020,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -52236,7 +52236,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 26,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -52476,7 +52476,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -52731,7 +52731,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 18,
@@ -53322,7 +53322,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -53621,7 +53621,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 21,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -53876,7 +53876,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 27,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -54104,7 +54104,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 23,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -54369,7 +54369,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -54855,7 +54855,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 20,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 8,
@@ -55124,7 +55124,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -55393,7 +55393,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -55631,7 +55631,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -55854,7 +55854,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 10,
@@ -56297,7 +56297,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 17,
@@ -56608,7 +56608,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 23,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 9,
@@ -56891,7 +56891,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -57162,7 +57162,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -57454,7 +57454,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -58034,7 +58034,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -58298,7 +58298,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 8,
@@ -58517,7 +58517,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 21,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -58721,7 +58721,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 12,
@@ -58919,7 +58919,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -59455,7 +59455,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 19,
@@ -59766,7 +59766,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 19,
@@ -60059,7 +60059,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -60338,7 +60338,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 24,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 19,
@@ -60593,7 +60593,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -61048,7 +61048,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -61300,7 +61300,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -61584,7 +61584,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -61843,7 +61843,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -62140,7 +62140,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -62594,7 +62594,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 10,
@@ -62808,7 +62808,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 14,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 14,
@@ -63008,7 +63008,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 12,
@@ -63262,7 +63262,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 15,
@@ -63488,7 +63488,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -63915,7 +63915,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 21,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -64155,7 +64155,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 25,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -64385,7 +64385,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -64648,7 +64648,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -64918,7 +64918,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -65431,7 +65431,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 10,
@@ -65746,7 +65746,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 20,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -66004,7 +66004,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -66203,7 +66203,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 18,
@@ -66437,7 +66437,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 11,
@@ -66843,7 +66843,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 19,
@@ -67049,7 +67049,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 21,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 12,
@@ -67282,7 +67282,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -67535,7 +67535,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -67809,7 +67809,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 8,
@@ -68341,7 +68341,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -68601,7 +68601,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 8,
@@ -68865,7 +68865,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -69091,7 +69091,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -69329,7 +69329,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 20,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 19,
@@ -69759,7 +69759,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 23,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -69953,7 +69953,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 26,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -70156,7 +70156,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -70359,7 +70359,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 10,
@@ -70536,7 +70536,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -70981,7 +70981,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -71288,7 +71288,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 20,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -71540,7 +71540,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 24,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -71770,7 +71770,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 14,
@@ -72033,7 +72033,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 21,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -72516,7 +72516,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -72772,7 +72772,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 11,
@@ -73009,7 +73009,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 17,
@@ -73215,7 +73215,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 12,
@@ -73444,7 +73444,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -73918,7 +73918,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 17,
@@ -74134,7 +74134,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -74400,7 +74400,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -74666,7 +74666,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -74918,7 +74918,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -75391,7 +75391,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -75603,7 +75603,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 20,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -75799,7 +75799,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -76030,7 +76030,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 23,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -76317,7 +76317,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 11,
@@ -76802,7 +76802,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "sage",
           "grantedSkills": [],
@@ -77043,7 +77043,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -77329,7 +77329,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 16,
@@ -77602,7 +77602,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 19,
         "backgroundRef": {
           "displayName": "folk_hero",
           "grantedSkills": [],
@@ -77919,7 +77919,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "acolyte",
           "grantedSkills": [],
@@ -78443,7 +78443,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -78728,7 +78728,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -78982,7 +78982,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 11,
@@ -79230,7 +79230,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 23,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -79531,7 +79531,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 15,
         "backgroundRef": {
           "displayName": "criminal",
           "grantedSkills": [],
@@ -80008,7 +80008,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 27,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 16,
@@ -80197,7 +80197,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 17,
         "backgroundRef": {
           "displayName": "noble",
           "grantedSkills": [],
@@ -80355,7 +80355,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 16,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 11,
@@ -80560,7 +80560,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 9,
@@ -80858,7 +80858,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": {
           "displayName": "soldier",
           "grantedSkills": [],
@@ -81397,7 +81397,7 @@
       "separateFromMapEqual": true,
       "toMap": {
         "allocatedSpells": {},
-        "armorClass": 10,
+        "armorClass": 18,
         "backgroundRef": null,
         "baseScores": {
           "charisma": 18,
@@ -81555,30 +81555,30 @@
     {
       "byModule": {
         "Dnd5e2014Module": {
-          "ac": 18,
+          "ac": 12,
           "initiative": 4,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
-          "ac": 18,
+          "ac": 12,
           "initiative": 4,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
-          "ac": 18,
+          "ac": 12,
           "initiative": 4,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_0",
       "noModule": {
         "ac": 12,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "initiative": 4,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -81586,28 +81586,28 @@
         "Dnd5e2014Module": {
           "ac": 15,
           "initiative": 5,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 15,
           "initiative": 5,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 15,
           "initiative": 5,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_1",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 15,
+        "initiative": 5,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -81615,28 +81615,28 @@
         "Dnd5e2014Module": {
           "ac": 18,
           "initiative": 8,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 18,
           "initiative": 8,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 18,
           "initiative": 8,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_2",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 18,
+        "initiative": 8,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -81644,28 +81644,28 @@
         "Dnd5e2014Module": {
           "ac": 17,
           "initiative": 6,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 17,
           "initiative": 6,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 17,
           "initiative": 6,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_3",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 17,
+        "initiative": 6,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -81673,28 +81673,28 @@
         "Dnd5e2014Module": {
           "ac": 15,
           "initiative": 5,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 15,
           "initiative": 5,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 15,
           "initiative": 5,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_4",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 15,
+        "initiative": 5,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -81702,57 +81702,57 @@
         "Dnd5e2014Module": {
           "ac": 16,
           "initiative": 5,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 16,
           "initiative": 5,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 16,
           "initiative": 5,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_5",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 16,
+        "initiative": 5,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
       "byModule": {
         "Dnd5e2014Module": {
-          "ac": 14,
+          "ac": 20,
           "initiative": 4,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
-          "ac": 14,
+          "ac": 20,
           "initiative": 4,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
-          "ac": 14,
+          "ac": 20,
           "initiative": 4,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_6",
       "noModule": {
         "ac": 20,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "initiative": 4,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -81760,28 +81760,28 @@
         "Dnd5e2014Module": {
           "ac": 17,
           "initiative": 6,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 17,
           "initiative": 6,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 17,
           "initiative": 6,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_7",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 17,
+        "initiative": 6,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -81789,28 +81789,28 @@
         "Dnd5e2014Module": {
           "ac": 19,
           "initiative": 8,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 19,
           "initiative": 8,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 19,
           "initiative": 8,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_8",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 19,
+        "initiative": 8,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -81818,28 +81818,28 @@
         "Dnd5e2014Module": {
           "ac": 15,
           "initiative": 5,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 15,
           "initiative": 5,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 15,
           "initiative": 5,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_9",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 15,
+        "initiative": 5,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -81847,28 +81847,28 @@
         "Dnd5e2014Module": {
           "ac": 14,
           "initiative": 4,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 14,
           "initiative": 4,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 14,
           "initiative": 4,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_10",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 14,
+        "initiative": 4,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -81876,57 +81876,57 @@
         "Dnd5e2014Module": {
           "ac": 20,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 20,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 20,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_11",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 20,
+        "initiative": 7,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
       "byModule": {
         "Dnd5e2014Module": {
-          "ac": 16,
+          "ac": 18,
           "initiative": 6,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
-          "ac": 16,
+          "ac": 18,
           "initiative": 6,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
-          "ac": 16,
+          "ac": 18,
           "initiative": 6,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_12",
       "noModule": {
         "ac": 18,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "initiative": 6,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -81934,28 +81934,28 @@
         "Dnd5e2014Module": {
           "ac": 19,
           "initiative": 10,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 19,
           "initiative": 10,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 19,
           "initiative": 10,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_13",
       "noModule": {
-        "ac": 10,
+        "ac": 19,
         "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -81963,28 +81963,28 @@
         "Dnd5e2014Module": {
           "ac": 18,
           "initiative": 8,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 18,
           "initiative": 8,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 18,
           "initiative": 8,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_14",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 18,
+        "initiative": 8,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -81992,28 +81992,28 @@
         "Dnd5e2014Module": {
           "ac": 17,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 17,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 17,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_15",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 17,
+        "initiative": 7,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -82021,28 +82021,28 @@
         "Dnd5e2014Module": {
           "ac": 18,
           "initiative": 6,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 18,
           "initiative": 6,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 18,
           "initiative": 6,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_16",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 18,
+        "initiative": 6,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -82050,57 +82050,57 @@
         "Dnd5e2014Module": {
           "ac": 14,
           "initiative": 4,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 14,
           "initiative": 4,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 14,
           "initiative": 4,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_17",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 14,
+        "initiative": 4,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
       "byModule": {
         "Dnd5e2014Module": {
-          "ac": 26,
+          "ac": 15,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
-          "ac": 26,
+          "ac": 15,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
-          "ac": 26,
+          "ac": 15,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_18",
       "noModule": {
         "ac": 15,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "initiative": 7,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -82108,28 +82108,28 @@
         "Dnd5e2014Module": {
           "ac": 18,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 18,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 18,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_19",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 18,
+        "initiative": 7,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -82137,28 +82137,28 @@
         "Dnd5e2014Module": {
           "ac": 14,
           "initiative": 6,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 14,
           "initiative": 6,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 14,
           "initiative": 6,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_20",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 14,
+        "initiative": 6,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -82166,28 +82166,28 @@
         "Dnd5e2014Module": {
           "ac": 29,
           "initiative": 9,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 29,
           "initiative": 9,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 29,
           "initiative": 9,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_21",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 29,
+        "initiative": 9,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -82195,28 +82195,28 @@
         "Dnd5e2014Module": {
           "ac": 19,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 19,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 19,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_22",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 19,
+        "initiative": 7,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -82224,57 +82224,57 @@
         "Dnd5e2014Module": {
           "ac": 16,
           "initiative": 8,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 16,
           "initiative": 8,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 16,
           "initiative": 8,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_23",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 16,
+        "initiative": 8,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
       "byModule": {
         "Dnd5e2014Module": {
-          "ac": 16,
+          "ac": 14,
           "initiative": 6,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
-          "ac": 16,
+          "ac": 14,
           "initiative": 6,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
-          "ac": 16,
+          "ac": 14,
           "initiative": 6,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_24",
       "noModule": {
         "ac": 14,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "initiative": 6,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -82282,28 +82282,28 @@
         "Dnd5e2014Module": {
           "ac": 15,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 15,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 15,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_25",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 15,
+        "initiative": 7,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -82311,28 +82311,28 @@
         "Dnd5e2014Module": {
           "ac": 16,
           "initiative": 8,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 16,
           "initiative": 8,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 16,
           "initiative": 8,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_26",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 16,
+        "initiative": 8,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -82340,28 +82340,28 @@
         "Dnd5e2014Module": {
           "ac": 15,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 15,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 15,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_27",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 15,
+        "initiative": 7,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -82369,28 +82369,28 @@
         "Dnd5e2014Module": {
           "ac": 16,
           "initiative": 5,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 16,
           "initiative": 5,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 16,
           "initiative": 5,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_28",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 16,
+        "initiative": 5,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     },
     {
@@ -82398,28 +82398,28 @@
         "Dnd5e2014Module": {
           "ac": 17,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5e2024Module": {
           "ac": 17,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         },
         "Dnd5eRulesetModule": {
           "ac": 17,
           "initiative": 7,
-          "perception": 10,
-          "zz_unknown": 10
+          "perception": "ArgumentError",
+          "zz_unknown": "ArgumentError"
         }
       },
       "id": "seeded_29",
       "noModule": {
-        "ac": 10,
-        "initiative": 10,
-        "perception": 10,
-        "zz_unknown": 10
+        "ac": 17,
+        "initiative": 7,
+        "perception": "ArgumentError",
+        "zz_unknown": "ArgumentError"
       }
     }
   ],

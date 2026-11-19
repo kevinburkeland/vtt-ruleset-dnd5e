@@ -552,24 +552,32 @@ Map<String, dynamic> _buildGoldenPayload() {
     addCase('seeded_$i', seededMaps[i]);
   }
 
-  final modules = <String, IRulesetModule>{
+  final modules = <String, IRulesetModule<Character>>{
     'Dnd5eRulesetModule': const Dnd5eRulesetModule(),
     'Dnd5e2014Module': const Dnd5e2014Module(),
     'Dnd5e2024Module': const Dnd5e2024Module(),
   };
   const statKeys = ['ac', 'initiative', 'perception', 'zz_unknown'];
 
+  Object evalStat(Character c, String k, {IRulesetModule<Character>? module}) {
+    try {
+      return c.queryStat(k, module: module);
+    } on ArgumentError {
+      return 'ArgumentError';
+    }
+  }
+
   final queryStatCases = <Map<String, dynamic>>[];
   for (var i = 0; i < 30; i++) {
     final c = Character.fromMap(seededMaps[i]);
-    final byModule = <String, Map<String, int>>{};
+    final byModule = <String, Map<String, Object>>{};
     for (final entry in modules.entries) {
       byModule[entry.key] = {
-        for (final k in statKeys) k: c.queryStat(k, module: entry.value),
+        for (final k in statKeys) k: evalStat(c, k, module: entry.value),
       };
     }
-    final noModule = <String, int>{
-      for (final k in statKeys) k: c.queryStat(k),
+    final noModule = <String, Object>{
+      for (final k in statKeys) k: evalStat(c, k),
     };
     queryStatCases.add({
       'id': 'seeded_$i',
@@ -640,6 +648,72 @@ void main() {
           _canonicalJson(expectedQs[i]),
           reason: 'Mismatch at queryStat case ${(expectedQs[i] as Map)['id']}',
         );
+      }
+    });
+
+    test('Fix 8.5 diff-guard: Step 8 golden differs from Step 6 baseline only in armorClass and Fix 8.5 queryStat semantics', () {
+      final gitRes = Process.runSync('git', [
+        'show',
+        '983beb8be6ab3dc9262e3e2fe85c3b3ca11c8656:$_fixturePath',
+      ]);
+      expect(
+        gitRes.exitCode,
+        0,
+        reason: 'Could not read Step 6 baseline fixture from git history: ${gitRes.stderr}',
+      );
+      final oldDoc = jsonDecode(gitRes.stdout as String) as Map<String, dynamic>;
+      final newDoc =
+          jsonDecode(File(_fixturePath).readAsStringSync()) as Map<String, dynamic>;
+
+      expect(newDoc['existingCount'], oldDoc['existingCount']);
+      expect(newDoc['seededCount'], oldDoc['seededCount']);
+      expect(newDoc['totalCases'], oldDoc['totalCases']);
+      expect(newDoc['queryStatCount'], oldDoc['queryStatCount']);
+
+      final oldCases = oldDoc['cases'] as List<dynamic>;
+      final newCases = newDoc['cases'] as List<dynamic>;
+      expect(newCases.length, oldCases.length);
+      for (var i = 0; i < oldCases.length; i++) {
+        final o = Map<String, dynamic>.from(oldCases[i] as Map);
+        final n = Map<String, dynamic>.from(newCases[i] as Map);
+        final oToMap = Map<String, dynamic>.from(o['toMap'] as Map)..remove('armorClass');
+        final nToMap = Map<String, dynamic>.from(n['toMap'] as Map)..remove('armorClass');
+        final oInput = Map<String, dynamic>.from(o['input'] as Map)..remove('armorClass');
+        final nInput = Map<String, dynamic>.from(n['input'] as Map)..remove('armorClass');
+        o['toMap'] = oToMap;
+        n['toMap'] = nToMap;
+        o['input'] = oInput;
+        n['input'] = nInput;
+        expect(
+          _canonicalJson(n),
+          _canonicalJson(o),
+          reason: 'Unexpected non-armorClass diff at case ${o['id']}',
+        );
+      }
+
+      final oldQs = oldDoc['queryStatCases'] as List<dynamic>;
+      final newQs = newDoc['queryStatCases'] as List<dynamic>;
+      expect(newQs.length, oldQs.length);
+      for (var i = 0; i < oldQs.length; i++) {
+        final o = oldQs[i] as Map<String, dynamic>;
+        final n = newQs[i] as Map<String, dynamic>;
+        expect(n['id'], o['id']);
+        final oByMod = o['byModule'] as Map<String, dynamic>;
+        final nByMod = n['byModule'] as Map<String, dynamic>;
+        expect(nByMod.keys.toSet(), oByMod.keys.toSet());
+        final caseInput = (newCases[8 + i] as Map)['input'] as Map<String, dynamic>;
+        final customProps = caseInput['customProperties'] as Map<String, dynamic>? ?? const {};
+        final hasAcOverride = customProps['ac'] is num;
+        for (final mod in oByMod.keys) {
+          final om = oByMod[mod] as Map<String, dynamic>;
+          final nm = nByMod[mod] as Map<String, dynamic>;
+          expect(nm['initiative'], om['initiative'], reason: '${o['id']} $mod initiative');
+          if (!hasAcOverride) {
+            expect(nm['ac'], om['ac'], reason: '${o['id']} $mod ac');
+          }
+          expect(nm['perception'], 'ArgumentError', reason: '${o['id']} $mod perception');
+          expect(nm['zz_unknown'], 'ArgumentError', reason: '${o['id']} $mod zz_unknown');
+        }
       }
     });
   });

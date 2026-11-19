@@ -561,12 +561,20 @@ class CharacterEvaluationEngine {
       }
     }
 
-    final totalAc = baseAc + dexAcBonus + shieldBonus + magicAcBonus;
-    final breakdownParts = <String>[armorDesc];
-    if (shieldBonus > 0 && shieldDesc != null) breakdownParts.add(shieldDesc);
-    for (final src in magicAcSources) {
-      breakdownParts.add(src);
-    }
+    final customAcOverride =
+        (character.customProperties['armorClass'] as num?)?.toInt() ??
+            (character.customProperties['ac'] as num?)?.toInt();
+    final totalAc =
+        customAcOverride ?? (baseAc + dexAcBonus + shieldBonus + magicAcBonus);
+    final breakdownParts = <String>[
+      if (customAcOverride != null)
+        '$customAcOverride (Custom Override)'
+      else ...[
+        armorDesc,
+        if (shieldBonus > 0 && shieldDesc != null) shieldDesc,
+        ...magicAcSources,
+      ],
+    ];
     final breakdownString = '${breakdownParts.join(' + ')} = $totalAc AC';
 
     // 5. HP, Speed, and Initiative (Retroactive CON Scaling across all Hit Dice)

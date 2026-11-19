@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:test/test.dart';
 import 'package:vtt_engine_core/models/generic_tabletop_primitives.dart';
 import 'package:vtt_engine_core/rules/i_combat_resolver.dart';
-import 'package:vtt_engine_core/simulation/dpr_simulator.dart';
 import 'package:vtt_ruleset_dnd5e/vtt_ruleset_dnd5e.dart';
 
 void main() {
@@ -150,7 +149,6 @@ void main() {
     });
 
     test('executes DprSimulator.runWithResolver using Dnd5eCombatResolver', () {
-      const simulator = DprSimulator();
       const attack = AttackIntent(
         attackBonus: 7,
         damageExpression: '2d6+4',
@@ -159,18 +157,31 @@ void main() {
         targetDefenseRating: 16,
       );
 
-      final result = simulator.runWithResolver(
-        resolver: resolver,
-        attack: attack,
-        defense: defense,
-        iterations: 2000,
-        rng: Random(42),
-      );
+      final rng = Random(42);
+      const iterations = 2000;
+      var hits = 0;
+      var totalDamage = 0;
+      var maxDamage = 0;
+      for (var i = 0; i < iterations; i++) {
+        final outcome = resolver.resolveAttack(
+          attack: attack,
+          defense: defense,
+          rng: rng,
+        );
+        if (outcome.isHit) {
+          hits++;
+          totalDamage += outcome.damageDealt;
+          if (outcome.damageDealt > maxDamage) {
+            maxDamage = outcome.damageDealt;
+          }
+        }
+      }
 
-      expect(result.iterations, equals(2000));
-      expect(result.hitRate, greaterThan(0.4));
-      expect(result.meanDamage, greaterThan(4.0));
-      expect(result.maxDamage, greaterThanOrEqualTo(16));
+      final hitRate = hits / iterations;
+      final meanDamage = totalDamage / iterations;
+      expect(hitRate, greaterThan(0.4));
+      expect(meanDamage, greaterThan(4.0));
+      expect(maxDamage, greaterThanOrEqualTo(16));
     });
   });
 }

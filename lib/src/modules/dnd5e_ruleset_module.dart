@@ -13,13 +13,18 @@ import 'dnd_5e_modules.dart';
 
 /// Pluggable D&D 5e Ruleset Module encapsulating 2014 and 2024 tabletop mechanics,
 /// derived statistic resolution, resting frameworks, action budgets, and exhaustion.
-class Dnd5eRulesetModule implements IRulesetModule {
+class Dnd5eRulesetModule implements IRulesetModule<Character> {
   final RulesetEdition edition;
 
   const Dnd5eRulesetModule({this.edition = RulesetEdition.v2024});
 
   const Dnd5eRulesetModule.v2014() : edition = RulesetEdition.v2014;
   const Dnd5eRulesetModule.v2024() : edition = RulesetEdition.v2024;
+
+  static Dnd5eRulesetModule forEdition(RulesetEdition edition) =>
+      edition == RulesetEdition.v2014
+          ? const Dnd5eRulesetModule.v2014()
+          : const Dnd5eRulesetModule.v2024();
 
 
   @override
@@ -97,13 +102,10 @@ class Dnd5eRulesetModule implements IRulesetModule {
 
   @override
   int calculateDerivedStat({
-    required dynamic character,
+    required Character character,
     required String statKey,
     Map<String, dynamic> context = const {},
   }) {
-    if (character is! Character) {
-      return 10;
-    }
     return switch (statKey.toLowerCase().trim()) {
       'ac' ||
       'armor_class' ||
@@ -122,7 +124,11 @@ class Dnd5eRulesetModule implements IRulesetModule {
       'passive_insight' ||
       'passiveinsight' =>
         calculateCharacterPassiveInsight(character),
-      _ => (character.customProperties[statKey] as num?)?.toInt() ?? 10,
+      _ => throw ArgumentError.value(
+          statKey,
+          'statKey',
+          'Unknown derived stat key for D&D 5e ruleset module',
+        ),
     };
   }
 
@@ -137,9 +143,12 @@ class Dnd5eRulesetModule implements IRulesetModule {
     final conMod = character.effectiveAbilityScores.getModifier('constitution');
     final wisMod = character.effectiveAbilityScores.getModifier('wisdom');
 
-    // 1. Check custom AC override
-    if (character.customProperties['armorClass'] is num) {
-      return (character.customProperties['armorClass'] as num).toInt();
+    // 1. Check custom AC override (honours both 'armorClass' and 'ac')
+    final customAcOverride =
+        (character.customProperties['armorClass'] as num?)?.toInt() ??
+            (character.customProperties['ac'] as num?)?.toInt();
+    if (customAcOverride != null) {
+      return customAcOverride;
     }
 
     // 2. Scan equipped inventory for armor and shields

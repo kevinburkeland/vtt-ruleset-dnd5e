@@ -263,45 +263,72 @@ class CharacterProgression {
 
 @immutable
 class InventoryItemInstance extends TabletopItemInstance {
+  final EquipmentSlot? _equippedSlot;
   final bool isAttuned;
   final bool requiresAttunement;
   final String? customName;
   final String? notes;
 
-  InventoryItemInstance({
+  @override
+  EquipmentSlot? get equippedSlot => _equippedSlot;
+
+  factory InventoryItemInstance({
+    required EntityReference<DomainEntity> itemRef,
+    required String instanceId,
+    int quantity = 1,
+    bool isEquipped = false,
+    dynamic equippedSlot,
+    Map<String, dynamic> customProperties = const {},
+    String? customName,
+    String? notes,
+    bool isAttuned = false,
+    bool requiresAttunement = false,
+  }) {
+    final parsedSlot = equippedSlot is EquipmentSlot
+        ? equippedSlot
+        : (equippedSlot is String ? _parseEquipmentSlot(equippedSlot) : null);
+    return InventoryItemInstance._internal(
+      itemRef: itemRef,
+      instanceId: instanceId,
+      quantity: quantity,
+      isEquipped: isEquipped,
+      slot: parsedSlot,
+      customProperties: customProperties,
+      customName: customName,
+      notes: notes,
+      isAttuned: isAttuned,
+      requiresAttunement: requiresAttunement,
+    );
+  }
+
+  InventoryItemInstance._internal({
     required super.itemRef,
     required super.instanceId,
     super.quantity = 1,
     super.isEquipped = false,
-    dynamic equippedSlot,
+    EquipmentSlot? slot,
     super.customProperties = const {},
     this.customName,
     this.notes,
     this.isAttuned = false,
     this.requiresAttunement = false,
-  }) : super(
-          equippedSlot: equippedSlot is EquipmentSlot
-              ? equippedSlot
-              : (equippedSlot is String
-                  ? _parseEquipmentSlot(equippedSlot)
-                  : null),
-        );
+  })  : _equippedSlot = slot,
+        super(equippedSlot: slot);
 
   const InventoryItemInstance.constant({
     required super.itemRef,
     required super.instanceId,
     super.quantity = 1,
     super.isEquipped = false,
-    super.equippedSlot,
+    EquipmentSlot? equippedSlot,
     this.customName,
     this.notes,
     this.isAttuned = false,
     this.requiresAttunement = false,
-  }) : super.constant();
-
-  @override
-  EquipmentSlot? get equippedSlot =>
-      super.equippedSlot is EquipmentSlot ? super.equippedSlot as EquipmentSlot : null;
+  })  : _equippedSlot = equippedSlot,
+        super.constant(
+          equippedSlot: equippedSlot is EquipmentSlot ? equippedSlot : null,
+        );
 
   @override
   String get displayName => customName ?? itemRef.displayName;
@@ -803,6 +830,16 @@ class CharacterResourcePool extends TabletopResourcePool {
 /// Active Condition and Temporary Status Effect
 
 class Character extends TabletopCharacter {
+  final EntityReference<DomainEntity> speciesRef;
+  final EntityReference<DomainEntity>? backgroundRef;
+  final CharacterProgression progression;
+  final AbilityScores _baseScores;
+  final AbilityScores _bonusScores;
+  final Map<dynamic, dynamic> traitProficiencies;
+  final Set<dynamic> savingThrowProficiencies;
+  final List<String> toolProficiencies;
+  final List<InventoryItemInstance> _inventory;
+  final CharacterResourcePool _resources;
   final Map<String, List<EntityReference<Spell>>> allocatedSpells;
   final List<EntityReference<Spell>> _rawCantrips;
   final List<EntityReference<Spell>> _rawSpellsKnown;
@@ -810,51 +847,31 @@ class Character extends TabletopCharacter {
   final int maxAttunementSlots;
 
   @override
-  CharacterProgression get progression =>
-      super.progression is CharacterProgression
-          ? super.progression as CharacterProgression
-          : CharacterProgression.fromMap(super.progression.toMap() as Map<String, dynamic>);
+  AbilityScores get baseScores => _baseScores;
 
   @override
-  CharacterResourcePool get resources =>
-      super.resources is CharacterResourcePool
-          ? super.resources as CharacterResourcePool
-          : CharacterResourcePool.fromMap(super.resources.toMap());
+  AbilityScores get bonusScores => _bonusScores;
 
   @override
-  List<InventoryItemInstance> get inventory =>
-      List<InventoryItemInstance>.unmodifiable(
-        super.inventory.map((i) => i is InventoryItemInstance
-            ? i
-            : InventoryItemInstance.fromMap(i.toMap())),
-      );
+  List<InventoryItemInstance> get inventory => _inventory;
 
   @override
-  AbilityScores get baseScores =>
-      super.baseScores is AbilityScores
-          ? super.baseScores as AbilityScores
-          : AbilityScores.fromMap(super.baseScores.toMap());
-
-  @override
-  AbilityScores get bonusScores =>
-      super.bonusScores is AbilityScores
-          ? super.bonusScores as AbilityScores
-          : AbilityScores.fromMap(super.bonusScores.toMap());
+  CharacterResourcePool get resources => _resources;
 
   int get baseSpeedFeet => baseSpeed ?? 30;
 
   const Character({
     required super.id,
     required super.name,
-    required super.speciesRef,
-    super.backgroundRef,
-    super.progression = const CharacterProgression(classes: []),
+    required this.speciesRef,
+    this.backgroundRef,
+    this.progression = const CharacterProgression(classes: []),
     AbilityScores baseScores = const AbilityScores.standardArray(),
     AbilityScores bonusScores = const AbilityScores.zero(),
     Map<dynamic, dynamic>? traitProficiencies,
     Map<dynamic, dynamic>? skillProficiencies,
-    super.savingThrowProficiencies = const <dynamic>{},
-    super.toolProficiencies = const [],
+    this.savingThrowProficiencies = const <dynamic>{},
+    this.toolProficiencies = const [],
     super.languages = const ['Common'],
     List<InventoryItemInstance> inventory = const [],
     super.purse = const PartyPurse.empty(),
@@ -870,13 +887,17 @@ class Character extends TabletopCharacter {
     String rulesetId = 'dnd5e_2014',
     RulesetEdition? rulesEdition,
     super.customProperties = const {},
-  })  : _rawCantrips = cantrips,
+  })  : _baseScores = baseScores,
+        _bonusScores = bonusScores,
+        _inventory = inventory,
+        _resources = resources,
+        traitProficiencies =
+            traitProficiencies ?? skillProficiencies ?? const {},
+        _rawCantrips = cantrips,
         _rawSpellsKnown = spellsKnown,
         super(
           baseScores: baseScores,
           bonusScores: bonusScores,
-          traitProficiencies:
-              traitProficiencies ?? skillProficiencies ?? const {},
           inventory: inventory,
           resources: resources,
           baseSpeed: baseSpeedFeet,
@@ -1246,15 +1267,12 @@ class Character extends TabletopCharacter {
   /// to resolve derived statistics dynamically without hardcoded rules in the entity.
   @override
   int queryStat(String statKey,
-      {IRulesetModule? module, Map<String, dynamic> context = const {}}) {
-    if (module != null) {
-      return module.calculateDerivedStat(
-          character: this, statKey: statKey, context: context);
-    }
-    if (customProperties[statKey] is num) {
-      return (customProperties[statKey] as num).toInt();
-    }
-    return 10;
+      {IRulesetModule<Character>? module,
+      Map<String, dynamic> context = const {}}) {
+    final effectiveModule =
+        module ?? Dnd5eRulesetModule.forEdition(rulesEdition);
+    return effectiveModule.calculateDerivedStat(
+        character: this, statKey: statKey, context: context);
   }
 
   /// Resolves an attribute modifier dynamically by string key using [effectiveAbilityScores],
@@ -1264,7 +1282,6 @@ class Character extends TabletopCharacter {
       effectiveAbilityScores.getModifierByKey(key, system);
 
   /// Resolves trait proficiency multiplier dynamically (e.g. 1.0 for proficient, 2.0 for expertise).
-  @override
   double getTraitProficiency(dynamic traitKey) {
     final clean = (traitKey is Enum ? traitKey.name : traitKey.toString())
         .trim()
@@ -1293,12 +1310,10 @@ class Character extends TabletopCharacter {
   }
 
   /// Whether the character is proficient in saving throws for [key].
-  @override
   bool hasSavingThrowProficiency(dynamic key) =>
       savingThrowProficiencies.contains(key);
 
   /// Resolves skill or trait modifier dynamically from generic [ITraitDefinition].
-  @override
   int getTraitModifier(ITraitDefinition trait,
       [IAttributeSystem? attributeSystem]) {
     final attrKey = trait.governedAttribute;
@@ -1333,7 +1348,6 @@ class Character extends TabletopCharacter {
     );
   }
 
-  @override
   int getSaveModifier(dynamic attributeKey, [IAttributeSystem? attributeSystem]) {
     final keyStr =
         (attributeKey is Enum ? attributeKey.name : attributeKey.toString())
@@ -1530,22 +1544,22 @@ class Character extends TabletopCharacter {
     String? name,
     EntityReference<DomainEntity>? speciesRef,
     EntityReference<DomainEntity>? backgroundRef,
-    dynamic progression,
-    AttributePool? baseScores,
-    AttributePool? bonusScores,
+    CharacterProgression? progression,
+    covariant AbilityScores? baseScores,
+    covariant AbilityScores? bonusScores,
     Map<dynamic, dynamic>? traitProficiencies,
     dynamic skillProficiencies,
     Set<dynamic>? savingThrowProficiencies,
     List<String>? toolProficiencies,
     List<String>? languages,
-    List<TabletopItemInstance>? inventory,
+    covariant List<InventoryItemInstance>? inventory,
     PartyPurse? purse,
     Map<String, List<EntityReference<Spell>>>? allocatedSpells,
     List<EntityReference<Spell>>? cantrips,
     List<EntityReference<Spell>>? spellsKnown,
     List<EntityReference<Spell>>? spellsPrepared,
     List<EntityReference<DomainEntity>>? feats,
-    TabletopResourcePool? resources,
+    covariant CharacterResourcePool? resources,
     List<CharacterCondition>? conditions,
     int? maxAttunementSlots,
     int? baseSpeedFeet,
@@ -1573,15 +1587,9 @@ class Character extends TabletopCharacter {
       name: name ?? this.name,
       speciesRef: speciesRef ?? this.speciesRef,
       backgroundRef: backgroundRef ?? this.backgroundRef,
-      progression: progression != null
-          ? (progression is CharacterProgression ? progression : CharacterProgression.fromMap(progression.toMap() as Map<String, dynamic>))
-          : this.progression,
-      baseScores: baseScores != null
-          ? (baseScores is AbilityScores ? baseScores : AbilityScores.fromMap(baseScores.toMap()))
-          : this.baseScores,
-      bonusScores: bonusScores != null
-          ? (bonusScores is AbilityScores ? bonusScores : AbilityScores.fromMap(bonusScores.toMap()))
-          : this.bonusScores,
+      progression: progression ?? this.progression,
+      baseScores: baseScores ?? this.baseScores,
+      bonusScores: bonusScores ?? this.bonusScores,
       traitProficiencies: effectiveTraits != null
           ? Map.unmodifiable(effectiveTraits)
           : this.traitProficiencies,
@@ -1592,8 +1600,7 @@ class Character extends TabletopCharacter {
       languages:
           languages != null ? List.unmodifiable(languages) : this.languages,
       inventory: inventory != null
-          ? List<InventoryItemInstance>.unmodifiable(inventory.map((i) =>
-              i is InventoryItemInstance ? i : InventoryItemInstance.fromMap(i.toMap())))
+          ? List<InventoryItemInstance>.unmodifiable(inventory)
           : this.inventory,
       purse: purse ?? this.purse,
       allocatedSpells: allocatedSpells != null
@@ -1607,15 +1614,12 @@ class Character extends TabletopCharacter {
           ? List.unmodifiable(spellsPrepared)
           : this.spellsPrepared,
       feats: feats != null ? List.unmodifiable(feats) : this.feats,
-      resources: resources != null
-          ? (resources is CharacterResourcePool ? resources : CharacterResourcePool.fromMap(resources.toMap()))
-          : this.resources,
+      resources: resources ?? this.resources,
       conditions: conditions != null
-          ? List<CharacterCondition>.unmodifiable(conditions.map((co) =>
-              co))
+          ? List<CharacterCondition>.unmodifiable(conditions)
           : this.conditions,
       maxAttunementSlots: maxAttunementSlots ?? this.maxAttunementSlots,
-      baseSpeedFeet: baseSpeedFeet ?? this.baseSpeedFeet,
+      baseSpeedFeet: baseSpeedFeet ?? baseSpeed ?? this.baseSpeedFeet,
       rulesetId: effectiveRulesetId,
       customProperties: customProperties != null
           ? deepFreezeMap(customProperties)

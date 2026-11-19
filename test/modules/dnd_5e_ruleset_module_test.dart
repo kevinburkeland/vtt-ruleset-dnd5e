@@ -25,16 +25,16 @@ void main() {
       final exhaust2024 = module2024.exhaustionMechanic;
 
       // 2014: Disadvantage rather than flat penalty
-      expect(exhaust2014.calculateD20Penalty(1), equals(0));
-      expect(exhaust2014.calculateD20Penalty(3), equals(0));
+      expect(exhaust2014.calculateRollPenalty(1), equals(0));
+      expect(exhaust2014.calculateRollPenalty(3), equals(0));
       expect(exhaust2014.calculateSpeedPenalty(1, 30), equals(0));
       expect(exhaust2014.calculateSpeedPenalty(2, 30), equals(15)); // Halved
       expect(exhaust2014.calculateSpeedPenalty(5, 30), equals(30)); // 0 speed
 
       // 2024: Linear -2 per tier to d20 tests, -5 ft speed per tier
-      expect(exhaust2024.calculateD20Penalty(1), equals(2));
-      expect(exhaust2024.calculateD20Penalty(3), equals(6));
-      expect(exhaust2024.calculateD20Penalty(5), equals(10));
+      expect(exhaust2024.calculateRollPenalty(1), equals(2));
+      expect(exhaust2024.calculateRollPenalty(3), equals(6));
+      expect(exhaust2024.calculateRollPenalty(5), equals(10));
       expect(exhaust2024.calculateSpeedPenalty(1, 30), equals(5));
       expect(exhaust2024.calculateSpeedPenalty(2, 30), equals(10));
 
