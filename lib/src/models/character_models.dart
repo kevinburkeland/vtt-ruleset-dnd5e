@@ -853,10 +853,18 @@ class Character extends TabletopCharacter {
   AbilityScores get bonusScores => _bonusScores;
 
   @override
-  List<InventoryItemInstance> get inventory => _inventory;
+  List<InventoryItemInstance> get inventory =>
+      List<InventoryItemInstance>.unmodifiable(
+        super.inventory.map((i) => i is InventoryItemInstance
+            ? i
+            : InventoryItemInstance.fromMap(i.toMap())),
+      );
 
   @override
-  CharacterResourcePool get resources => _resources;
+  CharacterResourcePool get resources =>
+      super.resources is CharacterResourcePool
+          ? super.resources as CharacterResourcePool
+          : CharacterResourcePool.fromMap(super.resources.toMap());
 
   int get baseSpeedFeet => baseSpeed ?? 30;
 
