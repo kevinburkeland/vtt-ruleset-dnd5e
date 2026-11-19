@@ -13,15 +13,15 @@ void main() {
     });
 
     test('Calculates standard unarmored AC (10 + DEX)', () {
-      const character = Character(
-        id: EntityId(slug: 'hero-1', ruleset: RulesetVersion.v2024),
+      final character = Character(
+        id: const EntityId(slug: 'hero-1', ruleset: RulesetVersion.v2024),
         name: 'Rogue Hero',
-        speciesRef: EntityReference<DomainEntity>.empty(
+        speciesRef: const EntityReference<DomainEntity>.empty(
           refType: EntityType.species,
           slug: 'elf',
           displayName: 'Elf',
         ),
-        progression: CharacterProgression(
+        progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
               classRef: EntityReference<DomainEntity>.empty(
@@ -34,8 +34,8 @@ void main() {
             ),
           ],
         ),
-        baseScores: AbilityScores(dexterity: 16), // Mod +3
-        resources: CharacterResourcePool(currentHp: 10),
+        baseScores: const AbilityScores(dexterity: 16), // Mod +3
+        resources: const CharacterResourcePool(currentHp: 10),
       );
 
       final stats = CharacterEvaluationEngine.evaluate(character);
@@ -206,15 +206,15 @@ void main() {
     test(
         'Monk Unarmored Defense calculates 10 + DEX + WIS (disallowed if shield equipped)',
         () {
-      const characterNoShield = Character(
-        id: EntityId(slug: 'monk-1', ruleset: RulesetVersion.v2024),
+      final characterNoShield = Character(
+        id: const EntityId(slug: 'monk-1', ruleset: RulesetVersion.v2024),
         name: 'Li',
-        speciesRef: EntityReference<DomainEntity>.empty(
+        speciesRef: const EntityReference<DomainEntity>.empty(
           refType: EntityType.species,
           slug: 'human',
           displayName: 'Human',
         ),
-        progression: CharacterProgression(
+        progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
               classRef: EntityReference<DomainEntity>.empty(
@@ -227,11 +227,11 @@ void main() {
             ),
           ],
         ),
-        baseScores: AbilityScores(
+        baseScores: const AbilityScores(
           dexterity: 16, // Mod +3
           wisdom: 16, // Mod +3
         ),
-        resources: CharacterResourcePool(currentHp: 10),
+        resources: const CharacterResourcePool(currentHp: 10),
       );
 
       final statsNoShield =
@@ -386,15 +386,15 @@ void main() {
         'Character evaluation scales attunement slots dynamically via customProperties and feats',
         () {
       // Base character: standard 3 slots
-      const baseChar = Character(
-        id: EntityId(slug: 'hero-1', ruleset: RulesetVersion.v2024),
+      final baseChar = Character(
+        id: const EntityId(slug: 'hero-1', ruleset: RulesetVersion.v2024),
         name: 'Novice Hero',
-        speciesRef: EntityReference<DomainEntity>.empty(
+        speciesRef: const EntityReference<DomainEntity>.empty(
           refType: EntityType.species,
           slug: 'gnome',
           displayName: 'Gnome',
         ),
-        progression: CharacterProgression(
+        progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
               classRef: EntityReference<DomainEntity>.empty(
@@ -407,8 +407,8 @@ void main() {
             ),
           ],
         ),
-        baseScores: AbilityScores(),
-        resources: CharacterResourcePool(currentHp: 30),
+        baseScores: const AbilityScores(),
+        resources: const CharacterResourcePool(currentHp: 30),
       );
       expect(
           CharacterEvaluationEngine.evaluate(baseChar)
@@ -453,15 +453,15 @@ void main() {
     test(
         'Calculates Skill modifiers and Proficiency multipliers (Proficient & Expertise)',
         () {
-      const character = Character(
-        id: EntityId(slug: 'rogue-expert', ruleset: RulesetVersion.v2024),
+      final character = Character(
+        id: const EntityId(slug: 'rogue-expert', ruleset: RulesetVersion.v2024),
         name: 'Master Thief',
-        speciesRef: EntityReference<DomainEntity>.empty(
+        speciesRef: const EntityReference<DomainEntity>.empty(
           refType: EntityType.species,
           slug: 'halfling',
           displayName: 'Halfling',
         ),
-        progression: CharacterProgression(
+        progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
               classRef: EntityReference<DomainEntity>.empty(
@@ -474,7 +474,7 @@ void main() {
             ),
           ],
         ),
-        baseScores: AbilityScores(
+        baseScores: const AbilityScores(
           dexterity: 16, // Mod +3
           wisdom: 12, // Mod +1
         ),
@@ -485,7 +485,7 @@ void main() {
               SkillProficiencyLevel.proficient, // WIS Mod + (1 * 3) = +4
           SkillType.athletics: SkillProficiencyLevel.none, // STR Mod 0 = 0
         },
-        resources: CharacterResourcePool(currentHp: 30),
+        resources: const CharacterResourcePool(currentHp: 30),
       );
 
       final stats = CharacterEvaluationEngine.evaluate(character);
@@ -656,15 +656,15 @@ void main() {
       expect(daggerAtk.isOffhand, isTrue);
     });
       test('customProperties maxHp override overrides computed hit points', () {
-      const character = Character(
-        id: EntityId(slug: 'override-hero', ruleset: RulesetVersion.v2024),
+      final character = Character(
+        id: const EntityId(slug: 'override-hero', ruleset: RulesetVersion.v2024),
         name: 'Override Hero',
-        speciesRef: EntityReference<DomainEntity>.empty(
+        speciesRef: const EntityReference<DomainEntity>.empty(
           refType: EntityType.species,
           slug: 'human',
           displayName: 'Human',
         ),
-        progression: CharacterProgression(
+        progression: const CharacterProgression(
           classes: [
             ClassLevelProgression(
               classRef: EntityReference<DomainEntity>.empty(
@@ -677,8 +677,8 @@ void main() {
             ),
           ],
         ),
-        baseScores: AbilityScores(constitution: 10),
-        resources: CharacterResourcePool(currentHp: 10),
+        baseScores: const AbilityScores(constitution: 10),
+        resources: const CharacterResourcePool(currentHp: 10),
         customProperties: {'maxHp': 99},
       );
       final stats = CharacterEvaluationEngine.evaluate(character);

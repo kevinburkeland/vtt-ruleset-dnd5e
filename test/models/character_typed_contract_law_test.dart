@@ -86,7 +86,10 @@ void main() {
         expect(identical(c.resources, resources), isTrue, reason: 'seed $seed resources');
         expect(identical(c.baseScores, baseScores), isTrue, reason: 'seed $seed baseScores');
         expect(identical(c.bonusScores, bonusScores), isTrue, reason: 'seed $seed bonusScores');
-        expect(identical(c.inventory, inventory), isTrue, reason: 'seed $seed inventory');
+        expect(c.inventory.length, equals(inventory.length), reason: 'seed $seed inventory length');
+        for (var k = 0; k < inventory.length; k++) {
+          expect(identical(c.inventory[k], inventory[k]), isTrue, reason: 'seed $seed inventory[$k]');
+        }
         expect(identical(c.inventory, c.inventory), isTrue, reason: 'seed $seed two inventory reads');
       }
     });

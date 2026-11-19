@@ -166,12 +166,12 @@ void main() {
     );
 
     test('character with no classes has empty spellcastingModifiers', () {
-      const character = Character(
-        id: EntityId(slug: 'empty-char', ruleset: RulesetVersion.v2024),
+      final character = Character(
+        id: const EntityId(slug: 'empty-char', ruleset: RulesetVersion.v2024),
         name: 'Commoner',
         rulesEdition: RulesetEdition.v2024,
         speciesRef: humanRef,
-        baseScores: AbilityScores(
+        baseScores: const AbilityScores(
           strength: 10,
           dexterity: 10,
           constitution: 10,
@@ -179,8 +179,8 @@ void main() {
           wisdom: 16,
           charisma: 12,
         ),
-        progression: CharacterProgression(classes: []),
-        resources: CharacterResourcePool(currentHp: 10),
+        progression: const CharacterProgression(classes: []),
+        resources: const CharacterResourcePool(currentHp: 10),
       );
 
       final stats = CharacterEvaluationEngine.evaluate(character);

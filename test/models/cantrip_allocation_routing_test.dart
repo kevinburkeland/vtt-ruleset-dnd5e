@@ -80,22 +80,22 @@ void main() {
         displayName: 'Light',
       );
 
-      const character = Character(
-        id: EntityId(slug: 'aasimar_wizard', ruleset: RulesetVersion.v2024),
+      final character = Character(
+        id: const EntityId(slug: 'aasimar_wizard', ruleset: RulesetVersion.v2024),
         name: 'Aasimar Wizard',
-        speciesRef: EntityReference.empty(
+        speciesRef: const EntityReference.empty(
             refType: EntityType.species,
             slug: 'aasimar',
             displayName: 'Aasimar'),
-        baseScores: AbilityScores(
+        baseScores: const AbilityScores(
             strength: 10,
             dexterity: 10,
             constitution: 10,
             intelligence: 10,
             wisdom: 10,
             charisma: 10),
-        progression: CharacterProgression(classes: []),
-        resources: CharacterResourcePool(),
+        progression: const CharacterProgression(classes: []),
+        resources: const CharacterResourcePool(),
         cantrips: [lightRef],
         allocatedSpells: {
           'species_traits': [lightRef],

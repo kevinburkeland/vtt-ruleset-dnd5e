@@ -386,14 +386,14 @@ void main() {
     test(
         'validateSpellAllocations accepts class-warlock-mystic-arcanum grant key',
         () {
-      const character = Character(
-        id: EntityId(slug: 'warlock-hero', ruleset: RulesetVersion.v2024),
+      final character = Character(
+        id: const EntityId(slug: 'warlock-hero', ruleset: RulesetVersion.v2024),
         name: 'Warlock Hero',
-        speciesRef: EntityReference.empty(
+        speciesRef: const EntityReference.empty(
             refType: EntityType.species,
             slug: 'tiefling',
             displayName: 'Tiefling'),
-        baseScores: AbilityScores(
+        baseScores: const AbilityScores(
             strength: 8,
             dexterity: 14,
             constitution: 14,
@@ -401,8 +401,8 @@ void main() {
             wisdom: 12,
             charisma: 18),
         resources:
-            CharacterResourcePool(currentHp: 50, currentHitDice: {'d8': 11}),
-        progression: CharacterProgression(classes: [
+            const CharacterResourcePool(currentHp: 50, currentHitDice: {'d8': 11}),
+        progression: const CharacterProgression(classes: [
           ClassLevelProgression(
             classRef: EntityReference.empty(
                 refType: EntityType.classDefinition,
@@ -415,7 +415,7 @@ void main() {
         ]),
         allocatedSpells: {
           'class-warlock-mystic-arcanum': [
-            EntityReference<Spell>.empty(
+            const EntityReference<Spell>.empty(
                 refType: EntityType.spell,
                 slug: 'eyebite',
                 displayName: 'Eyebite'),
@@ -583,14 +583,14 @@ void main() {
     });
 
     test('validateSpellAllocations flags orphan keys and bonus grant overflows', () {
-      const character = Character(
-        id: EntityId(slug: 'wizard-hero', ruleset: RulesetVersion.v2024),
+      final character = Character(
+        id: const EntityId(slug: 'wizard-hero', ruleset: RulesetVersion.v2024),
         name: 'Wizard Hero',
-        speciesRef: EntityReference.empty(
+        speciesRef: const EntityReference.empty(
             refType: EntityType.species,
             slug: 'elf',
             displayName: 'Elf'),
-        baseScores: AbilityScores(
+        baseScores: const AbilityScores(
             strength: 8,
             dexterity: 14,
             constitution: 12,
@@ -598,8 +598,8 @@ void main() {
             wisdom: 10,
             charisma: 10),
         resources:
-            CharacterResourcePool(currentHp: 12, currentHitDice: {'d6': 1}),
-        progression: CharacterProgression(classes: [
+            const CharacterResourcePool(currentHp: 12, currentHitDice: {'d6': 1}),
+        progression: const CharacterProgression(classes: [
           ClassLevelProgression(
             classRef: EntityReference.empty(
                 refType: EntityType.classDefinition,
@@ -612,27 +612,27 @@ void main() {
         ]),
         allocatedSpells: {
           'orphan-key': [
-            EntityReference<Spell>.empty(
+            const EntityReference<Spell>.empty(
                 refType: EntityType.spell,
                 slug: 'light',
                 displayName: 'Light'),
           ],
           'grant-cantrips': [
-            EntityReference<Spell>.empty(
+            const EntityReference<Spell>.empty(
                 refType: EntityType.spell,
                 slug: 'light',
                 displayName: 'Light'),
-            EntityReference<Spell>.empty(
+            const EntityReference<Spell>.empty(
                 refType: EntityType.spell,
                 slug: 'mage-hand',
                 displayName: 'Mage Hand'),
           ],
           'grant-spell': [
-            EntityReference<Spell>.empty(
+            const EntityReference<Spell>.empty(
                 refType: EntityType.spell,
                 slug: 'shield',
                 displayName: 'Shield'),
-            EntityReference<Spell>.empty(
+            const EntityReference<Spell>.empty(
                 refType: EntityType.spell,
                 slug: 'detect-magic',
                 displayName: 'Detect Magic'),

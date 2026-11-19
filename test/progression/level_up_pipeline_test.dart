@@ -13,15 +13,15 @@ void main() {
       Dnd5eRuleset.install(const TestDnd5eCatalog());
       resolver = InMemoryEntityResolver();
 
-      baseWizard = const Character(
-        id: EntityId(slug: 'alden', ruleset: RulesetVersion.v2024),
+      baseWizard = Character(
+        id: const EntityId(slug: 'alden', ruleset: RulesetVersion.v2024),
         name: 'Alden',
-        speciesRef: EntityReference.empty(
+        speciesRef: const EntityReference.empty(
           refType: EntityType.species,
           slug: 'human',
           displayName: 'Human',
         ),
-        progression: CharacterProgression(classes: [
+        progression: const CharacterProgression(classes: [
           ClassLevelProgression(
             classRef: EntityReference.empty(
               refType: EntityType.classDefinition,
@@ -34,7 +34,7 @@ void main() {
             isStartingClass: true,
           ),
         ]),
-        baseScores: AbilityScores(
+        baseScores: const AbilityScores(
           strength: 8,
           dexterity: 14,
           constitution: 14, // +2 mod
@@ -42,7 +42,7 @@ void main() {
           wisdom: 12,
           charisma: 10,
         ),
-        resources: CharacterResourcePool(
+        resources: const CharacterResourcePool(
           currentHp: 8, // 6 max + 2 CON
           currentHitDice: {'d6': 1},
         ),
@@ -157,15 +157,15 @@ void main() {
 
     test('multiclass spell slots aggregate correctly (Wizard 3 / Paladin 2)',
         () {
-      var char = const Character(
-        id: EntityId(slug: 'gish', ruleset: RulesetVersion.v2024),
+      var char = Character(
+        id: const EntityId(slug: 'gish', ruleset: RulesetVersion.v2024),
         name: 'Gish',
-        speciesRef: EntityReference.empty(
+        speciesRef: const EntityReference.empty(
           refType: EntityType.species,
           slug: 'human',
           displayName: 'Human',
         ),
-        progression: CharacterProgression(classes: [
+        progression: const CharacterProgression(classes: [
           ClassLevelProgression(
             classRef: EntityReference.empty(
               refType: EntityType.classDefinition,
@@ -186,7 +186,7 @@ void main() {
             hitDie: 'd10',
           ),
         ]),
-        baseScores: AbilityScores(
+        baseScores: const AbilityScores(
           strength: 14,
           dexterity: 10,
           constitution: 14,
@@ -194,7 +194,7 @@ void main() {
           wisdom: 10,
           charisma: 14,
         ),
-        resources: CharacterResourcePool(currentHp: 35),
+        resources: const CharacterResourcePool(currentHp: 35),
       );
 
       // ECL = Wizard 3 + floor(Paladin 2 / 2 = 1) = 4

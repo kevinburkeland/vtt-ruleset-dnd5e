@@ -128,15 +128,15 @@ void main() {
     });
 
     test('computes unarmored AC (10 + DEX mod)', () {
-      const character = Character(
-        id: EntityId(slug: 'test-rogue', ruleset: RulesetVersion.v2024),
+      final character = Character(
+        id: const EntityId(slug: 'test-rogue', ruleset: RulesetVersion.v2024),
         name: 'Test Rogue',
-        speciesRef: EntityReference.empty(
+        speciesRef: const EntityReference.empty(
           refType: EntityType.species,
           slug: 'elf',
           displayName: 'Elf',
         ),
-        progression: CharacterProgression(classes: [
+        progression: const CharacterProgression(classes: [
           ClassLevelProgression(
             classRef: EntityReference.empty(
               refType: EntityType.classDefinition,
@@ -148,7 +148,7 @@ void main() {
             isStartingClass: true,
           ),
         ]),
-        baseScores: AbilityScores(
+        baseScores: const AbilityScores(
           strength: 10,
           dexterity: 16, // +3 mod
           constitution: 14, // +2 mod
@@ -156,7 +156,7 @@ void main() {
           wisdom: 10,
           charisma: 8,
         ),
-        resources: CharacterResourcePool(currentHp: 24),
+        resources: const CharacterResourcePool(currentHp: 24),
       );
 
       final stats = CharacterStatCalculator.compute(character, resolver);
@@ -166,15 +166,15 @@ void main() {
     });
 
     test('computes Barbarian Unarmored Defense (10 + DEX + CON)', () {
-      const character = Character(
-        id: EntityId(slug: 'test-barbarian', ruleset: RulesetVersion.v2024),
+      final character = Character(
+        id: const EntityId(slug: 'test-barbarian', ruleset: RulesetVersion.v2024),
         name: 'Test Barbarian',
-        speciesRef: EntityReference.empty(
+        speciesRef: const EntityReference.empty(
           refType: EntityType.species,
           slug: 'human',
           displayName: 'Human',
         ),
-        progression: CharacterProgression(classes: [
+        progression: const CharacterProgression(classes: [
           ClassLevelProgression(
             classRef: EntityReference.empty(
               refType: EntityType.classDefinition,
@@ -186,7 +186,7 @@ void main() {
             isStartingClass: true,
           ),
         ]),
-        baseScores: AbilityScores(
+        baseScores: const AbilityScores(
           strength: 16,
           dexterity: 14, // +2 mod
           constitution: 16, // +3 mod
@@ -194,7 +194,7 @@ void main() {
           wisdom: 12,
           charisma: 10,
         ),
-        resources: CharacterResourcePool(currentHp: 15),
+        resources: const CharacterResourcePool(currentHp: 15),
       );
 
       final stats = CharacterStatCalculator.compute(character, resolver);
@@ -498,15 +498,15 @@ void main() {
     test(
         '4-Phase Pipeline: Phase A bounds scores [1, 30] and Phase B ingests embedded bonus scores',
         () {
-      const character = Character(
-        id: EntityId(slug: 'test-phase-ab', ruleset: RulesetVersion.v2024),
+      final character = Character(
+        id: const EntityId(slug: 'test-phase-ab', ruleset: RulesetVersion.v2024),
         name: 'Phase AB Test',
-        speciesRef: EntityReference.empty(
+        speciesRef: const EntityReference.empty(
           refType: EntityType.species,
           slug: 'dwarf',
           displayName: 'Dwarf',
         ),
-        progression: CharacterProgression(classes: [
+        progression: const CharacterProgression(classes: [
           ClassLevelProgression(
             classRef: EntityReference.empty(
               refType: EntityType.classDefinition,
@@ -518,7 +518,7 @@ void main() {
             isStartingClass: true,
           ),
         ]),
-        baseScores: AbilityScores(
+        baseScores: const AbilityScores(
           strength: 35, // clamped to 30 in Phase A
           dexterity: 0, // clamped to 1 in Phase A
           constitution: 14,
@@ -526,7 +526,7 @@ void main() {
           wisdom: 10,
           charisma: 10,
         ),
-        bonusScores: AbilityScores(
+        bonusScores: const AbilityScores(
           strength: 0,
           dexterity: 2, // Phase B additions (+2)
           constitution: 2, // Phase B additions (+2)
@@ -534,7 +534,7 @@ void main() {
           wisdom: 0,
           charisma: 0,
         ),
-        resources: CharacterResourcePool(currentHp: 40),
+        resources: const CharacterResourcePool(currentHp: 40),
       );
 
       final stats = CharacterStatCalculator.compute(character, resolver);

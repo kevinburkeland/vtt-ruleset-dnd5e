@@ -860,7 +860,67 @@ class Character extends TabletopCharacter {
 
   int get baseSpeedFeet => baseSpeed ?? 30;
 
-  const Character({
+  factory Character({
+    required EntityId id,
+    required String name,
+    required EntityReference<DomainEntity> speciesRef,
+    EntityReference<DomainEntity>? backgroundRef,
+    CharacterProgression progression = const CharacterProgression(classes: []),
+    AbilityScores baseScores = const AbilityScores.standardArray(),
+    AbilityScores bonusScores = const AbilityScores.zero(),
+    Map<dynamic, dynamic>? traitProficiencies,
+    Map<dynamic, dynamic>? skillProficiencies,
+    Set<dynamic> savingThrowProficiencies = const <dynamic>{},
+    List<String> toolProficiencies = const [],
+    List<String> languages = const ['Common'],
+    List<InventoryItemInstance> inventory = const [],
+    PartyPurse purse = const PartyPurse.empty(),
+    Map<String, List<EntityReference<Spell>>> allocatedSpells = const {},
+    List<EntityReference<Spell>> cantrips = const [],
+    List<EntityReference<Spell>> spellsKnown = const [],
+    List<EntityReference<Spell>> spellsPrepared = const [],
+    List<EntityReference<DomainEntity>> feats = const [],
+    CharacterResourcePool resources = const CharacterResourcePool(),
+    List<CharacterCondition> conditions = const [],
+    int maxAttunementSlots = 3,
+    int baseSpeedFeet = 30,
+    String rulesetId = 'dnd5e_2014',
+    RulesetEdition? rulesEdition,
+    Map<String, dynamic> customProperties = const {},
+  }) {
+    final unmodifiableInventory =
+        List<InventoryItemInstance>.unmodifiable(inventory);
+    return Character._(
+      id: id,
+      name: name,
+      speciesRef: speciesRef,
+      backgroundRef: backgroundRef,
+      progression: progression,
+      baseScores: baseScores,
+      bonusScores: bonusScores,
+      traitProficiencies: traitProficiencies,
+      skillProficiencies: skillProficiencies,
+      savingThrowProficiencies: savingThrowProficiencies,
+      toolProficiencies: toolProficiencies,
+      languages: languages,
+      inventory: unmodifiableInventory,
+      purse: purse,
+      allocatedSpells: allocatedSpells,
+      cantrips: cantrips,
+      spellsKnown: spellsKnown,
+      spellsPrepared: spellsPrepared,
+      feats: feats,
+      resources: resources,
+      conditions: conditions,
+      maxAttunementSlots: maxAttunementSlots,
+      baseSpeedFeet: baseSpeedFeet,
+      rulesetId: rulesetId,
+      rulesEdition: rulesEdition,
+      customProperties: customProperties,
+    );
+  }
+
+  const Character._({
     required super.id,
     required super.name,
     required this.speciesRef,

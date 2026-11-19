@@ -31,12 +31,12 @@ List<Map<String, dynamic>> _buildExistingTestCharacterMaps() {
   final list = <Map<String, dynamic>>[];
 
   // 1. Minimal bare-bones character
-  list.add(const Character(
-    id: EntityId(slug: 'existing-minimal', ruleset: RulesetVersion.v2014),
+  list.add(Character(
+    id: const EntityId(slug: 'existing-minimal', ruleset: RulesetVersion.v2014),
     name: 'Minimal Hero',
-    speciesRef: EntityReference.empty(
+    speciesRef: const EntityReference.empty(
         refType: EntityType.species, slug: 'human', displayName: 'Human'),
-    baseScores: AbilityScores(
+    baseScores: const AbilityScores(
       strength: 10,
       dexterity: 10,
       constitution: 10,
@@ -44,8 +44,8 @@ List<Map<String, dynamic>> _buildExistingTestCharacterMaps() {
       wisdom: 10,
       charisma: 10,
     ),
-    resources: CharacterResourcePool(currentHp: 10),
-    progression: CharacterProgression(classes: []),
+    resources: const CharacterResourcePool(currentHp: 10),
+    progression: const CharacterProgression(classes: []),
   ).toMap());
 
   // 2. Level 1 Fighter (2014) with armor and shield
@@ -101,12 +101,12 @@ List<Map<String, dynamic>> _buildExistingTestCharacterMaps() {
   ).toMap());
 
   // 3. Level 5 Rogue (2024) with DEX 18 unarmored
-  list.add(const Character(
-    id: EntityId(slug: 'existing-rogue-2024', ruleset: RulesetVersion.v2024),
+  list.add(Character(
+    id: const EntityId(slug: 'existing-rogue-2024', ruleset: RulesetVersion.v2024),
     name: 'Rogue 2024',
-    speciesRef: EntityReference.empty(
+    speciesRef: const EntityReference.empty(
         refType: EntityType.species, slug: 'elf', displayName: 'Elf'),
-    baseScores: AbilityScores(
+    baseScores: const AbilityScores(
       strength: 8,
       dexterity: 18,
       constitution: 12,
@@ -118,8 +118,8 @@ List<Map<String, dynamic>> _buildExistingTestCharacterMaps() {
     skillProficiencies: {'stealth': 2, 'perception': 1, 'acrobatics': 1, 'sleightOfHand': 1},
     toolProficiencies: ['thieves_tools'],
     languages: ['Common', 'Elvish'],
-    resources: CharacterResourcePool(currentHp: 33, currentHitDice: {'d8': 5}),
-    progression: CharacterProgression(classes: [
+    resources: const CharacterResourcePool(currentHp: 33, currentHitDice: {'d8': 5}),
+    progression: const CharacterProgression(classes: [
       ClassLevelProgression(
         classRef: EntityReference.empty(
             refType: EntityType.classDefinition,
@@ -133,14 +133,14 @@ List<Map<String, dynamic>> _buildExistingTestCharacterMaps() {
   ).toMap());
 
   // 4. Multiclass Wizard 3 / Cleric 2 with spell slots
-  list.add(const Character(
-    id: EntityId(slug: 'existing-multiclass', ruleset: RulesetVersion.v2024),
+  list.add(Character(
+    id: const EntityId(slug: 'existing-multiclass', ruleset: RulesetVersion.v2024),
     name: 'Mage Cleric',
-    speciesRef: EntityReference.empty(
+    speciesRef: const EntityReference.empty(
         refType: EntityType.species, slug: 'dwarf', displayName: 'Dwarf'),
-    backgroundRef: EntityReference.empty(
+    backgroundRef: const EntityReference.empty(
         refType: EntityType.background, slug: 'sage', displayName: 'Sage'),
-    baseScores: AbilityScores(
+    baseScores: const AbilityScores(
       strength: 10,
       dexterity: 14,
       constitution: 14,
@@ -148,12 +148,12 @@ List<Map<String, dynamic>> _buildExistingTestCharacterMaps() {
       wisdom: 16,
       charisma: 8,
     ),
-    resources: CharacterResourcePool(
+    resources: const CharacterResourcePool(
       currentHp: 34,
       tempHp: 5,
       currentHitDice: {'d6': 3, 'd8': 2},
     ),
-    progression: CharacterProgression(classes: [
+    progression: const CharacterProgression(classes: [
       ClassLevelProgression(
         classRef: EntityReference.empty(
             refType: EntityType.classDefinition,
@@ -174,7 +174,7 @@ List<Map<String, dynamic>> _buildExistingTestCharacterMaps() {
     ]),
     allocatedSpells: {
       'class-wizard-cantrips': [
-        EntityReference<Spell>.empty(
+        const EntityReference<Spell>.empty(
             refType: EntityType.spell,
             slug: 'fire-bolt',
             displayName: 'Fire Bolt'),
@@ -183,12 +183,12 @@ List<Map<String, dynamic>> _buildExistingTestCharacterMaps() {
   ).toMap());
 
   // 5. Warlock 11 with Mystic Arcanum and customProperties['ac']
-  list.add(const Character(
-    id: EntityId(slug: 'existing-warlock-11', ruleset: RulesetVersion.v2024),
+  list.add(Character(
+    id: const EntityId(slug: 'existing-warlock-11', ruleset: RulesetVersion.v2024),
     name: 'Warlock Hero',
-    speciesRef: EntityReference.empty(
+    speciesRef: const EntityReference.empty(
         refType: EntityType.species, slug: 'tiefling', displayName: 'Tiefling'),
-    baseScores: AbilityScores(
+    baseScores: const AbilityScores(
       strength: 8,
       dexterity: 14,
       constitution: 14,
@@ -196,8 +196,8 @@ List<Map<String, dynamic>> _buildExistingTestCharacterMaps() {
       wisdom: 12,
       charisma: 18,
     ),
-    resources: CharacterResourcePool(currentHp: 50, currentHitDice: {'d8': 11}),
-    progression: CharacterProgression(classes: [
+    resources: const CharacterResourcePool(currentHp: 50, currentHitDice: {'d8': 11}),
+    progression: const CharacterProgression(classes: [
       ClassLevelProgression(
         classRef: EntityReference.empty(
             refType: EntityType.classDefinition,
@@ -212,12 +212,12 @@ List<Map<String, dynamic>> _buildExistingTestCharacterMaps() {
   ).toMap());
 
   // 6. Barbarian with Unarmored Defense (10 + DEX + CON)
-  list.add(const Character(
-    id: EntityId(slug: 'existing-barbarian', ruleset: RulesetVersion.v2014),
+  list.add(Character(
+    id: const EntityId(slug: 'existing-barbarian', ruleset: RulesetVersion.v2014),
     name: 'Barbarian Hero',
-    speciesRef: EntityReference.empty(
+    speciesRef: const EntityReference.empty(
         refType: EntityType.species, slug: 'human', displayName: 'Human'),
-    baseScores: AbilityScores(
+    baseScores: const AbilityScores(
       strength: 18,
       dexterity: 14,
       constitution: 16,
@@ -225,8 +225,8 @@ List<Map<String, dynamic>> _buildExistingTestCharacterMaps() {
       wisdom: 10,
       charisma: 10,
     ),
-    resources: CharacterResourcePool(currentHp: 45, currentHitDice: {'d12': 4}),
-    progression: CharacterProgression(classes: [
+    resources: const CharacterResourcePool(currentHp: 45, currentHitDice: {'d12': 4}),
+    progression: const CharacterProgression(classes: [
       ClassLevelProgression(
         classRef: EntityReference.empty(
             refType: EntityType.classDefinition,
@@ -240,12 +240,12 @@ List<Map<String, dynamic>> _buildExistingTestCharacterMaps() {
   ).toMap());
 
   // 7. Monk with Unarmored Defense (10 + DEX + WIS)
-  list.add(const Character(
-    id: EntityId(slug: 'existing-monk', ruleset: RulesetVersion.v2024),
+  list.add(Character(
+    id: const EntityId(slug: 'existing-monk', ruleset: RulesetVersion.v2024),
     name: 'Monk Hero',
-    speciesRef: EntityReference.empty(
+    speciesRef: const EntityReference.empty(
         refType: EntityType.species, slug: 'elf', displayName: 'Elf'),
-    baseScores: AbilityScores(
+    baseScores: const AbilityScores(
       strength: 10,
       dexterity: 16,
       constitution: 14,
@@ -253,8 +253,8 @@ List<Map<String, dynamic>> _buildExistingTestCharacterMaps() {
       wisdom: 16,
       charisma: 8,
     ),
-    resources: CharacterResourcePool(currentHp: 28, currentHitDice: {'d8': 3}),
-    progression: CharacterProgression(classes: [
+    resources: const CharacterResourcePool(currentHp: 28, currentHitDice: {'d8': 3}),
+    progression: const CharacterProgression(classes: [
       ClassLevelProgression(
         classRef: EntityReference.empty(
             refType: EntityType.classDefinition,
