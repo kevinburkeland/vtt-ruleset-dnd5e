@@ -1,0 +1,41 @@
+From 27414e2add30076082e09334f94d94ba1dffe5dc Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Wed, 18 Nov 2026 22:05:58 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20T1?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/models/character_models.dart | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/lib/src/models/character_models.dart b/lib/src/models/character_models.dart
+index fe04ea0..c72b763 100644
+--- a/lib/src/models/character_models.dart
++++ b/lib/src/models/character_models.dart
+@@ -853,10 +853,18 @@ class Character extends TabletopCharacter {
+   AbilityScores get bonusScores => _bonusScores;
+ 
+   @override
+-  List<InventoryItemInstance> get inventory => _inventory;
++  List<InventoryItemInstance> get inventory =>
++      List<InventoryItemInstance>.unmodifiable(
++        super.inventory.map((i) => i is InventoryItemInstance
++            ? i
++            : InventoryItemInstance.fromMap(i.toMap())),
++      );
+ 
+   @override
+-  CharacterResourcePool get resources => _resources;
++  CharacterResourcePool get resources =>
++      super.resources is CharacterResourcePool
++          ? super.resources as CharacterResourcePool
++          : CharacterResourcePool.fromMap(super.resources.toMap());
+ 
+   int get baseSpeedFeet => baseSpeed ?? 30;
+ 
+-- 
+2.55.0
+

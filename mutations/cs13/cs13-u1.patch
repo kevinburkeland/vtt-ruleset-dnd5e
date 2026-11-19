@@ -1,0 +1,26 @@
+From d5852ef821e77136f4562642511cf4aee7bac490 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Wed, 18 Nov 2026 22:05:53 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20U1?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/combat/damage_adjustment.dart | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/lib/src/combat/damage_adjustment.dart b/lib/src/combat/damage_adjustment.dart
+index b7df688..44da3b7 100644
+--- a/lib/src/combat/damage_adjustment.dart
++++ b/lib/src/combat/damage_adjustment.dart
+@@ -21,3 +21,5 @@ int adjustDamageForDefenses(
+   }
+   return math.max(0, adjusted);
+ }
++
++class TabletopCharacter {}
+-- 
+2.55.0
+

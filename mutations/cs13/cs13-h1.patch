@@ -1,0 +1,27 @@
+From 7cae0f139577fbe14b690ed4d9ac4ba57ee10f9a Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Wed, 18 Nov 2026 22:05:55 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20H1?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/vtt_ruleset_dnd5e.dart | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/vtt_ruleset_dnd5e.dart b/lib/vtt_ruleset_dnd5e.dart
+index a7b5531..bebd1dc 100644
+--- a/lib/vtt_ruleset_dnd5e.dart
++++ b/lib/vtt_ruleset_dnd5e.dart
+@@ -51,5 +51,5 @@ export 'src/models/feature_grant.dart';
+ export 'src/models/spell_monster_equipment.dart';
+ export 'src/models/character_models.dart';
+ export 'src/models/i_entity_resolver.dart';
+-export 'package:vtt_engine_core/models/entity_reference.dart';
++export 'package:vtt_engine_core/models/entity_reference.dart' hide AttributePool;
+ export 'src/catalog/dnd5e_catalog.dart';
+-- 
+2.55.0
+

@@ -1,0 +1,28 @@
+From 2dc9ecd0aad9680ff82732f30f415161265d1db3 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Wed, 18 Nov 2026 22:06:01 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20M1?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/models/character_models.dart | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/lib/src/models/character_models.dart b/lib/src/models/character_models.dart
+index fe04ea0..ee03439 100644
+--- a/lib/src/models/character_models.dart
++++ b/lib/src/models/character_models.dart
+@@ -1370,7 +1370,6 @@ class Character extends TabletopCharacter {
+         'traitProficiencies': traitProficiencies,
+         'skillProficiencies': traitProficiencies,
+         'savingThrowProficiencies': savingThrowProficiencies.toList(),
+-        'toolProficiencies': toolProficiencies,
+         'languages': languages,
+         'inventory': inventory.map((i) => i.toMap()).toList(),
+         'purse': purse.toMap(),
+-- 
+2.55.0
+
