@@ -1599,9 +1599,9 @@ class Character extends TabletopCharacter {
           : this.toolProficiencies,
       languages:
           languages != null ? List.unmodifiable(languages) : this.languages,
-      inventory: inventory != null
-          ? List<InventoryItemInstance>.unmodifiable(inventory)
-          : this.inventory,
+      inventory: List<InventoryItemInstance>.unmodifiable(
+        inventory ?? this.inventory,
+      ),
       purse: purse ?? this.purse,
       allocatedSpells: allocatedSpells != null
           ? Map.unmodifiable(allocatedSpells.map((k, v) =>
