@@ -1370,7 +1370,6 @@ class Character extends TabletopCharacter {
         'traitProficiencies': traitProficiencies,
         'skillProficiencies': traitProficiencies,
         'savingThrowProficiencies': savingThrowProficiencies.toList(),
-        'toolProficiencies': toolProficiencies,
         'languages': languages,
         'inventory': inventory.map((i) => i.toMap()).toList(),
         'purse': purse.toMap(),
