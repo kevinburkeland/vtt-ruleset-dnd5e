@@ -40,6 +40,7 @@ class EvaluatedCharacterStats {
   final int passiveInvestigation;
   final Map<String, int> spellSaveDcs;
   final Map<String, int> spellAttackBonuses;
+  final Map<String, int> spellcastingModifiers;
   final SpellSlotPool computedSpellSlots;
   final List<ComputedAttackProfile> attackProfiles;
   final List<String> activeBuffNotes;
@@ -69,6 +70,7 @@ class EvaluatedCharacterStats {
     required this.passiveInvestigation,
     required this.spellSaveDcs,
     required this.spellAttackBonuses,
+    required this.spellcastingModifiers,
     required this.computedSpellSlots,
     required this.attackProfiles,
     required this.activeBuffNotes,
@@ -707,15 +709,17 @@ class CharacterEvaluationEngine {
         (skillMods[SkillType.investigation] ??
             abilityMods[AbilityType.intelligence]!);
 
-    // 8. Spell Save DCs & Attack Bonuses
+    // 8. Spell Save DCs, Attack Bonuses & Spellcasting Modifiers
     final spellSaveDcs = <String, int>{};
     final spellAttackBonuses = <String, int>{};
+    final spellcastingModifiers = <String, int>{};
 
     for (final c in character.progression.classes) {
       final className = c.classRef.displayName;
       final slug = c.classRef.slug.toLowerCase();
+      final subSlug = c.subclassRef?.slug.toLowerCase() ?? '';
 
-      AbilityType castingAbility;
+      AbilityType? castingAbility;
       if (slug.contains('wizard')) {
         castingAbility = AbilityType.intelligence;
       } else if (slug.contains('cleric') ||
@@ -727,8 +731,24 @@ class CharacterEvaluationEngine {
           slug.contains('sorcerer') ||
           slug.contains('warlock')) {
         castingAbility = AbilityType.charisma;
-      } else {
+      } else if (subSlug.contains('eldritch_knight') ||
+          subSlug.contains('eldritch-knight') ||
+          subSlug.contains('arcane_trickster') ||
+          subSlug.contains('arcane-trickster')) {
         castingAbility = AbilityType.intelligence;
+      } else {
+        final customCls = Dnd5eRuleset.catalog.findClass(slug);
+        final prog = customCls?.customProperties['spellcastingProgression']
+                ?.toString()
+                .trim() ??
+            '';
+        if (prog.isNotEmpty) {
+          castingAbility = AbilityType.intelligence;
+        }
+      }
+
+      if (castingAbility == null) {
+        continue;
       }
 
       var itemSpellAtkBonus = 0;
@@ -777,6 +797,8 @@ class CharacterEvaluationEngine {
       spellSaveDcs[slug] = dc;
       spellAttackBonuses[className] = atk;
       spellAttackBonuses[slug] = atk;
+      spellcastingModifiers[className] = castMod;
+      spellcastingModifiers[slug] = castMod;
     }
 
     // Compute multiclass spell slots
@@ -954,6 +976,7 @@ class CharacterEvaluationEngine {
       passiveInvestigation: passiveInvest,
       spellSaveDcs: spellSaveDcs,
       spellAttackBonuses: spellAttackBonuses,
+      spellcastingModifiers: spellcastingModifiers,
       computedSpellSlots: computedSlots,
       attackProfiles: attackProfiles,
       activeBuffNotes: buffNotes,

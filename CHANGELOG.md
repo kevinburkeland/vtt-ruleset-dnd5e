@@ -4,6 +4,7 @@ One line per slice, newest first. Each line: date, slice name, what changed for 
 Work before Map slice 1.1 (hardening passes 0 to 12) is in the git history.
 
 ## 2026-11-19
+- Cleanup slice 14: Add EvaluatedCharacterStats.spellcastingModifiers keyed identically to spellAttackBonuses (empty for non-spellcasters) with a 360-seed law test and updated coverage floors (Fix 3.1).
 - Cleanup slice 14: Retire cs13 mutation branches, allow renamed-test reasons in check_srd_terms.py, and enforce append-only history on test/removed_test_names.txt in check_test_names.py (Fixes 1.1-1.3).
 
 ## 2026-11-18
