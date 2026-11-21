@@ -797,8 +797,8 @@ class CharacterEvaluationEngine {
       spellSaveDcs[slug] = dc;
       spellAttackBonuses[className] = atk;
       spellAttackBonuses[slug] = atk;
-      spellcastingModifiers[className] = castMod;
-      spellcastingModifiers[slug] = castMod;
+      spellcastingModifiers[className] = atk;
+      spellcastingModifiers[slug] = atk;
     }
 
     // Compute multiclass spell slots
