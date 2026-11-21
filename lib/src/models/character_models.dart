@@ -888,8 +888,7 @@ class Character extends TabletopCharacter {
     RulesetEdition? rulesEdition,
     Map<String, dynamic> customProperties = const {},
   }) {
-    final unmodifiableInventory =
-        List<InventoryItemInstance>.unmodifiable(inventory);
+    final unmodifiableInventory = inventory;
     return Character._(
       id: id,
       name: name,
