@@ -853,7 +853,7 @@ class Character extends TabletopCharacter {
   AbilityScores get bonusScores => _bonusScores;
 
   @override
-  List<InventoryItemInstance> get inventory => _inventory;
+  List<InventoryItemInstance> get inventory => _inventory.isEmpty && super.inventory.isNotEmpty ? super.inventory.map((i) => i is InventoryItemInstance ? i : InventoryItemInstance.fromMap(i.toMap())).toList() : _inventory;
 
   @override
   CharacterResourcePool get resources => _resources;
