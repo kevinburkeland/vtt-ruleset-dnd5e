@@ -3,6 +3,9 @@
 One line per slice, newest first. Each line: date, slice name, what changed for a user or a developer.
 Work before Map slice 1.1 (hardening passes 0 to 12) is in the git history.
 
+## 2026-11-21
+- Cleanup slice 14: Re-pin vtt_engine_core to ec9f155cbdce8315b0d84213842ddf8a22e46a66, add 1500-line big-file bar with character_models.dart allowlisted at 1742 lines, sync check_coverage_floor.py, and remove duplicate test files test/attributes/dnd_5e_rules_engine_test.dart and test/combat/dnd_5e_combat_resolver_test.dart (Fixes 7.3, 7.4).
+
 ## 2026-11-19
 - Cleanup slice 14: Wrap Character.inventory in List.unmodifiable once in the constructor with a 120-seed read-only law, make parse_semver fail closed in check_dependencies.py (DC75-DC76), and upgrade no_super_conversion_bar_test to catch closures and report line numbers (Fixes 4.1-4.3).
 - Cleanup slice 14: Add EvaluatedCharacterStats.spellcastingModifiers keyed identically to spellAttackBonuses (empty for non-spellcasters) with a 360-seed law test and updated coverage floors (Fix 3.1).
