@@ -1740,3 +1740,4 @@ class Character extends TabletopCharacter {
       rulesetId.hashCode ^
       customProperties.length.hashCode;
 }
+// MUTATION B2 comment line
