@@ -1,0 +1,30 @@
+From 70669526954e7dd20d8bc845ef640c0316f9f161 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Sat, 21 Nov 2026 13:17:10 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20K1?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/models/character_models.dart | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/lib/src/models/character_models.dart b/lib/src/models/character_models.dart
+index 00ddb93..1f74bde 100644
+--- a/lib/src/models/character_models.dart
++++ b/lib/src/models/character_models.dart
+@@ -888,8 +888,7 @@ class Character extends TabletopCharacter {
+     RulesetEdition? rulesEdition,
+     Map<String, dynamic> customProperties = const {},
+   }) {
+-    final unmodifiableInventory =
+-        List<InventoryItemInstance>.unmodifiable(inventory);
++    final unmodifiableInventory = inventory;
+     return Character._(
+       id: id,
+       name: name,
+-- 
+2.55.0
+

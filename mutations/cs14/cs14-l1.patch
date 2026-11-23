@@ -1,0 +1,29 @@
+From 71cd9b824925bd13727170d027ef5f5a471d2d8c Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Sat, 21 Nov 2026 13:17:16 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20L1?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/models/character_models.dart | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/src/models/character_models.dart b/lib/src/models/character_models.dart
+index 00ddb93..6023d61 100644
+--- a/lib/src/models/character_models.dart
++++ b/lib/src/models/character_models.dart
+@@ -853,7 +853,7 @@ class Character extends TabletopCharacter {
+   AbilityScores get bonusScores => _bonusScores;
+ 
+   @override
+-  List<InventoryItemInstance> get inventory => _inventory;
++  List<InventoryItemInstance> get inventory => _inventory.isEmpty && super.inventory.isNotEmpty ? super.inventory.map((i) => i is InventoryItemInstance ? i : InventoryItemInstance.fromMap(i.toMap())).toList() : _inventory;
+ 
+   @override
+   CharacterResourcePool get resources => _resources;
+-- 
+2.55.0
+

@@ -1,0 +1,25 @@
+From c75db21a8ab26441681560ce09073f973e9d46af Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Sat, 21 Nov 2026 13:17:25 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20B2?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/models/character_models.dart | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/lib/src/models/character_models.dart b/lib/src/models/character_models.dart
+index 00ddb93..000335c 100644
+--- a/lib/src/models/character_models.dart
++++ b/lib/src/models/character_models.dart
+@@ -1740,3 +1740,4 @@ class Character extends TabletopCharacter {
+       rulesetId.hashCode ^
+       customProperties.length.hashCode;
+ }
++// MUTATION B2 comment line
+-- 
+2.55.0
+

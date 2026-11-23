@@ -1,0 +1,31 @@
+From afb762c87bdd77b8157a14829bac466c5d4e9604 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Sat, 21 Nov 2026 13:17:20 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20M1?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/evaluation/character_evaluation_engine.dart | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/lib/src/evaluation/character_evaluation_engine.dart b/lib/src/evaluation/character_evaluation_engine.dart
+index 57428dc..75e5235 100644
+--- a/lib/src/evaluation/character_evaluation_engine.dart
++++ b/lib/src/evaluation/character_evaluation_engine.dart
+@@ -797,8 +797,8 @@ class CharacterEvaluationEngine {
+       spellSaveDcs[slug] = dc;
+       spellAttackBonuses[className] = atk;
+       spellAttackBonuses[slug] = atk;
+-      spellcastingModifiers[className] = castMod;
+-      spellcastingModifiers[slug] = castMod;
++      spellcastingModifiers[className] = atk;
++      spellcastingModifiers[slug] = atk;
+     }
+ 
+     // Compute multiclass spell slots
+-- 
+2.55.0
+
