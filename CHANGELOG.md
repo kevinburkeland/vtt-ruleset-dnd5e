@@ -3,6 +3,9 @@
 One line per slice, newest first. Each line: date, slice name, what changed for a user or a developer.
 Work before Map slice 1.1 (hardening passes 0 to 12) is in the git history.
 
+## 2026-11-23
+- Cleanup slice 15: Retire cs14 mutation branches and sync coverage floor barrel self-test cases 21-24 (Fixes 1.1, 1.2).
+
 ## 2026-11-21
 - Cleanup slice 14: Re-pin vtt_engine_core to ec9f155cbdce8315b0d84213842ddf8a22e46a66, add 1500-line big-file bar with character_models.dart allowlisted at 1742 lines, sync check_coverage_floor.py, and remove duplicate test files test/attributes/dnd_5e_rules_engine_test.dart and test/combat/dnd_5e_combat_resolver_test.dart (Fixes 7.3, 7.4).
 
