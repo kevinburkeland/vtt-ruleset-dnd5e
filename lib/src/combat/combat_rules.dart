@@ -64,5 +64,6 @@ int proficiencyBonusForChallengeRating(double challengeRating) {
     );
   }
   if (challengeRating < 5) return 2;
-  return 2 + ((challengeRating - 1).floor() ~/ 4);
+  final pb = 2 + ((challengeRating - 1).floor() ~/ 4);
+  return pb > 6 ? 6 : pb;
 }
