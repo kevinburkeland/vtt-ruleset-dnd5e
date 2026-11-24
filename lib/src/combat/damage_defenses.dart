@@ -70,7 +70,7 @@ class DamageDefenses {
   bool isImmune(String damageType) {
     final key = _normalize(damageType);
     if (key.isEmpty) return false;
-    return immunities.contains(key) || immunities.contains('all');
+    return immunities.contains(key);
   }
 
   /// Returns whether [damageType] is halved by resistance (including `all`).
