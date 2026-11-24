@@ -26,7 +26,7 @@ class DamageDefenses {
     caseSensitive: false,
   );
   static final RegExp _leadingNoiseRe = RegExp(
-    r'^(?:nonmagical|magical|damage)\s+',
+    r'^(?:non[\s-]+magical|nonmagical|magical|damage)\s+',
     caseSensitive: false,
   );
 

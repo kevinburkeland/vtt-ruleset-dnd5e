@@ -138,6 +138,15 @@ void main() {
       final exactZzz = DamageDefenses.fromStatBlockText(immunities: 'zzz');
       expect(exactZzz.isImmune('zzz'), isTrue);
       expect(exactZzz.isImmune('zz'), isFalse);
+
+      final spacedNonMagical = DamageDefenses.fromStatBlockText(
+        resistances:
+            'damage from spells; non magical bludgeoning, piercing, and slashing (from stoneskin)',
+      );
+      expect(spacedNonMagical.isResistant('bludgeoning'), isTrue);
+      expect(spacedNonMagical.isResistant('piercing'), isTrue);
+      expect(spacedNonMagical.isResistant('slashing'), isTrue);
+      expect(spacedNonMagical.isResistant('fire'), isFalse);
     });
   });
 
