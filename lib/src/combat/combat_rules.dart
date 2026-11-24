@@ -31,7 +31,7 @@ bool doesShieldBlockAttack({
   required int targetAc,
   required bool isCriticalHit,
 }) {
-  if (isCriticalHit) return false;
+  if (isCriticalHit && targetAc < 0) return false;
   if (totalToHit < targetAc) return false;
   return totalToHit < targetAc + 5;
 }
