@@ -3,6 +3,7 @@ import 'package:vtt_engine_core/models/generic_tabletop_primitives.dart';
 import 'package:vtt_engine_core/models/value_objects/hit_points.dart';
 import 'package:vtt_engine_core/rules/i_combat_resolver.dart';
 import '../dice/dice_expression.dart';
+import 'combat_rules.dart';
 
 /// Concrete D&D 5e Combat Resolver implementing core SRD combat calculations:
 /// - d20 roll + attack bonus vs Target Armor Class
@@ -24,19 +25,13 @@ class Dnd5eCombatResolver implements ICombatResolver {
   }) {
     final natural = rng.nextInt(20) + 1;
     final totalToHit = natural + attack.attackBonus;
-    final isCrit = natural >= attack.critThreshold;
-    final isFumble = natural == 1;
-
-    final AttackOutcomeType outcome;
-    if (isCrit) {
-      outcome = AttackOutcomeType.criticalHit;
-    } else if (isFumble) {
-      outcome = AttackOutcomeType.criticalMiss;
-    } else if (totalToHit >= defense.targetDefenseRating) {
-      outcome = AttackOutcomeType.hit;
-    } else {
-      outcome = AttackOutcomeType.miss;
-    }
+    final outcome = classifyAttackRoll(
+      naturalRoll: natural,
+      totalToHit: totalToHit,
+      targetAc: defense.targetDefenseRating,
+      critThreshold: attack.critThreshold,
+    );
+    final isCrit = outcome == AttackOutcomeType.criticalHit;
 
     final isHit = outcome == AttackOutcomeType.hit ||
         outcome == AttackOutcomeType.criticalHit;

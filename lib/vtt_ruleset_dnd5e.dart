@@ -13,7 +13,9 @@ export 'src/rules/dnd_ruleset_strategy.dart';
 
 // Combat & Resolution
 export 'src/combat/dnd_5e_combat_resolver.dart';
+export 'src/combat/combat_rules.dart';
 export 'src/combat/damage_adjustment.dart';
+export 'src/combat/damage_defenses.dart';
 export 'src/combat/combat_odds.dart';
 
 // Dice
