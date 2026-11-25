@@ -1,0 +1,29 @@
+From d96a012df2c96d6baee1076d8b846e864ed95080 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Tue, 24 Nov 2026 15:01:42 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20r1?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/combat/damage_defenses.dart | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/src/combat/damage_defenses.dart b/lib/src/combat/damage_defenses.dart
+index d9f0fa4..cd2cff8 100644
+--- a/lib/src/combat/damage_defenses.dart
++++ b/lib/src/combat/damage_defenses.dart
+@@ -70,7 +70,7 @@ class DamageDefenses {
+   bool isImmune(String damageType) {
+     final key = _normalize(damageType);
+     if (key.isEmpty) return false;
+-    return immunities.contains(key) || immunities.contains('all');
++    return immunities.contains(key);
+   }
+ 
+   /// Returns whether [damageType] is halved by resistance (including `all`).
+-- 
+2.55.0
+
