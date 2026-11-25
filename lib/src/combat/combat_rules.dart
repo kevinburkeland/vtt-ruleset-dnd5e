@@ -13,11 +13,11 @@ AttackOutcomeType classifyAttackRoll({
   if (naturalRoll >= critThreshold) {
     return AttackOutcomeType.criticalHit;
   }
-  if (naturalRoll == 1) {
-    return AttackOutcomeType.criticalMiss;
-  }
   if (totalToHit >= targetAc) {
     return AttackOutcomeType.hit;
+  }
+  if (naturalRoll == 1) {
+    return AttackOutcomeType.criticalMiss;
   }
   return AttackOutcomeType.miss;
 }
