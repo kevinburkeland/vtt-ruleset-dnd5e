@@ -170,19 +170,7 @@ AttackOdds computeVexConditionalOdds({
     );
   }
 
-  final p = priorHitProbability;
-  final q = 1.0 - p;
-  final hit = p * oddsWithAdvantage.hit + q * oddsWithoutVex.hit;
-  final crit = p * oddsWithAdvantage.crit + q * oddsWithoutVex.crit;
-  final regularHit = math.max(0.0, hit - crit);
-  final miss = math.max(0.0, 1.0 - hit);
-
-  return AttackOdds(
-    hit: hit,
-    crit: crit,
-    regularHit: regularHit,
-    miss: miss,
-  );
+  return oddsWithAdvantage;
 }
 
 /// Computes expected Sneak Attack damage over a sequence of attacks in a turn
