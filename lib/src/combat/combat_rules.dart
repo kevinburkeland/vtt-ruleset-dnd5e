@@ -79,7 +79,9 @@ final _firstChallengeRatingTokenRe = RegExp(r'(\d+)/(\d+)|(\d+(?:\.\d+)?)');
 /// denominator (such as `"1/0"`) returns `null`. Returns `null` when [text]
 /// holds no number. Does not clamp and does not throw.
 double? parseChallengeRating(String text) {
-  final match = _firstChallengeRatingTokenRe.firstMatch(text);
+  final cleaned = text.replaceAll(RegExp(r'[^0-9/]'), '');
+  if (cleaned.isEmpty) return null;
+  final match = _firstChallengeRatingTokenRe.firstMatch(cleaned);
   if (match == null) return null;
 
   final numStr = match.group(1);
