@@ -69,19 +69,16 @@ AbilityScores applyAbilityScoreIncreases({
   int maximumScore = 20,
   Map<AbilityType, int>? maximumScoreOverrides,
 }) {
-  final delta = computeEffectiveAsiBonusDelta(
-    currentScores: currentScores,
-    increases: increases,
-    maximumScore: maximumScore,
-    maximumScoreOverrides: maximumScoreOverrides,
-  );
   return AbilityScores(
-    strength: currentScores.strength + delta.strength,
-    dexterity: currentScores.dexterity + delta.dexterity,
-    constitution: currentScores.constitution + delta.constitution,
-    intelligence: currentScores.intelligence + delta.intelligence,
-    wisdom: currentScores.wisdom + delta.wisdom,
-    charisma: currentScores.charisma + delta.charisma,
+    strength: currentScores.strength + (increases[AbilityType.strength] ?? 0),
+    dexterity:
+        currentScores.dexterity + (increases[AbilityType.dexterity] ?? 0),
+    constitution: currentScores.constitution +
+        (increases[AbilityType.constitution] ?? 0),
+    intelligence: currentScores.intelligence +
+        (increases[AbilityType.intelligence] ?? 0),
+    wisdom: currentScores.wisdom + (increases[AbilityType.wisdom] ?? 0),
+    charisma: currentScores.charisma + (increases[AbilityType.charisma] ?? 0),
   );
 }
 
