@@ -222,19 +222,16 @@ class SpellAllocationValidator {
         slug == 'cleric' ||
         slug == 'druid' ||
         slug == 'bard') {
-      return (lvl + 1) ~/
-          2; // Full casters: 1-2: 1st, 3-4: 2nd, 5-6: 3rd, ..., 17-20: 9th
+      return ((lvl + 1) ~/ 2).clamp(1, 9);
     } else if (slug == 'warlock') {
       if (lvl >= 9) return 5;
       return (lvl + 1) ~/ 2;
     } else if (slug == 'paladin' || slug == 'ranger') {
       if (edition == RulesetEdition.v2024) {
-        return ((lvl + 1) ~/ 4) +
-            1; // 2024 half casters gain 1st level spells at level 1
+        return ((lvl + 3) ~/ 4).clamp(1, 5);
       }
       if (lvl < 2) return 0;
-      return ((lvl + 1) ~/ 4) +
-          1; // 2014: lvl 2-4: 1st, 5-8: 2nd, 9-12: 3rd, 13-16: 4th, 17-20: 5th
+      return ((lvl + 3) ~/ 4).clamp(1, 5);
     } else if (slug.contains('eldritch_knight') ||
         slug.contains('arcane_trickster') ||
         sub.contains('eldritch_knight') ||

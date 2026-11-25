@@ -81,6 +81,10 @@ void main() {
             if (profile.isSpellcaster) {
               expect(profile.castingAbility, isNotNull);
               expect(profile.spellList, isNotNull);
+              expect(profile.highestSpellLevel, inInclusiveRange(1, 9));
+              if (slug == 'paladin' || slug == 'ranger') {
+                expect(profile.highestSpellLevel, equals(((lvl + 3) ~/ 4).clamp(1, 5)));
+              }
             } else {
               expect(profile.castingAbility, isNull);
               expect(profile.spellList, isNull);

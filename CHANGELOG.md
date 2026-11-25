@@ -4,6 +4,7 @@ One line per slice, newest first. Each line: date, slice name, what changed for 
 Work before Map slice 1.1 (hardening passes 0 to 12) is in the git history.
 
 ## 2026-11-25
+- Cleanup slice 16: Fix getMaxSpellTierForClass clamping for full casters (L19-20 -> 9) and half casters (L3-4 -> 1, L7-8 -> 2, L11-12 -> 3, L15-16 -> 4, L19-20 -> 5) caught by Fix 7.1 app law (Fix 7.1).
 - Cleanup slice 16: Add ClassSpellcasterProfile/resolveClassSpellcasterProfile, computeEffectiveAsiBonusDelta/applyAbilityScoreIncreases, computeOriginAbilityBonuses, and computeLevelUpHpGain with exhaustive laws and wire into CharacterProgressionEngine (Fixes 7.1-7.3).
 - Cleanup slice 16: Replace all dynamic types in Dnd5eCatalog with CatalogFeat, CatalogMagicItem, and Object?, remove dynamic casts in CharacterEvaluationEngine, and add catalog_no_dynamic_bar_test.dart (Fix 5.1).
 - Cleanup slice 16: Add computeAttackOddsWithBuffDie, computeVexConditionalOdds, and computeFirstHitSneakAttackExpectedDamage with exact grid laws and 60-turn x 200k-trial Monte Carlo cross-check (Fix 4.3).
