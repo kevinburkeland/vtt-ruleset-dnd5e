@@ -206,15 +206,15 @@ double computeFirstHitSneakAttackExpectedDamage({
     );
   }
 
-  var probMissedPrior = 1.0;
-  var expectedDamage = 0.0;
+  var probAllMiss = 1.0;
+  var probNoCrit = 1.0;
   for (final odds in attackOdds) {
-    expectedDamage += probMissedPrior *
-        (odds.regularHit * expectedSneakDamage +
-            odds.crit * 2.0 * expectedSneakDamage);
-    probMissedPrior *= odds.miss;
+    probAllMiss *= odds.miss;
+    probNoCrit *= (1.0 - odds.crit);
   }
-  return expectedDamage;
+  final probAtLeastOneHit = 1.0 - probAllMiss;
+  final probAtLeastOneCrit = 1.0 - probNoCrit;
+  return (probAtLeastOneHit + probAtLeastOneCrit) * expectedSneakDamage;
 }
 
 /// Computes exact probability that a target FAILS a saving throw.
