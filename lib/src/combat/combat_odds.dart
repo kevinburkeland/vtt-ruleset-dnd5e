@@ -123,30 +123,12 @@ AttackOdds computeAttackOddsWithBuffDie({
     );
   }
 
-  var sumHit = 0.0;
-  var sumCrit = 0.0;
-  for (var face = 1; face <= buffDieSides; face++) {
-    final odds = computeAttackOdds(
-      attackBonus: attackBonus + face,
-      targetAc: targetAc,
-      critThreshold: critThreshold,
-      mode: mode,
-      rerollOnes: rerollOnes,
-    );
-    sumHit += odds.hit;
-    sumCrit += odds.crit;
-  }
-
-  final hit = sumHit / buffDieSides;
-  final crit = sumCrit / buffDieSides;
-  final regularHit = math.max(0.0, hit - crit);
-  final miss = math.max(0.0, 1.0 - hit);
-
-  return AttackOdds(
-    hit: hit,
-    crit: crit,
-    regularHit: regularHit,
-    miss: miss,
+  return computeAttackOdds(
+    attackBonus: attackBonus + (buffDieSides + 1) / 2.0,
+    targetAc: targetAc,
+    critThreshold: critThreshold,
+    mode: mode,
+    rerollOnes: rerollOnes,
   );
 }
 
