@@ -39,7 +39,7 @@ abstract interface class Dnd5eCatalog {
   CatalogFeat? findFeat(String slug);
 
   /// Looks up a magic item view by its ID or name.
-  CatalogMagicItem? findMagicItem(String idOrName);
+  dynamic findMagicItem(String idOrName);
 
   /// Retrieves always-prepared spell names for a class/subclass at the given level and edition.
   List<String> getAlwaysPreparedSpells({
