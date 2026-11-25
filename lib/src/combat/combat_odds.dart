@@ -88,6 +88,135 @@ AttackOdds computeAttackOdds({
   );
 }
 
+/// Computes exact D&D 5e attack roll outcome probabilities when an additive
+/// buff die (such as Bless's 1d4) is rolled on the attack roll.
+///
+/// The hit and critical probabilities are the exact face-by-face average of
+/// [computeAttackOdds] with [attackBonus] raised by each face `1..buffDieSides`
+/// rather than a single evaluation at the mean `(buffDieSides + 1) / 2`.
+/// When [buffDieSides] is `0`, this returns [computeAttackOdds] directly.
+///
+/// Throws [ArgumentError] if [buffDieSides] is negative or [critThreshold]
+/// is outside `2..20`.
+AttackOdds computeAttackOddsWithBuffDie({
+  required double attackBonus,
+  required int targetAc,
+  required int buffDieSides,
+  int critThreshold = 20,
+  D20RollMode mode = D20RollMode.normal,
+  bool rerollOnes = false,
+}) {
+  if (buffDieSides < 0) {
+    throw ArgumentError.value(
+      buffDieSides,
+      'buffDieSides',
+      'must be non-negative',
+    );
+  }
+  if (buffDieSides == 0) {
+    return computeAttackOdds(
+      attackBonus: attackBonus,
+      targetAc: targetAc,
+      critThreshold: critThreshold,
+      mode: mode,
+      rerollOnes: rerollOnes,
+    );
+  }
+
+  var sumHit = 0.0;
+  var sumCrit = 0.0;
+  for (var face = 1; face <= buffDieSides; face++) {
+    final odds = computeAttackOdds(
+      attackBonus: attackBonus + face,
+      targetAc: targetAc,
+      critThreshold: critThreshold,
+      mode: mode,
+      rerollOnes: rerollOnes,
+    );
+    sumHit += odds.hit;
+    sumCrit += odds.crit;
+  }
+
+  final hit = sumHit / buffDieSides;
+  final crit = sumCrit / buffDieSides;
+  final regularHit = math.max(0.0, hit - crit);
+  final miss = math.max(0.0, 1.0 - hit);
+
+  return AttackOdds(
+    hit: hit,
+    crit: crit,
+    regularHit: regularHit,
+    miss: miss,
+  );
+}
+
+/// Computes the marginal [AttackOdds] for an attack following a Vex attack.
+///
+/// Vex grants Advantage on the next attack only when the prior Vex attack hit
+/// (probability [priorHitProbability]). The resulting odds are:
+/// `priorHitProbability * oddsWithAdvantage + (1 - priorHitProbability) * oddsWithoutVex`.
+///
+/// Throws [ArgumentError] if [priorHitProbability] is outside `0.0..1.0`.
+AttackOdds computeVexConditionalOdds({
+  required double priorHitProbability,
+  required AttackOdds oddsWithAdvantage,
+  required AttackOdds oddsWithoutVex,
+}) {
+  if (priorHitProbability < 0.0 || priorHitProbability > 1.0) {
+    throw ArgumentError.value(
+      priorHitProbability,
+      'priorHitProbability',
+      'must be between 0.0 and 1.0',
+    );
+  }
+
+  final p = priorHitProbability;
+  final q = 1.0 - p;
+  final hit = p * oddsWithAdvantage.hit + q * oddsWithoutVex.hit;
+  final crit = p * oddsWithAdvantage.crit + q * oddsWithoutVex.crit;
+  final regularHit = math.max(0.0, hit - crit);
+  final miss = math.max(0.0, 1.0 - hit);
+
+  return AttackOdds(
+    hit: hit,
+    crit: crit,
+    regularHit: regularHit,
+    miss: miss,
+  );
+}
+
+/// Computes expected Sneak Attack damage over a sequence of attacks in a turn
+/// under the **first-hit model**: Sneak Attack is applied to the first attack
+/// that hits rather than saved for a potential critical hit on a later attack.
+///
+/// Formula:
+/// `sum_i (P(attacks 1..i-1 all miss) * (P(regularHit_i) * D + P(crit_i) * 2D))`
+/// where `D` is [expectedSneakDamage].
+///
+/// Throws [ArgumentError] if [expectedSneakDamage] is negative.
+double computeFirstHitSneakAttackExpectedDamage({
+  required List<AttackOdds> attackOdds,
+  required double expectedSneakDamage,
+}) {
+  if (expectedSneakDamage < 0.0) {
+    throw ArgumentError.value(
+      expectedSneakDamage,
+      'expectedSneakDamage',
+      'must be non-negative',
+    );
+  }
+
+  var probMissedPrior = 1.0;
+  var expectedDamage = 0.0;
+  for (final odds in attackOdds) {
+    expectedDamage += probMissedPrior *
+        (odds.regularHit * expectedSneakDamage +
+            odds.crit * 2.0 * expectedSneakDamage);
+    probMissedPrior *= odds.miss;
+  }
+  return expectedDamage;
+}
+
 /// Computes exact probability that a target FAILS a saving throw.
 ///
 /// The save succeeds when `face + saveBonus >= saveDc`.
