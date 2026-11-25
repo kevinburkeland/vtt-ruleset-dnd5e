@@ -66,3 +66,34 @@ int proficiencyBonusForChallengeRating(double challengeRating) {
   if (challengeRating < 5) return 2;
   return 2 + ((challengeRating - 1).floor() ~/ 4);
 }
+
+final _firstChallengeRatingTokenRe = RegExp(r'(\d+)/(\d+)|(\d+(?:\.\d+)?)');
+
+/// Reads the first number or fraction in [text] as a challenge rating value.
+///
+/// Accepts bare numbers (`"5"`), prefixed forms (`"CR 5"`), fractions
+/// (`"1/4"`, `"CR 1/2 (100 XP)"`), and text with trailing XP or proficiency
+/// notes (`"30 (155,000 XP)"`, `"CR 5 (XP 1,800; PB +3)"`, `"0 (10 XP)"`).
+///
+/// A fraction is `<digits>/<digits>` with a non-zero denominator; a zero
+/// denominator (such as `"1/0"`) returns `null`. Returns `null` when [text]
+/// holds no number. Does not clamp and does not throw.
+double? parseChallengeRating(String text) {
+  final match = _firstChallengeRatingTokenRe.firstMatch(text);
+  if (match == null) return null;
+
+  final numStr = match.group(1);
+  final denStr = match.group(2);
+  if (numStr != null && denStr != null) {
+    final numerator = int.tryParse(numStr);
+    final denominator = int.tryParse(denStr);
+    if (numerator == null || denominator == null || denominator == 0) {
+      return null;
+    }
+    return numerator / denominator;
+  }
+
+  final scalarStr = match.group(3);
+  if (scalarStr == null) return null;
+  return double.tryParse(scalarStr);
+}
