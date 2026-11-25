@@ -5,14 +5,14 @@ import 'package:vtt_ruleset_dnd5e/vtt_ruleset_dnd5e.dart';
 /// nothing found, empty lists.
 class TestDnd5eCatalog implements Dnd5eCatalog {
   final DomainEntity? Function(String slug)? onFindClass;
-  final dynamic Function(String slug)? onFindFeat;
-  final dynamic Function(String idOrName)? onFindMagicItem;
+  final CatalogFeat? Function(String slug)? onFindFeat;
+  final CatalogMagicItem? Function(String idOrName)? onFindMagicItem;
   final List<String> Function(String classSlug, String? subclassSlug, int classLevel, RulesetEdition edition)? onGetAlwaysPreparedSpells;
   final int? Function(String slug)? onGetSpellLevel;
   final List<CombatEffectRider> Function(String markdown)? onExtractRiders;
-  final Map<String, bool> Function(dynamic addSpellsData)? onExtractSpellDescriptors;
-  final Set<String> Function(dynamic addSpellsData)? onExtractSpellNames;
-  final List<FeatureGrant> Function(dynamic addSpellsData, String ownerPrefix, String ownerSlug)? onExtractBonusSpells;
+  final Map<String, bool> Function(Object? addSpellsData)? onExtractSpellDescriptors;
+  final Set<String> Function(Object? addSpellsData)? onExtractSpellNames;
+  final List<FeatureGrant> Function(Object? addSpellsData, String ownerPrefix, String ownerSlug)? onExtractBonusSpells;
 
   const TestDnd5eCatalog({
     this.onFindClass,
@@ -30,10 +30,10 @@ class TestDnd5eCatalog implements Dnd5eCatalog {
   DomainEntity? findClass(String slug) => onFindClass != null ? onFindClass!(slug) : null;
 
   @override
-  dynamic findFeat(String slug) => onFindFeat != null ? onFindFeat!(slug) : null;
+  CatalogFeat? findFeat(String slug) => onFindFeat != null ? onFindFeat!(slug) : null;
 
   @override
-  dynamic findMagicItem(String idOrName) => onFindMagicItem != null ? onFindMagicItem!(idOrName) : null;
+  CatalogMagicItem? findMagicItem(String idOrName) => onFindMagicItem != null ? onFindMagicItem!(idOrName) : null;
 
   @override
   List<String> getAlwaysPreparedSpells({
@@ -53,16 +53,16 @@ class TestDnd5eCatalog implements Dnd5eCatalog {
       onExtractRiders != null ? onExtractRiders!(markdown) : const [];
 
   @override
-  Map<String, bool> extractSpellDescriptors(dynamic addSpellsData) =>
+  Map<String, bool> extractSpellDescriptors(Object? addSpellsData) =>
       onExtractSpellDescriptors != null ? onExtractSpellDescriptors!(addSpellsData) : const {};
 
   @override
-  Set<String> extractSpellNames(dynamic addSpellsData) =>
+  Set<String> extractSpellNames(Object? addSpellsData) =>
       onExtractSpellNames != null ? onExtractSpellNames!(addSpellsData) : const {};
 
   @override
   List<FeatureGrant> extractBonusSpells(
-    dynamic addSpellsData,
+    Object? addSpellsData,
     String ownerPrefix,
     String ownerSlug,
   ) => onExtractBonusSpells != null

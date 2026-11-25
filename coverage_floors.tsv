@@ -3,7 +3,7 @@ TOTAL	70.8
 lib/src/attributes/dnd5e_attributes.dart	57.6
 lib/src/attributes/dnd_5e_attribute_system.dart	18.1
 lib/src/attributes/dnd_5e_rules_engine.dart	44.4
-lib/src/catalog/dnd5e_catalog.dart	85.7
+lib/src/catalog/dnd5e_catalog.dart	88.8
 lib/src/combat/combat_odds.dart	100.0
 lib/src/combat/combat_rules.dart	100.0
 lib/src/combat/damage_adjustment.dart	100.0

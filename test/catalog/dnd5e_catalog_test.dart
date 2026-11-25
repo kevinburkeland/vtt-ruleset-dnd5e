@@ -57,5 +57,20 @@ void main() {
       Dnd5eRuleset.install(cat2);
       expect(Dnd5eRuleset.catalog, same(cat2));
     });
+
+    test('CatalogFeat and CatalogMagicItem preserve typed fields', () {
+      const feat = CatalogFeat(grants: []);
+      const item = CatalogMagicItem(
+        categoryName: 'ring',
+        tags: ['ac'],
+        summary2024: 'Ring of Protection +1',
+        summary2014: 'Ring of Protection +1',
+      );
+      expect(feat.grants, isEmpty);
+      expect(item.categoryName, equals('ring'));
+      expect(item.tags, equals(['ac']));
+      expect(item.summary2024, equals('Ring of Protection +1'));
+      expect(item.summary2014, equals('Ring of Protection +1'));
+    });
   });
 }

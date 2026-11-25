@@ -377,16 +377,16 @@ class FeatureGrant {
       );
 
   /// Exhaustively extracts clean spell names and cantrip flags from compendium additionalSpells / subclassSpells structures.
-  static Map<String, bool> extractSpellDescriptors(dynamic addSpellsData) =>
+  static Map<String, bool> extractSpellDescriptors(Object? addSpellsData) =>
       Dnd5eRuleset.catalog.extractSpellDescriptors(addSpellsData);
 
   /// Exhaustively extracts clean spell names from compendium additionalSpells / subclassSpells structures.
-  static Set<String> extractSpellNames(dynamic addSpellsData) =>
+  static Set<String> extractSpellNames(Object? addSpellsData) =>
       Dnd5eRuleset.catalog.extractSpellNames(addSpellsData);
 
   /// Exhaustively extracts [FeatureGrant.bonusSpell] grants from compendium additionalSpells data.
   static List<FeatureGrant> extractBonusSpells(
-          dynamic addSpellsData, String ownerPrefix, String ownerSlug) =>
+          Object? addSpellsData, String ownerPrefix, String ownerSlug) =>
       Dnd5eRuleset.catalog.extractBonusSpells(
           addSpellsData, ownerPrefix, ownerSlug);
 

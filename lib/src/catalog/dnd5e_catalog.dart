@@ -3,17 +3,43 @@ import 'package:vtt_engine_core/vtt_engine_core.dart';
 import '../models/feature_grant.dart';
 import '../rules/ruleset_edition.dart';
 
+/// Typed view of a feat returned by [Dnd5eCatalog.findFeat], holding only the
+/// fields read by the ruleset evaluation engine.
+@immutable
+class CatalogFeat {
+  final List<FeatureGrant> grants;
+
+  const CatalogFeat({this.grants = const []});
+}
+
+/// Typed view of a magic item returned by [Dnd5eCatalog.findMagicItem], holding
+/// only the fields read by the ruleset evaluation engine.
+@immutable
+class CatalogMagicItem {
+  final String categoryName;
+  final List<String> tags;
+  final String summary2024;
+  final String summary2014;
+
+  const CatalogMagicItem({
+    required this.categoryName,
+    this.tags = const [],
+    this.summary2024 = '',
+    this.summary2014 = '',
+  });
+}
+
 /// Abstract collaborator contract supplying external entity lookups, spell information,
 /// and compendium token parsing required by the D&D 5e rules engine.
 abstract interface class Dnd5eCatalog {
   /// Looks up a class definition by its slug.
   DomainEntity? findClass(String slug);
 
-  /// Looks up a feat definition by its slug.
-  dynamic findFeat(String slug);
+  /// Looks up a feat view by its slug.
+  CatalogFeat? findFeat(String slug);
 
-  /// Looks up a magic item by its ID or name.
-  dynamic findMagicItem(String idOrName);
+  /// Looks up a magic item view by its ID or name.
+  CatalogMagicItem? findMagicItem(String idOrName);
 
   /// Retrieves always-prepared spell names for a class/subclass at the given level and edition.
   List<String> getAlwaysPreparedSpells({
@@ -30,14 +56,14 @@ abstract interface class Dnd5eCatalog {
   List<CombatEffectRider> extractRiders(String markdown);
 
   /// Extracts spell names and cantrip flags from compendium additionalSpells / subclassSpells structures.
-  Map<String, bool> extractSpellDescriptors(dynamic addSpellsData);
+  Map<String, bool> extractSpellDescriptors(Object? addSpellsData);
 
   /// Extracts clean spell names from compendium additionalSpells / subclassSpells structures.
-  Set<String> extractSpellNames(dynamic addSpellsData);
+  Set<String> extractSpellNames(Object? addSpellsData);
 
   /// Extracts bonus spell feature grants from compendium additionalSpells / subclassSpells structures.
   List<FeatureGrant> extractBonusSpells(
-    dynamic addSpellsData,
+    Object? addSpellsData,
     String ownerPrefix,
     String ownerSlug,
   );

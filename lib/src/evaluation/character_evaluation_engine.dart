@@ -157,16 +157,16 @@ class CharacterEvaluationEngine {
 
       // Fallback: Lookup from MagicItemLibrary if customProperties lacks bonus keys
       final rawSlug = instance.itemRef.slug.toLowerCase().replaceAll('-', '_');
-      final dynamic magicItem = Dnd5eRuleset.catalog.findMagicItem(rawSlug) ??
+      final magicItem = Dnd5eRuleset.catalog.findMagicItem(rawSlug) ??
           Dnd5eRuleset.catalog.findMagicItem('item_$rawSlug') ??
           Dnd5eRuleset.catalog.findMagicItem(instance.displayName);
       if (magicItem != null) {
-        merged.putIfAbsent('category', () => (magicItem.category as Enum).name);
+        merged.putIfAbsent('category', () => magicItem.categoryName);
         merged.putIfAbsent('tags', () => magicItem.tags);
       }
 
       final nameAndSummary =
-          '${instance.displayName} ${magicItem?.rules2024.summary ?? ""} ${magicItem?.rules2014.summary ?? ""}';
+          '${instance.displayName} ${magicItem?.summary2024 ?? ""} ${magicItem?.summary2014 ?? ""}';
 
       // Check Rod of the Pact Keeper (+1, +2, +3)
       final pactKeeperMatch = RegExp(
@@ -679,9 +679,9 @@ class CharacterEvaluationEngine {
     // 7. Skill Modifiers
     final grantedExpertises = <SkillType>{};
     for (final featRef in character.feats) {
-      final dynamic feat = Dnd5eRuleset.catalog.findFeat(featRef.slug);
-      if (feat != null && (feat.grants.isNotEmpty as bool)) {
-        grantedExpertises.addAll(GrantEvaluator.evaluateExpertiseGrants(feat.grants as List<FeatureGrant>).map(SkillType.fromLooseString).whereType<SkillType>());
+      final feat = Dnd5eRuleset.catalog.findFeat(featRef.slug);
+      if (feat != null && feat.grants.isNotEmpty) {
+        grantedExpertises.addAll(GrantEvaluator.evaluateExpertiseGrants(feat.grants).map(SkillType.fromLooseString).whereType<SkillType>());
       }
     }
 
