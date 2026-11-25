@@ -3,6 +3,9 @@
 One line per slice, newest first. Each line: date, slice name, what changed for a user or a developer.
 Work before Map slice 1.1 (hardening passes 0 to 12) is in the git history.
 
+## 2026-11-25
+- Cleanup slice 16: Retire cs15 mutation branches and run 14-day dependency look-ahead (upgraded local coverage to 1.16.2) (Fixes 1.1, 1.5).
+
 ## 2026-11-24
 - Cleanup slice 15: Add DamageDefenses stat-block parser, classifyAttackRoll, doesShieldBlockAttack, computeSaveDc, and SRD proficiencyBonusForChallengeRating (CR 0-30, +2 to +9) with exhaustive/seeded laws, and delegate Dnd5eCombatResolver.resolveAttack to classifyAttackRoll (Fixes 5.1-5.4).
 
