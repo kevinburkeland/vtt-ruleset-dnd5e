@@ -11,6 +11,7 @@ import '../models/i_entity_resolver.dart';
 import '../rules/ruleset_edition.dart';
 import '../evaluation/character_stat_calculator.dart';
 import '../attributes/dnd_5e_rules_engine.dart';
+import 'level_up_rules.dart';
 
 
 /// HP Progression Choice for a level up step (Fixed Average vs Rolled Die).
@@ -428,32 +429,25 @@ class CharacterProgressionEngine {
       if (choice.featRef != null) {
         newFeats.add(choice.featRef!);
       }
-      choice.abilityIncreases.forEach((ability, bonus) {
-        final currentRaw = character.rawAbilityScores.getScore(ability);
-        final maxAllowed = character.getAbilityScoreMaximum(ability);
-        final effectiveBonus =
-            math.max(0, math.min(bonus, maxAllowed - currentRaw));
-        switch (ability) {
-          case AbilityType.strength:
-            newBonusScores = newBonusScores.copyWith(
-                strength: newBonusScores.strength + effectiveBonus);
-          case AbilityType.dexterity:
-            newBonusScores = newBonusScores.copyWith(
-                dexterity: newBonusScores.dexterity + effectiveBonus);
-          case AbilityType.constitution:
-            newBonusScores = newBonusScores.copyWith(
-                constitution: newBonusScores.constitution + effectiveBonus);
-          case AbilityType.intelligence:
-            newBonusScores = newBonusScores.copyWith(
-                intelligence: newBonusScores.intelligence + effectiveBonus);
-          case AbilityType.wisdom:
-            newBonusScores = newBonusScores.copyWith(
-                wisdom: newBonusScores.wisdom + effectiveBonus);
-          case AbilityType.charisma:
-            newBonusScores = newBonusScores.copyWith(
-                charisma: newBonusScores.charisma + effectiveBonus);
-        }
-      });
+      if (choice.abilityIncreases.isNotEmpty) {
+        final maxOverrides = <AbilityType, int>{
+          for (final ab in choice.abilityIncreases.keys)
+            ab: character.getAbilityScoreMaximum(ab),
+        };
+        final delta = computeEffectiveAsiBonusDelta(
+          currentScores: character.rawAbilityScores,
+          increases: choice.abilityIncreases,
+          maximumScoreOverrides: maxOverrides,
+        );
+        newBonusScores = newBonusScores.copyWith(
+          strength: newBonusScores.strength + delta.strength,
+          dexterity: newBonusScores.dexterity + delta.dexterity,
+          constitution: newBonusScores.constitution + delta.constitution,
+          intelligence: newBonusScores.intelligence + delta.intelligence,
+          wisdom: newBonusScores.wisdom + delta.wisdom,
+          charisma: newBonusScores.charisma + delta.charisma,
+        );
+      }
       if (choice.savingThrowGrants.isNotEmpty) {
         updatedSavingThrows.addAll(choice.savingThrowGrants);
       }
@@ -682,7 +676,12 @@ class CharacterProgressionEngine {
               ((rolledIndex < cls.hitPointsRolled.length)
                   ? cls.hitPointsRolled[rolledIndex]
                   : cls.averageHpPerLevel);
-          maxHp += math.max(1, rolled + conMod);
+          maxHp += computeLevelUpHpGain(
+            hitDie: cls.hitDie,
+            constitutionModifier: conMod,
+            useFixedAverage: false,
+            rolledValue: rolled.clamp(1, cls.hitDieSides),
+          );
           currentLevelCounter++;
         }
       } else {
@@ -694,7 +693,12 @@ class CharacterProgressionEngine {
               ((l < cls.hitPointsRolled.length)
                   ? cls.hitPointsRolled[l]
                   : cls.averageHpPerLevel);
-          maxHp += math.max(1, rolled + conMod);
+          maxHp += computeLevelUpHpGain(
+            hitDie: cls.hitDie,
+            constitutionModifier: conMod,
+            useFixedAverage: false,
+            rolledValue: rolled.clamp(1, cls.hitDieSides),
+          );
           currentLevelCounter++;
         }
       }

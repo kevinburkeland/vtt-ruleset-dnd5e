@@ -1,6 +1,6 @@
 path	floor
-TOTAL	70.8
-lib/src/attributes/dnd5e_attributes.dart	57.6
+TOTAL	71.8
+lib/src/attributes/dnd5e_attributes.dart	58.5
 lib/src/attributes/dnd_5e_attribute_system.dart	18.1
 lib/src/attributes/dnd_5e_rules_engine.dart	44.4
 lib/src/catalog/dnd5e_catalog.dart	88.8
@@ -22,11 +22,13 @@ lib/src/models/i_entity_resolver.dart	0.0
 lib/src/models/spell_monster_equipment.dart	71.9
 lib/src/modules/dnd5e_ruleset_module.dart	63.7
 lib/src/modules/dnd_5e_modules.dart	36.3
-lib/src/progression/character_progression_engine.dart	62.8
+lib/src/progression/character_progression_engine.dart	65.5
+lib/src/progression/level_up_rules.dart	100.0
 lib/src/rules/dnd_ruleset_strategy.dart	52.8
 lib/src/rules/ruleset_context.dart	95.8
 lib/src/rules/ruleset_edition.dart	54.5
 lib/src/simulation/dnd_5e_dpr_simulation_strategy.dart	100.0
-lib/src/spellcasting/spell_allocation_validator.dart	97.1
+lib/src/spellcasting/class_spellcaster_profile.dart	100.0
+lib/src/spellcasting/spell_allocation_validator.dart	97.5
 lib/src/spellcasting/spellcasting_rules_engine.dart	66.8
 lib/vtt_ruleset_dnd5e.dart	0.0

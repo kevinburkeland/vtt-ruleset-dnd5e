@@ -38,6 +38,7 @@ export 'src/simulation/dnd_5e_dpr_simulation_strategy.dart';
 
 // Progression & Leveling
 export 'src/progression/character_progression_engine.dart';
+export 'src/progression/level_up_rules.dart';
 
 // Evaluation & Statistics
 export 'src/evaluation/character_evaluation_engine.dart';
@@ -46,6 +47,7 @@ export 'src/evaluation/character_stat_calculator.dart';
 // Spellcasting
 export 'src/spellcasting/spellcasting_rules_engine.dart';
 export 'src/spellcasting/spell_allocation_validator.dart';
+export 'src/spellcasting/class_spellcaster_profile.dart';
 
 // Domain Models & Resolvers
 export 'src/models/core_types.dart';
