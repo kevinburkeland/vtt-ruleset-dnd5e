@@ -206,6 +206,102 @@ class SpellAllocationValidator {
     20: 11,
   };
 
+  /// Prepared spells progression table for 2024 Bard, Cleric, and Druid (SRD 5.2.1, levels 1-20)
+  static const Map<int, int> _fullCasterPrepared2024 = {
+    1: 4,
+    2: 5,
+    3: 6,
+    4: 7,
+    5: 9,
+    6: 10,
+    7: 11,
+    8: 12,
+    9: 14,
+    10: 15,
+    11: 16,
+    12: 16,
+    13: 17,
+    14: 17,
+    15: 18,
+    16: 18,
+    17: 19,
+    18: 20,
+    19: 21,
+    20: 22,
+  };
+
+  /// Prepared spells progression table for 2024 Wizard (SRD 5.2.1, levels 1-20)
+  static const Map<int, int> _wizardPrepared2024 = {
+    1: 4,
+    2: 5,
+    3: 6,
+    4: 7,
+    5: 9,
+    6: 10,
+    7: 11,
+    8: 12,
+    9: 14,
+    10: 15,
+    11: 16,
+    12: 16,
+    13: 17,
+    14: 18,
+    15: 19,
+    16: 21,
+    17: 22,
+    18: 23,
+    19: 24,
+    20: 25,
+  };
+
+  /// Prepared spells progression table for 2024 Sorcerer (SRD 5.2.1, levels 1-20)
+  static const Map<int, int> _sorcererPrepared2024 = {
+    1: 2,
+    2: 4,
+    3: 6,
+    4: 7,
+    5: 9,
+    6: 10,
+    7: 11,
+    8: 12,
+    9: 14,
+    10: 15,
+    11: 16,
+    12: 16,
+    13: 17,
+    14: 17,
+    15: 18,
+    16: 18,
+    17: 19,
+    18: 20,
+    19: 21,
+    20: 22,
+  };
+
+  /// Prepared spells progression table for 2024 Paladin and Ranger (SRD 5.2.1, levels 1-20)
+  static const Map<int, int> _halfCasterPrepared2024 = {
+    1: 2,
+    2: 3,
+    3: 4,
+    4: 5,
+    5: 6,
+    6: 6,
+    7: 7,
+    8: 7,
+    9: 9,
+    10: 9,
+    11: 10,
+    12: 10,
+    13: 11,
+    14: 11,
+    15: 12,
+    16: 12,
+    17: 14,
+    18: 14,
+    19: 15,
+    20: 15,
+  };
+
   /// Calculates max spell slot tier available for a single class slice
   static int getMaxSpellTierForClass({
     required String classSlug,
@@ -265,7 +361,9 @@ class SpellAllocationValidator {
     switch (slug) {
       case 'wizard':
         final cantrips = (lvl >= 10) ? 5 : ((lvl >= 4) ? 4 : 3);
-        final maxPrepared = math.max(1, lvl + abilityModifier);
+        final maxPrepared = (edition == RulesetEdition.v2024)
+            ? (_wizardPrepared2024[lvl] ?? 4)
+            : math.max(1, lvl + abilityModifier);
         return SpellAllocationLimits(
           maxCantrips: cantrips,
           maxSpellsKnown: 0,
@@ -279,7 +377,9 @@ class SpellAllocationValidator {
 
       case 'sorcerer':
         final cantrips = (lvl >= 10) ? 6 : ((lvl >= 4) ? 5 : 4);
-        final known = _sorcererSpellsKnown[lvl] ?? 2;
+        final known = (edition == RulesetEdition.v2024)
+            ? (_sorcererPrepared2024[lvl] ?? 2)
+            : (_sorcererSpellsKnown[lvl] ?? 2);
         return SpellAllocationLimits(
           maxCantrips: cantrips,
           maxSpellsKnown: known,
@@ -291,7 +391,9 @@ class SpellAllocationValidator {
 
       case 'bard':
         final cantrips = (lvl >= 10) ? 4 : ((lvl >= 4) ? 3 : 2);
-        final known = _bardSpellsKnown[lvl] ?? 4;
+        final known = (edition == RulesetEdition.v2024)
+            ? (_fullCasterPrepared2024[lvl] ?? 4)
+            : (_bardSpellsKnown[lvl] ?? 4);
 
         var secretsCount = 0;
         var allowedSecretClasses = <SpellClass>{};
@@ -343,7 +445,9 @@ class SpellAllocationValidator {
 
       case 'cleric':
         final cantrips = (lvl >= 10) ? 5 : ((lvl >= 4) ? 4 : 3);
-        final maxPrepared = math.max(1, lvl + abilityModifier);
+        final maxPrepared = (edition == RulesetEdition.v2024)
+            ? (_fullCasterPrepared2024[lvl] ?? 4)
+            : math.max(1, lvl + abilityModifier);
         final alwaysPreparedCount = Dnd5eRuleset.catalog.getAlwaysPreparedSpells(
           classSlug: 'cleric',
           subclassSlug: subclassSlug,
@@ -363,7 +467,9 @@ class SpellAllocationValidator {
 
       case 'druid':
         final cantrips = (lvl >= 10) ? 4 : ((lvl >= 4) ? 3 : 2);
-        final maxPrepared = math.max(1, lvl + abilityModifier);
+        final maxPrepared = (edition == RulesetEdition.v2024)
+            ? (_fullCasterPrepared2024[lvl] ?? 4)
+            : math.max(1, lvl + abilityModifier);
         final alwaysPreparedCount = Dnd5eRuleset.catalog.getAlwaysPreparedSpells(
           classSlug: 'druid',
           subclassSlug: subclassSlug,
@@ -383,7 +489,7 @@ class SpellAllocationValidator {
 
       case 'warlock':
         final cantrips = (lvl >= 10) ? 4 : ((lvl >= 4) ? 3 : 2);
-        final known = _warlockSpellsKnown[lvl] ?? 2;
+        final count = _warlockSpellsKnown[lvl] ?? 2;
         final mysticTier = (lvl >= 17)
             ? 9
             : ((lvl >= 15) ? 8 : ((lvl >= 13) ? 7 : ((lvl >= 11) ? 6 : 0)));
@@ -393,7 +499,7 @@ class SpellAllocationValidator {
 
         return SpellAllocationLimits(
           maxCantrips: cantrips,
-          maxSpellsKnown: known,
+          maxSpellsKnown: count,
           maxSpellsPrepared: 0,
           maxSpellSlotLevel: maxTier,
           isSpellcaster: true,
@@ -404,7 +510,7 @@ class SpellAllocationValidator {
 
       case 'paladin':
         final maxPrepared = (edition == RulesetEdition.v2024)
-            ? math.max(1, ((lvl + 1) ~/ 2) + abilityModifier)
+            ? (_halfCasterPrepared2024[lvl] ?? 2)
             : (lvl < 2 ? 0 : math.max(1, (lvl ~/ 2) + abilityModifier));
         final alwaysPreparedCount = Dnd5eRuleset.catalog.getAlwaysPreparedSpells(
           classSlug: 'paladin',
@@ -425,12 +531,10 @@ class SpellAllocationValidator {
 
       case 'ranger':
         if (edition == RulesetEdition.v2024) {
-          const cantrips = 2;
-          final maxPrepared = math.max(1, ((lvl + 1) ~/ 2) + abilityModifier);
           return SpellAllocationLimits(
-            maxCantrips: cantrips,
+            maxCantrips: 0,
             maxSpellsKnown: 0,
-            maxSpellsPrepared: maxPrepared,
+            maxSpellsPrepared: _halfCasterPrepared2024[lvl] ?? 2,
             maxSpellSlotLevel: maxTier,
             isSpellcaster: true,
             castingAbility: 'Wisdom',
@@ -572,8 +676,11 @@ class SpellAllocationValidator {
       }).length;
 
       if (effectivePreparedCount > limits.maxSpellsPrepared) {
+        final basis = edition == RulesetEdition.v2024
+            ? '2024 class table'
+            : 'Level $targetClassLevel + Ability Mod $castingAbilityModifier';
         errors.add(
-          'Prepared $effectivePreparedCount spells, exceeding the prepared limit of ${limits.maxSpellsPrepared} (Level $targetClassLevel + Ability Mod $castingAbilityModifier).',
+          'Prepared $effectivePreparedCount spells, exceeding the prepared limit of ${limits.maxSpellsPrepared} ($basis).',
         );
       }
     }

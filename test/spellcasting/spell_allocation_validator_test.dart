@@ -134,7 +134,7 @@ void main() {
       );
       expect(paladin2024Lvl1.isSpellcaster, isTrue);
       expect(paladin2024Lvl1.maxSpellSlotLevel, 1);
-      expect(paladin2024Lvl1.maxSpellsPrepared, 3); // ((1+1)~/2) + 2 = 3
+      expect(paladin2024Lvl1.maxSpellsPrepared, 2); // SRD 5.2.1 Paladin table L1 = 2
     });
 
     test('Max tier gating prevents selecting higher level spells', () {
@@ -481,8 +481,8 @@ void main() {
         edition: RulesetEdition.v2024,
       );
       expect(ranger2024.isSpellcaster, isTrue);
-      expect(ranger2024.maxCantrips, 2);
-      expect(ranger2024.maxSpellsPrepared, 3);
+      expect(ranger2024.maxCantrips, 0);
+      expect(ranger2024.maxSpellsPrepared, 2);
 
       final ek = SpellAllocationValidator.getLimitsForClass(
         classSlug: 'fighter',
