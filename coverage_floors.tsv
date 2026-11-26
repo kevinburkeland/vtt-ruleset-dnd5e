@@ -1,5 +1,5 @@
 path	floor
-TOTAL	71.8
+TOTAL	72.7
 lib/src/attributes/dnd5e_attributes.dart	58.5
 lib/src/attributes/dnd_5e_attribute_system.dart	18.1
 lib/src/attributes/dnd_5e_rules_engine.dart	44.4
@@ -17,9 +17,10 @@ lib/src/mechanics/exhaustion_state.dart	79.0
 lib/src/mechanics/weapon_mastery.dart	86.2
 lib/src/models/character_models.dart	79.8
 lib/src/models/core_types.dart	10.7
+lib/src/models/equipment_item.dart	84.3
 lib/src/models/feature_grant.dart	44.6
 lib/src/models/i_entity_resolver.dart	0.0
-lib/src/models/spell_monster_equipment.dart	71.9
+lib/src/models/spell_monster_equipment.dart	72.3
 lib/src/modules/dnd5e_ruleset_module.dart	63.7
 lib/src/modules/dnd_5e_modules.dart	36.3
 lib/src/progression/character_progression_engine.dart	65.5

@@ -2,8 +2,9 @@ import '../catalog/dnd5e_catalog.dart';
 import 'package:meta/meta.dart';
 import 'package:vtt_engine_core/models/entity_reference.dart';
 import 'package:vtt_engine_core/simulation/combat_rider.dart';
-import 'feature_grant.dart';
 import 'core_types.dart';
+
+export 'equipment_item.dart';
 
 /// Isolated mathematical formula for damage and dice evaluation
 @immutable
@@ -491,89 +492,6 @@ class Monster extends DomainEntity {
       actionsMarkdown: actionsMarkdown ?? this.actionsMarkdown,
       innateSpells: innateSpells ?? this.innateSpells,
       attackMath: attackMath ?? this.attackMath,
-      customProperties: customProperties ?? this.customProperties,
-    );
-  }
-}
-
-/// Modernized Equipment Item Domain Model
-@immutable
-class EquipmentItem extends DomainEntity {
-  @override
-  final EntityId id;
-  @override
-  final String name;
-  final String itemType;
-  final String rarity;
-  final bool requiresAttunement;
-  final String descriptionMarkdown;
-
-  /// Declarative mechanic grants emitted when this item is equipped (e.g., AC bonus, speed bonus).
-  final List<FeatureGrant> grants;
-  @override
-  final Map<String, dynamic> customProperties;
-
-  const EquipmentItem({
-    required this.id,
-    required this.name,
-    required this.itemType,
-    required this.rarity,
-    required this.requiresAttunement,
-    required this.descriptionMarkdown,
-    this.grants = const [],
-    this.customProperties = const {},
-  });
-
-  @override
-  EntityType get entityType => EntityType.equipment;
-
-  @override
-  Map<String, dynamic> toMap() => {
-        'id': id.toMap(),
-        'name': name,
-        'itemType': itemType,
-        'rarity': rarity,
-        'requiresAttunement': requiresAttunement,
-        'descriptionMarkdown': descriptionMarkdown,
-        'grants': grants.map((g) => g.toMap()).toList(),
-        'customProperties': customProperties,
-      };
-
-  factory EquipmentItem.fromMap(Map<String, dynamic> map) {
-    return EquipmentItem(
-      id: EntityId.fromMap(Map<String, dynamic>.from(map['id'] as Map? ?? {})),
-      name: map['name']?.toString() ?? '',
-      itemType: map['itemType']?.toString() ?? 'Wondrous Item',
-      rarity: map['rarity']?.toString() ?? 'Common',
-      requiresAttunement: map['requiresAttunement'] == true,
-      descriptionMarkdown: map['descriptionMarkdown']?.toString() ?? '',
-      grants: (map['grants'] as List? ?? [])
-          .whereType<Map<dynamic, dynamic>>()
-          .map((g) => FeatureGrant.fromMap(Map<String, dynamic>.from(g)))
-          .toList(),
-      customProperties:
-          Map<String, dynamic>.from(map['customProperties'] as Map? ?? {}),
-    );
-  }
-
-  EquipmentItem copyWith({
-    EntityId? id,
-    String? name,
-    String? itemType,
-    String? rarity,
-    bool? requiresAttunement,
-    String? descriptionMarkdown,
-    List<FeatureGrant>? grants,
-    Map<String, dynamic>? customProperties,
-  }) {
-    return EquipmentItem(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      itemType: itemType ?? this.itemType,
-      rarity: rarity ?? this.rarity,
-      requiresAttunement: requiresAttunement ?? this.requiresAttunement,
-      descriptionMarkdown: descriptionMarkdown ?? this.descriptionMarkdown,
-      grants: grants ?? this.grants,
       customProperties: customProperties ?? this.customProperties,
     );
   }
