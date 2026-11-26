@@ -437,6 +437,34 @@ class SpellMaterialComponent {
 
   /// RAW Rule: An arcane focus or component pouch replaces materials UNLESS they have a gp cost or are consumed.
   bool get canBeReplacedByFocus => !hasCost && !isConsumed;
+
+  Map<String, dynamic> toMap() => {
+        'description': description,
+        'hasCost': hasCost,
+        'costInGp': costInGp,
+        'isConsumed': isConsumed,
+      };
+
+  factory SpellMaterialComponent.fromMap(Map<String, dynamic> map) {
+    return SpellMaterialComponent(
+      description: map['description']?.toString() ?? '',
+      hasCost: map['hasCost'] == true,
+      costInGp: (map['costInGp'] as num?)?.toInt() ?? 0,
+      isConsumed: map['isConsumed'] == true,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SpellMaterialComponent &&
+          description == other.description &&
+          hasCost == other.hasCost &&
+          costInGp == other.costInGp &&
+          isConsumed == other.isConsumed;
+
+  @override
+  int get hashCode => Object.hash(description, hasCost, costInGp, isConsumed);
 }
 
 // ============================================================================
@@ -507,6 +535,47 @@ class SpellScalingFormula {
         addsAbilityMod ? ' + mod' : (staticBonus != 0 ? ' + $staticBonus' : '');
     return '$totalDice' 'd$diceSides$modStr';
   }
+
+  Map<String, dynamic> toMap() => {
+        'baseDiceCount': baseDiceCount,
+        'diceSides': diceSides,
+        'dicePerSlotLevel': dicePerSlotLevel,
+        'slotStep': slotStep,
+        'addsAbilityMod': addsAbilityMod,
+        'staticBonus': staticBonus,
+      };
+
+  factory SpellScalingFormula.fromMap(Map<String, dynamic> map) {
+    return SpellScalingFormula(
+      baseDiceCount: (map['baseDiceCount'] as num?)?.toInt() ?? 1,
+      diceSides: (map['diceSides'] as num?)?.toInt() ?? 6,
+      dicePerSlotLevel: (map['dicePerSlotLevel'] as num?)?.toInt() ?? 1,
+      slotStep: (map['slotStep'] as num?)?.toInt() ?? 1,
+      addsAbilityMod: map['addsAbilityMod'] == true,
+      staticBonus: (map['staticBonus'] as num?)?.toInt() ?? 0,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SpellScalingFormula &&
+          baseDiceCount == other.baseDiceCount &&
+          diceSides == other.diceSides &&
+          dicePerSlotLevel == other.dicePerSlotLevel &&
+          slotStep == other.slotStep &&
+          addsAbilityMod == other.addsAbilityMod &&
+          staticBonus == other.staticBonus;
+
+  @override
+  int get hashCode => Object.hash(
+        baseDiceCount,
+        diceSides,
+        dicePerSlotLevel,
+        slotStep,
+        addsAbilityMod,
+        staticBonus,
+      );
 }
 
 class SpellRollResult {

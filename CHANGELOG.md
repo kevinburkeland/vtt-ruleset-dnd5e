@@ -4,6 +4,7 @@ One line per slice, newest first. Each line: date, slice name, what changed for 
 Work before Map slice 1.1 (hardening passes 0 to 12) is in the git history.
 
 ## 2026-11-26
+- Cleanup slice 17: Move Spell into lib/src/models/spell.dart with SpellEditionDetails, typed schoolEnum (preserving unknown homebrew schools), edition fields, and pre-slice-17 fromMap compatibility, plus toMap/fromMap/equality on SpellMaterialComponent and SpellScalingFormula, backed by 500-seed round-trip and 200-seed legacy compatibility laws (Fixes 6.1, 6.2).
 - Cleanup slice 17: Move EquipmentItem into lib/src/models/equipment_item.dart with pure-Dart ItemCategory, ItemRarity, ItemEditionDetails, edition fields, and pre-slice-17 fromMap compatibility, backed by 500-seed round-trip and 200-seed legacy compatibility laws (Fixes 5.1, 5.3).
 - Cleanup slice 17: Align 2024 SpellAllocationValidator.getLimitsForClass with SRD 5.2.1 class tables (and 2024 table message), add CasterProgression enum and homebrew caster support to resolveClassSpellcasterProfile with exhaustive laws (Fixes 3.1, 3.2).
 - Cleanup slice 17: Retire 7 cs16 mutation branches and confirm 14-day dependency look-ahead passes (Fixes 1.1, 1.4).
