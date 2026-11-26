@@ -1,0 +1,41 @@
+From 488f2419f4c641d5c29e6f87fe04cb7b7c687d46 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Wed, 25 Nov 2026 15:22:24 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20R4?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/combat/combat_odds.dart | 14 +-------------
+ 1 file changed, 1 insertion(+), 13 deletions(-)
+
+diff --git a/lib/src/combat/combat_odds.dart b/lib/src/combat/combat_odds.dart
+index 096c323..2e168e2 100644
+--- a/lib/src/combat/combat_odds.dart
++++ b/lib/src/combat/combat_odds.dart
+@@ -170,19 +170,7 @@ AttackOdds computeVexConditionalOdds({
+     );
+   }
+ 
+-  final p = priorHitProbability;
+-  final q = 1.0 - p;
+-  final hit = p * oddsWithAdvantage.hit + q * oddsWithoutVex.hit;
+-  final crit = p * oddsWithAdvantage.crit + q * oddsWithoutVex.crit;
+-  final regularHit = math.max(0.0, hit - crit);
+-  final miss = math.max(0.0, 1.0 - hit);
+-
+-  return AttackOdds(
+-    hit: hit,
+-    crit: crit,
+-    regularHit: regularHit,
+-    miss: miss,
+-  );
++  return oddsWithAdvantage;
+ }
+ 
+ /// Computes expected Sneak Attack damage over a sequence of attacks in a turn
+-- 
+2.55.0
+

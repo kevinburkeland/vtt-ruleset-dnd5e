@@ -1,0 +1,36 @@
+From cd124df5850b0adf5b5f331f46fa2e8be640b7a2 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Wed, 25 Nov 2026 15:22:12 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20R1?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/combat/combat_rules.dart | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/lib/src/combat/combat_rules.dart b/lib/src/combat/combat_rules.dart
+index 2b89853..ca9a7d9 100644
+--- a/lib/src/combat/combat_rules.dart
++++ b/lib/src/combat/combat_rules.dart
+@@ -13,12 +13,12 @@ AttackOutcomeType classifyAttackRoll({
+   if (naturalRoll >= critThreshold) {
+     return AttackOutcomeType.criticalHit;
+   }
+-  if (naturalRoll == 1) {
+-    return AttackOutcomeType.criticalMiss;
+-  }
+   if (totalToHit >= targetAc) {
+     return AttackOutcomeType.hit;
+   }
++  if (naturalRoll == 1) {
++    return AttackOutcomeType.criticalMiss;
++  }
+   return AttackOutcomeType.miss;
+ }
+ 
+-- 
+2.55.0
+

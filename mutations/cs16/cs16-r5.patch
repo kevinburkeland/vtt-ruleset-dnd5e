@@ -1,0 +1,43 @@
+From 360e6e9833f741b3c7077f71c6b015503c2be4a1 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Wed, 25 Nov 2026 15:22:28 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20R5?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/combat/combat_odds.dart | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/lib/src/combat/combat_odds.dart b/lib/src/combat/combat_odds.dart
+index 096c323..3cf2ad3 100644
+--- a/lib/src/combat/combat_odds.dart
++++ b/lib/src/combat/combat_odds.dart
+@@ -206,15 +206,15 @@ double computeFirstHitSneakAttackExpectedDamage({
+     );
+   }
+ 
+-  var probMissedPrior = 1.0;
+-  var expectedDamage = 0.0;
++  var probAllMiss = 1.0;
++  var probNoCrit = 1.0;
+   for (final odds in attackOdds) {
+-    expectedDamage += probMissedPrior *
+-        (odds.regularHit * expectedSneakDamage +
+-            odds.crit * 2.0 * expectedSneakDamage);
+-    probMissedPrior *= odds.miss;
++    probAllMiss *= odds.miss;
++    probNoCrit *= (1.0 - odds.crit);
+   }
+-  return expectedDamage;
++  final probAtLeastOneHit = 1.0 - probAllMiss;
++  final probAtLeastOneCrit = 1.0 - probNoCrit;
++  return (probAtLeastOneHit + probAtLeastOneCrit) * expectedSneakDamage;
+ }
+ 
+ /// Computes exact probability that a target FAILS a saving throw.
+-- 
+2.55.0
+

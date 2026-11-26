@@ -1,0 +1,29 @@
+From 6eb920a38fcd6b7f6ee5d0fc1fa97204d6a6d03e Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Wed, 25 Nov 2026 15:22:32 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20R6?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/catalog/dnd5e_catalog.dart | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/src/catalog/dnd5e_catalog.dart b/lib/src/catalog/dnd5e_catalog.dart
+index 75e425b..8311dbd 100644
+--- a/lib/src/catalog/dnd5e_catalog.dart
++++ b/lib/src/catalog/dnd5e_catalog.dart
+@@ -39,7 +39,7 @@ abstract interface class Dnd5eCatalog {
+   CatalogFeat? findFeat(String slug);
+ 
+   /// Looks up a magic item view by its ID or name.
+-  CatalogMagicItem? findMagicItem(String idOrName);
++  dynamic findMagicItem(String idOrName);
+ 
+   /// Retrieves always-prepared spell names for a class/subclass at the given level and edition.
+   List<String> getAlwaysPreparedSpells({
+-- 
+2.55.0
+

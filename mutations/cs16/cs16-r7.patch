@@ -1,0 +1,49 @@
+From 73f144064c90397cb9f66706e6b8f974789e7089 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Wed, 25 Nov 2026 15:22:35 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20R7?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/progression/level_up_rules.dart | 21 +++++++++------------
+ 1 file changed, 9 insertions(+), 12 deletions(-)
+
+diff --git a/lib/src/progression/level_up_rules.dart b/lib/src/progression/level_up_rules.dart
+index 491b3f6..a3553c6 100644
+--- a/lib/src/progression/level_up_rules.dart
++++ b/lib/src/progression/level_up_rules.dart
+@@ -69,19 +69,16 @@ AbilityScores applyAbilityScoreIncreases({
+   int maximumScore = 20,
+   Map<AbilityType, int>? maximumScoreOverrides,
+ }) {
+-  final delta = computeEffectiveAsiBonusDelta(
+-    currentScores: currentScores,
+-    increases: increases,
+-    maximumScore: maximumScore,
+-    maximumScoreOverrides: maximumScoreOverrides,
+-  );
+   return AbilityScores(
+-    strength: currentScores.strength + delta.strength,
+-    dexterity: currentScores.dexterity + delta.dexterity,
+-    constitution: currentScores.constitution + delta.constitution,
+-    intelligence: currentScores.intelligence + delta.intelligence,
+-    wisdom: currentScores.wisdom + delta.wisdom,
+-    charisma: currentScores.charisma + delta.charisma,
++    strength: currentScores.strength + (increases[AbilityType.strength] ?? 0),
++    dexterity:
++        currentScores.dexterity + (increases[AbilityType.dexterity] ?? 0),
++    constitution: currentScores.constitution +
++        (increases[AbilityType.constitution] ?? 0),
++    intelligence: currentScores.intelligence +
++        (increases[AbilityType.intelligence] ?? 0),
++    wisdom: currentScores.wisdom + (increases[AbilityType.wisdom] ?? 0),
++    charisma: currentScores.charisma + (increases[AbilityType.charisma] ?? 0),
+   );
+ }
+ 
+-- 
+2.55.0
+

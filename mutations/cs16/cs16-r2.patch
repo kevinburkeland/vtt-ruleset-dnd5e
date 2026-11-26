@@ -1,0 +1,31 @@
+From d2de01d38642acd623a5b3c2d895462523038136 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Wed, 25 Nov 2026 15:22:17 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20R2?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/combat/combat_rules.dart | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/lib/src/combat/combat_rules.dart b/lib/src/combat/combat_rules.dart
+index 2b89853..7f9f058 100644
+--- a/lib/src/combat/combat_rules.dart
++++ b/lib/src/combat/combat_rules.dart
+@@ -79,7 +79,9 @@ final _firstChallengeRatingTokenRe = RegExp(r'(\d+)/(\d+)|(\d+(?:\.\d+)?)');
+ /// denominator (such as `"1/0"`) returns `null`. Returns `null` when [text]
+ /// holds no number. Does not clamp and does not throw.
+ double? parseChallengeRating(String text) {
+-  final match = _firstChallengeRatingTokenRe.firstMatch(text);
++  final cleaned = text.replaceAll(RegExp(r'[^0-9/]'), '');
++  if (cleaned.isEmpty) return null;
++  final match = _firstChallengeRatingTokenRe.firstMatch(cleaned);
+   if (match == null) return null;
+ 
+   final numStr = match.group(1);
+-- 
+2.55.0
+
