@@ -3,6 +3,9 @@
 One line per slice, newest first. Each line: date, slice name, what changed for a user or a developer.
 Work before Map slice 1.1 (hardening passes 0 to 12) is in the git history.
 
+## 2026-11-26
+- Cleanup slice 17: Retire 7 cs16 mutation branches and confirm 14-day dependency look-ahead passes (Fixes 1.1, 1.4).
+
 ## 2026-11-25
 - Cleanup slice 16: Fix getMaxSpellTierForClass clamping for full casters (L19-20 -> 9) and half casters (L3-4 -> 1, L7-8 -> 2, L11-12 -> 3, L15-16 -> 4, L19-20 -> 5) caught by Fix 7.1 app law (Fix 7.1).
 - Cleanup slice 16: Add ClassSpellcasterProfile/resolveClassSpellcasterProfile, computeEffectiveAsiBonusDelta/applyAbilityScoreIncreases, computeOriginAbilityBonuses, and computeLevelUpHpGain with exhaustive laws and wire into CharacterProgressionEngine (Fixes 7.1-7.3).
