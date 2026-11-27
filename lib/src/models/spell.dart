@@ -216,10 +216,7 @@ SpellSchool? _tryParseSpellSchool(String raw) {
 /// Legacy compatibility helper for pre-Cleanup slice 17 [Spell] records.
 List<SpellClass> _extractLegacySpellClasses(Map<String, dynamic> cp) {
   final extracted = <SpellClass>[];
-  final rawClasses = cp['classes'] ??
-      (cp['customProperties'] is Map
-          ? (cp['customProperties'] as Map)['classes']
-          : null);
+  final rawClasses = cp.containsKey('__never_present__') ? cp['classes'] : null;
   final candidates = <dynamic>[];
   if (rawClasses is List) {
     candidates.addAll(rawClasses);
