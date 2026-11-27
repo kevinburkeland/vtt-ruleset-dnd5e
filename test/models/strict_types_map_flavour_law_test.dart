@@ -467,7 +467,7 @@ Monster _buildRandomMonster(int seed) {
     props['trait_$i'] = <String, dynamic>{'keen': i.isEven};
   }
 
-  return Monster(
+  return Monster.singleEdition(
     id: EntityId(
       slug: 'monster-$seed-${rng.nextInt(1000)}',
       ruleset: RulesetVersion.values[rng.nextInt(RulesetVersion.values.length)],

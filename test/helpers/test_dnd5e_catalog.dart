@@ -7,6 +7,7 @@ class TestDnd5eCatalog implements Dnd5eCatalog {
   final DomainEntity? Function(String slug)? onFindClass;
   final CatalogFeat? Function(String slug)? onFindFeat;
   final CatalogMagicItem? Function(String idOrName)? onFindMagicItem;
+  final MonsterStatBlock? Function(String name)? onFindMonsterStatBlockByName;
   final List<String> Function(String classSlug, String? subclassSlug, int classLevel, RulesetEdition edition)? onGetAlwaysPreparedSpells;
   final int? Function(String slug)? onGetSpellLevel;
   final List<CombatEffectRider> Function(String markdown)? onExtractRiders;
@@ -18,6 +19,7 @@ class TestDnd5eCatalog implements Dnd5eCatalog {
     this.onFindClass,
     this.onFindFeat,
     this.onFindMagicItem,
+    this.onFindMonsterStatBlockByName,
     this.onGetAlwaysPreparedSpells,
     this.onGetSpellLevel,
     this.onExtractRiders,
@@ -34,6 +36,10 @@ class TestDnd5eCatalog implements Dnd5eCatalog {
 
   @override
   CatalogMagicItem? findMagicItem(String idOrName) => onFindMagicItem != null ? onFindMagicItem!(idOrName) : null;
+
+  @override
+  MonsterStatBlock? findMonsterStatBlockByName(String name) =>
+      onFindMonsterStatBlockByName != null ? onFindMonsterStatBlockByName!(name) : null;
 
   @override
   List<String> getAlwaysPreparedSpells({

@@ -4,6 +4,7 @@ One line per slice, newest first. Each line: date, slice name, what changed for 
 Work before Map slice 1.1 (hardening passes 0 to 12) is in the git history.
 
 ## 2026-11-27
+- Cleanup slice 18: Unify Monster into lib/src/models/monster.dart holding dual-edition MonsterStatBlock fields (statBlock2014/statBlock2024), deriving shared combat facts from statBlock2024 while emitting legacy keys in toMap, adding Monster.singleEdition and pre-Cleanup slice 18 legacy fromMap hydration (backed by 500-seed round-trip and 200-seed legacy parity laws), and adding findMonsterStatBlockByName to Dnd5eCatalog (Step 6, Fixes 6.1-6.2).
 - Cleanup slice 18: Add pure-Dart MonsterStatBlock, CreatureTrait, CreatureAction, and SummonCategory models with toMap/fromMap/copyWith/equality/hashCode and 500-seed round-trip laws (Step 5, Fix 5.1).
 - Cleanup slice 18: Remove silent constructor defaults for EquipmentItem (category, rarityTier, rules2014, rules2024) and Spell (rules2014, rules2024), add Spell.singleEdition and EquipmentItem.singleEdition sharing single-edition hydration with legacy fromMap, backed by 300-seed parity laws (Step 2, Fix 2.2).
 - Cleanup slice 18: Retire 5 cs17 mutation branches, add recursive map_diff_helper.dart to Spell and EquipmentItem round-trip laws (test/ only), and confirm 14-day dependency look-ahead passes (Fixes 1.1, 1.4, 1.5).

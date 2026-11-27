@@ -1,9 +1,8 @@
 import 'package:meta/meta.dart';
-import 'package:vtt_engine_core/models/entity_reference.dart';
 import 'core_types.dart';
-import 'spell.dart';
 
 export 'equipment_item.dart';
+export 'monster.dart';
 export 'spell.dart';
 
 /// Isolated mathematical formula for damage and dice evaluation
@@ -195,121 +194,6 @@ class SpellDuration {
       durationSeconds: (map['durationSeconds'] as num?)?.toInt() ?? 0,
       requiresConcentration: map['requiresConcentration'] == true,
       rawText: map['rawText']?.toString(),
-    );
-  }
-}
-
-/// Modernized Monster Domain Model
-@immutable
-class Monster extends DomainEntity {
-  @override
-  final EntityId id;
-  @override
-  final String name;
-  final String size;
-  final String monsterType;
-  final String alignment;
-  final int armorClass;
-  final int hitPoints;
-  final String hitDieFormula;
-  final String challengeRating;
-  final String actionsMarkdown;
-  final List<EntityReference<Spell>> innateSpells;
-  final List<EvaluationMath> attackMath;
-  @override
-  final Map<String, dynamic> customProperties;
-
-  const Monster({
-    required this.id,
-    required this.name,
-    required this.size,
-    required this.monsterType,
-    required this.alignment,
-    required this.armorClass,
-    required this.hitPoints,
-    required this.hitDieFormula,
-    required this.challengeRating,
-    required this.actionsMarkdown,
-    this.innateSpells = const [],
-    this.attackMath = const [],
-    this.customProperties = const {},
-  });
-
-  @override
-  EntityType get entityType => EntityType.monster;
-
-  @override
-  Map<String, dynamic> toMap() => {
-        'id': id.toMap(),
-        'name': name,
-        'size': size,
-        'monsterType': monsterType,
-        'alignment': alignment,
-        'armorClass': armorClass,
-        'hitPoints': hitPoints,
-        'hitDieFormula': hitDieFormula,
-        'challengeRating': challengeRating,
-        'actionsMarkdown': actionsMarkdown,
-        'innateSpells': innateSpells.map((s) => s.toMap()).toList(),
-        'attackMath': attackMath.map((a) => a.toMap()).toList(),
-        'customProperties': customProperties,
-      };
-
-  factory Monster.fromMap(Map<String, dynamic> map) {
-    return Monster(
-      id: EntityId.fromMap(Map<String, dynamic>.from(map['id'] as Map? ?? {})),
-      name: map['name']?.toString() ?? '',
-      size: map['size']?.toString() ?? 'Medium',
-      monsterType: map['monsterType']?.toString() ?? 'Humanoid',
-      alignment: map['alignment']?.toString() ?? 'unaligned',
-      armorClass: (map['armorClass'] as num?)?.toInt() ?? 10,
-      hitPoints: (map['hitPoints'] as num?)?.toInt() ?? 10,
-      hitDieFormula: map['hitDieFormula']?.toString() ?? '2d8',
-      challengeRating: map['challengeRating']?.toString() ?? '1',
-      actionsMarkdown: map['actionsMarkdown']?.toString() ?? '',
-      innateSpells: (map['innateSpells'] as List? ?? [])
-          .whereType<Map<dynamic, dynamic>>()
-          .map((s) =>
-              EntityReference<Spell>.fromMap(Map<String, dynamic>.from(s)))
-          .toList(),
-      attackMath: (map['attackMath'] as List? ?? [])
-          .whereType<Map<dynamic, dynamic>>()
-          .map((a) => EvaluationMath.fromMap(Map<String, dynamic>.from(a)))
-          .toList(),
-      customProperties:
-          Map<String, dynamic>.from(map['customProperties'] as Map? ?? {}),
-    );
-  }
-
-  Monster copyWith({
-    EntityId? id,
-    String? name,
-    String? size,
-    String? monsterType,
-    String? alignment,
-    int? armorClass,
-    int? hitPoints,
-    String? hitDieFormula,
-    String? challengeRating,
-    String? actionsMarkdown,
-    List<EntityReference<Spell>>? innateSpells,
-    List<EvaluationMath>? attackMath,
-    Map<String, dynamic>? customProperties,
-  }) {
-    return Monster(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      size: size ?? this.size,
-      monsterType: monsterType ?? this.monsterType,
-      alignment: alignment ?? this.alignment,
-      armorClass: armorClass ?? this.armorClass,
-      hitPoints: hitPoints ?? this.hitPoints,
-      hitDieFormula: hitDieFormula ?? this.hitDieFormula,
-      challengeRating: challengeRating ?? this.challengeRating,
-      actionsMarkdown: actionsMarkdown ?? this.actionsMarkdown,
-      innateSpells: innateSpells ?? this.innateSpells,
-      attackMath: attackMath ?? this.attackMath,
-      customProperties: customProperties ?? this.customProperties,
     );
   }
 }

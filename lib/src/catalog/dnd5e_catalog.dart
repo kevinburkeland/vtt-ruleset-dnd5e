@@ -1,6 +1,7 @@
 import 'package:meta/meta.dart';
 import 'package:vtt_engine_core/vtt_engine_core.dart';
 import '../models/feature_grant.dart';
+import '../models/monster_stat_block.dart';
 import '../rules/ruleset_edition.dart';
 
 /// Typed view of a feat returned by [Dnd5eCatalog.findFeat], holding only the
@@ -40,6 +41,9 @@ abstract interface class Dnd5eCatalog {
 
   /// Looks up a magic item view by its ID or name.
   CatalogMagicItem? findMagicItem(String idOrName);
+
+  /// Looks up a bundled monster stat block by creature name (used for legacy `_copy` hydration).
+  MonsterStatBlock? findMonsterStatBlockByName(String name);
 
   /// Retrieves always-prepared spell names for a class/subclass at the given level and edition.
   List<String> getAlwaysPreparedSpells({
@@ -83,6 +87,9 @@ class Dnd5eRuleset {
   Dnd5eRuleset._();
 
   static Dnd5eCatalog? _catalog;
+
+  /// Whether a [Dnd5eCatalog] has been installed.
+  static bool get isInstalled => _catalog != null;
 
   /// Retrieves the installed [Dnd5eCatalog].
   ///
