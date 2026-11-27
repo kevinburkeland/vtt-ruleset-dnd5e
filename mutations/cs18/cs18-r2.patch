@@ -1,0 +1,28 @@
+From 930b0d4d78ca871a1fc103fd669308b33e70e2de Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Fri, 27 Nov 2026 12:24:56 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20R2?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/models/monster_stat_block.dart | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/lib/src/models/monster_stat_block.dart b/lib/src/models/monster_stat_block.dart
+index 53ac764..8b8055e 100644
+--- a/lib/src/models/monster_stat_block.dart
++++ b/lib/src/models/monster_stat_block.dart
+@@ -273,7 +273,6 @@ class MonsterStatBlock {
+         if (xp != null) 'xp': xp,
+         'traits': traits.map((t) => t.toMap()).toList(),
+         'actions': actions.map((a) => a.toMap()).toList(),
+-        'reactions': reactions.map((r) => r.toMap()).toList(),
+         'legendaryActions': legendaryActions.map((l) => l.toMap()).toList(),
+         if (explicitSpellSlots != null)
+           'explicitSpellSlots': {
+-- 
+2.55.0
+

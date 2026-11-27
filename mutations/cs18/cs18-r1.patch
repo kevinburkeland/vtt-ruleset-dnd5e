@@ -1,0 +1,29 @@
+From 601533e3af299dd5bd61e45a8bac2f73e75e95e8 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Fri, 27 Nov 2026 12:24:53 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20R1?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/models/equipment_item.dart | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/src/models/equipment_item.dart b/lib/src/models/equipment_item.dart
+index 34ddc34..3f6fe31 100644
+--- a/lib/src/models/equipment_item.dart
++++ b/lib/src/models/equipment_item.dart
+@@ -383,7 +383,7 @@ class EquipmentItem extends DomainEntity {
+         name2014: name2014,
+         name2024: name2024,
+         itemType: itemType,
+-        category: category,
++        category: ItemCategory.wondrousItem,
+         rarity: rarity,
+         rarityTier: rarityTier,
+         cost: cost,
+-- 
+2.55.0
+
