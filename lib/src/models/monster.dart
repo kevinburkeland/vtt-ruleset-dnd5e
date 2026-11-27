@@ -8,7 +8,6 @@ import '../dice/dice_expression.dart';
 import '../rules/ruleset_edition.dart';
 import 'core_types.dart';
 import 'monster_stat_block.dart';
-import 'spell.dart';
 import 'spell_monster_equipment.dart';
 
 String _stripCrPrefix(String crDisplay) {

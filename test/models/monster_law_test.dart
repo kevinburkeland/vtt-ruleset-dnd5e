@@ -410,7 +410,7 @@ MonsterStatBlock _genStatBlock(Random rng, int seed, String tag) {
       if (rng.nextBool())
         CreatureTrait(name: 'Trait_$seed', description: 'Desc $seed'),
     ],
-    actions: [
+    actions: const [
       CreatureAction(
         name: 'Strike',
         description: 'Melee Weapon Attack: +5 to hit, reach 5 ft. Hit: 8 (1d8 + 4) slashing damage.',
@@ -422,11 +422,11 @@ MonsterStatBlock _genStatBlock(Random rng, int seed, String tag) {
     ],
     reactions: [
       if (rng.nextBool())
-        CreatureAction(name: 'Parry', description: 'Adds 2 to AC.'),
+        const CreatureAction(name: 'Parry', description: 'Adds 2 to AC.'),
     ],
     legendaryActions: [
       if (rng.nextBool())
-        CreatureAction(name: 'Swipe', description: 'Makes a strike.'),
+        const CreatureAction(name: 'Swipe', description: 'Makes a strike.'),
     ],
     attackBonus: 5,
     damageDiceCount: 1,
