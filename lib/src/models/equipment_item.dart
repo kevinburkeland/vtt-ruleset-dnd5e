@@ -383,7 +383,7 @@ class EquipmentItem extends DomainEntity {
         name2014: name2014,
         name2024: name2024,
         itemType: itemType,
-        category: category,
+        category: ItemCategory.wondrousItem,
         rarity: rarity,
         rarityTier: rarityTier,
         cost: cost,
