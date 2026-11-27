@@ -618,7 +618,7 @@ class Monster extends DomainEntity {
     final size = map['size']?.toString();
     final monsterType = map['monsterType']?.toString();
     final alignment = map['alignment']?.toString();
-    final armorClass = (map['armorClass'] as num?)?.toInt();
+    final armorClass = (map['armorClass'] as num?)?.toInt() ?? 10;
     final hitPoints = (map['hitPoints'] as num?)?.toInt();
     final hitDieFormula = map['hitDieFormula']?.toString();
     final challengeRating = map['challengeRating']?.toString();
