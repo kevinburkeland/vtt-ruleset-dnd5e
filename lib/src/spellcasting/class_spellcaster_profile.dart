@@ -101,43 +101,6 @@ ClassSpellcasterProfile resolveClassSpellcasterProfile({
     edition: edition,
   );
   if (!limits.isSpellcaster) {
-    if (casterProgression != null && fallbackCastingAbility != null) {
-      final highest = switch (casterProgression) {
-        CasterProgression.full =>
-          SpellAllocationValidator.getMaxSpellTierForClass(
-            classSlug: 'wizard',
-            classLevel: classLevel,
-            edition: edition,
-          ),
-        CasterProgression.half =>
-          SpellAllocationValidator.getMaxSpellTierForClass(
-            classSlug: 'paladin',
-            classLevel: classLevel,
-            edition: edition,
-          ),
-        CasterProgression.third =>
-          SpellAllocationValidator.getMaxSpellTierForClass(
-            classSlug: 'fighter',
-            subclassSlug: 'eldritch_knight',
-            classLevel: classLevel,
-            edition: edition,
-          ),
-        CasterProgression.pact =>
-          SpellAllocationValidator.getMaxSpellTierForClass(
-            classSlug: 'warlock',
-            classLevel: classLevel,
-            edition: edition,
-          ),
-      };
-      if (highest > 0) {
-        return ClassSpellcasterProfile(
-          isSpellcaster: true,
-          castingAbility: fallbackCastingAbility,
-          highestSpellLevel: highest,
-          spellList: null,
-        );
-      }
-    }
     return const ClassSpellcasterProfile.nonCaster();
   }
   final ability =
