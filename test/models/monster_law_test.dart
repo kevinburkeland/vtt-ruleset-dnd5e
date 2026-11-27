@@ -16,13 +16,13 @@ MonsterStatBlock _referenceLegacyToStatBlock(
 }) {
   final id = EntityId.fromMap(Map<String, dynamic>.from(map['id'] as Map? ?? {}));
   final name = map['name']?.toString() ?? '';
-  final size = map['size']?.toString() ?? 'Medium';
-  final monsterType = map['monsterType']?.toString() ?? 'Humanoid';
-  final alignment = map['alignment']?.toString() ?? 'unaligned';
-  var ac = (map['armorClass'] as num?)?.toInt() ?? 10;
-  var hp = (map['hitPoints'] as num?)?.toInt() ?? 10;
-  var hitDice = map['hitDieFormula']?.toString() ?? '2d8';
-  final challengeRating = map['challengeRating']?.toString() ?? '1';
+  final size = map['size']?.toString();
+  final monsterType = map['monsterType']?.toString();
+  final alignment = map['alignment']?.toString();
+  var ac = (map['armorClass'] as num?)?.toInt();
+  var hp = (map['hitPoints'] as num?)?.toInt();
+  var hitDice = map['hitDieFormula']?.toString();
+  final challengeRating = map['challengeRating']?.toString();
   final actionsMarkdown = map['actionsMarkdown']?.toString() ?? '';
   final attackMath = (map['attackMath'] as List? ?? [])
       .whereType<Map<dynamic, dynamic>>()
@@ -31,10 +31,17 @@ MonsterStatBlock _referenceLegacyToStatBlock(
   final customProperties =
       Map<String, dynamic>.from(map['customProperties'] as Map? ?? {});
 
-  final parsedCr = parseChallengeRating(challengeRating) ?? 0;
-  final crStr = challengeRating.trim().toLowerCase().startsWith('cr')
-      ? challengeRating.trim()
-      : 'CR $challengeRating';
+  final crTrimmed = challengeRating?.trim();
+  final parsedCr = (crTrimmed == null || crTrimmed.isEmpty)
+      ? null
+      : parseChallengeRating(crTrimmed);
+  final String? crStr = (crTrimmed == null || crTrimmed.isEmpty)
+      ? null
+      : (parsedCr != null
+          ? (crTrimmed.toLowerCase().startsWith('cr')
+              ? crTrimmed
+              : 'CR $crTrimmed')
+          : crTrimmed);
 
   int parseScore(String key, String legacyKey) {
     final val = customProperties[key] ?? customProperties[legacyKey];
@@ -162,7 +169,8 @@ MonsterStatBlock _referenceLegacyToStatBlock(
     }
   }
 
-  var atkBonus = ((parsedCr * 1.5).round() + 2).clamp(2, 14);
+  var atkBonus =
+      parsedCr == null ? 2 : ((parsedCr * 1.5).round() + 2).clamp(2, 14);
   var dmgCount = 1;
   var dmgSides = 6;
   var dmgBonus = 2;
@@ -221,11 +229,13 @@ MonsterStatBlock _referenceLegacyToStatBlock(
           parsedTraits.addAll(baseSb.traits);
         }
         parsedActions.addAll(baseSb.actions);
-        if (ac == 10 && baseSb.ac > 10) {
-          ac = baseSb.ac;
+        final baseAc = baseSb.ac;
+        if ((ac == null || ac == 10) && baseAc != null && baseAc > 10) {
+          ac = baseAc;
         }
-        if (hp <= 10 && baseSb.maxHp > 10) {
-          hp = baseSb.maxHp;
+        final baseHp = baseSb.maxHp;
+        if ((hp == null || hp <= 10) && baseHp != null && baseHp > 10) {
+          hp = baseHp;
           hitDice = baseSb.hitDice ?? hitDice;
         }
         if (str == 10 &&
@@ -312,6 +322,7 @@ MonsterStatBlock _referenceLegacyToStatBlock(
       formatDefenses(customProperties['languages']) ??
       '—';
 
+  final hdTrimmed = hitDice?.trim();
   return MonsterStatBlock(
     id: id.slug,
     name: name,
@@ -321,7 +332,7 @@ MonsterStatBlock _referenceLegacyToStatBlock(
     alignment: alignment,
     ac: ac,
     maxHp: hp,
-    hitDice: hitDice.isNotEmpty ? hitDice : null,
+    hitDice: (hdTrimmed != null && hdTrimmed.isNotEmpty) ? hdTrimmed : null,
     speed: speed,
     strScore: str,
     dexScore: dex,
@@ -543,7 +554,7 @@ void main() {
         expect(map['alignment'], equals(sb24.alignment));
         expect(map['armorClass'], equals(sb24.ac));
         expect(map['hitPoints'], equals(sb24.maxHp));
-        expect(map['hitDieFormula'], equals(sb24.hitDice ?? ''));
+        expect(map['hitDieFormula'], equals(sb24.hitDice));
 
         final roundTripped = Monster.fromMap(map);
         expectMapsEqualWithDiff(

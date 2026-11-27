@@ -20,7 +20,7 @@ lib/src/models/core_types.dart	10.7
 lib/src/models/equipment_item.dart	84.3
 lib/src/models/feature_grant.dart	44.6
 lib/src/models/i_entity_resolver.dart	0.0
-lib/src/models/monster.dart	87.4
+lib/src/models/monster.dart	88.0
 lib/src/models/monster_stat_block.dart	98.5
 lib/src/models/spell.dart	75.0
 lib/src/models/spell_monster_equipment.dart	92.5

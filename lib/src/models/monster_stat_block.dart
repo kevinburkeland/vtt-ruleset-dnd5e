@@ -122,13 +122,13 @@ class CreatureAction {
 class MonsterStatBlock {
   final String id;
   final String name;
-  final String sizeDisplay;
-  final String crDisplay;
-  final String typeDisplay;
-  final String alignment;
-  final int ac;
+  final String? sizeDisplay;
+  final String? crDisplay;
+  final String? typeDisplay;
+  final String? alignment;
+  final int? ac;
   final String? armorType;
-  final int maxHp;
+  final int? maxHp;
   final String? hitDice;
   final String speed;
   final int strScore;
@@ -175,13 +175,13 @@ class MonsterStatBlock {
   const MonsterStatBlock({
     required this.id,
     required this.name,
-    required this.sizeDisplay,
-    required this.crDisplay,
-    this.typeDisplay = 'Beast',
-    this.alignment = 'unaligned',
-    required this.ac,
+    this.sizeDisplay,
+    this.crDisplay,
+    this.typeDisplay,
+    this.alignment,
+    this.ac,
     this.armorType,
-    required this.maxHp,
+    this.maxHp,
     this.hitDice,
     this.speed = '30 ft.',
     this.strScore = 10,
@@ -245,13 +245,13 @@ class MonsterStatBlock {
   Map<String, dynamic> toMap() => {
         'id': id,
         'name': name,
-        'sizeDisplay': sizeDisplay,
-        'crDisplay': crDisplay,
-        'typeDisplay': typeDisplay,
-        'alignment': alignment,
-        'ac': ac,
+        if (sizeDisplay != null) 'sizeDisplay': sizeDisplay,
+        if (crDisplay != null) 'crDisplay': crDisplay,
+        if (typeDisplay != null) 'typeDisplay': typeDisplay,
+        if (alignment != null) 'alignment': alignment,
+        if (ac != null) 'ac': ac,
         if (armorType != null) 'armorType': armorType,
-        'maxHp': maxHp,
+        if (maxHp != null) 'maxHp': maxHp,
         if (hitDice != null) 'hitDice': hitDice,
         'speed': speed,
         'strScore': strScore,
@@ -347,13 +347,13 @@ class MonsterStatBlock {
     return MonsterStatBlock(
       id: map['id']?.toString() ?? '',
       name: map['name']?.toString() ?? '',
-      sizeDisplay: map['sizeDisplay']?.toString() ?? 'Medium',
-      crDisplay: map['crDisplay']?.toString() ?? 'CR 1',
-      typeDisplay: map['typeDisplay']?.toString() ?? 'Beast',
-      alignment: map['alignment']?.toString() ?? 'unaligned',
-      ac: (map['ac'] as num?)?.toInt() ?? 10,
+      sizeDisplay: map['sizeDisplay']?.toString(),
+      crDisplay: map['crDisplay']?.toString(),
+      typeDisplay: map['typeDisplay']?.toString(),
+      alignment: map['alignment']?.toString(),
+      ac: (map['ac'] as num?)?.toInt(),
       armorType: map['armorType']?.toString(),
-      maxHp: (map['maxHp'] as num?)?.toInt() ?? 10,
+      maxHp: (map['maxHp'] as num?)?.toInt(),
       hitDice: map['hitDice']?.toString(),
       speed: map['speed']?.toString() ?? '30 ft.',
       strScore: (map['strScore'] as num?)?.toInt() ?? 10,

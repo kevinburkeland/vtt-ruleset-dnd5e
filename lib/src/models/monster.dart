@@ -27,22 +27,29 @@ String _stripCrPrefix(String crDisplay) {
 MonsterStatBlock hydrateLegacyMonsterStatBlock({
   required EntityId id,
   required String name,
-  required String size,
-  required String monsterType,
-  required String alignment,
-  required int armorClass,
-  required int hitPoints,
-  required String hitDieFormula,
-  required String challengeRating,
+  String? size,
+  String? monsterType,
+  String? alignment,
+  int? armorClass,
+  int? hitPoints,
+  String? hitDieFormula,
+  String? challengeRating,
   required String actionsMarkdown,
   required List<EvaluationMath> attackMath,
   required Map<String, dynamic> customProperties,
   MonsterStatBlock? Function(String name)? baseStatBlockLookup,
 }) {
-  final parsedCr = parseChallengeRating(challengeRating) ?? 0;
-  final crStr = challengeRating.trim().toLowerCase().startsWith('cr')
-      ? challengeRating.trim()
-      : 'CR $challengeRating';
+  final crTrimmed = challengeRating?.trim();
+  final parsedCr = (crTrimmed == null || crTrimmed.isEmpty)
+      ? null
+      : parseChallengeRating(crTrimmed);
+  final String? crStr = (crTrimmed == null || crTrimmed.isEmpty)
+      ? null
+      : (parsedCr != null
+          ? (crTrimmed.toLowerCase().startsWith('cr')
+              ? crTrimmed
+              : 'CR $crTrimmed')
+          : crTrimmed);
 
   int parseScore(String key, String legacyKey) {
     final val = customProperties[key] ?? customProperties[legacyKey];
@@ -174,7 +181,8 @@ MonsterStatBlock hydrateLegacyMonsterStatBlock({
     }
   }
 
-  var atkBonus = ((parsedCr * 1.5).round() + 2).clamp(2, 14);
+  var atkBonus =
+      parsedCr == null ? 2 : ((parsedCr * 1.5).round() + 2).clamp(2, 14);
   var dmgCount = 1;
   var dmgSides = 6;
   var dmgBonus = 2;
@@ -237,11 +245,13 @@ MonsterStatBlock hydrateLegacyMonsterStatBlock({
           parsedTraits.addAll(baseSb.traits);
         }
         parsedActions.addAll(baseSb.actions);
-        if (ac == 10 && baseSb.ac > 10) {
-          ac = baseSb.ac;
+        final baseAc = baseSb.ac;
+        if ((ac == null || ac == 10) && baseAc != null && baseAc > 10) {
+          ac = baseAc;
         }
-        if (hp <= 10 && baseSb.maxHp > 10) {
-          hp = baseSb.maxHp;
+        final baseHp = baseSb.maxHp;
+        if ((hp == null || hp <= 10) && baseHp != null && baseHp > 10) {
+          hp = baseHp;
           hitDice = baseSb.hitDice ?? hitDice;
         }
         if (str == 10 &&
@@ -328,6 +338,7 @@ MonsterStatBlock hydrateLegacyMonsterStatBlock({
       formatDefenses(customProperties['languages']) ??
       '—';
 
+  final hdTrimmed = hitDice?.trim();
   return MonsterStatBlock(
     id: id.slug,
     name: name,
@@ -337,7 +348,7 @@ MonsterStatBlock hydrateLegacyMonsterStatBlock({
     alignment: alignment,
     ac: ac,
     maxHp: hp,
-    hitDice: hitDice.isNotEmpty ? hitDice : null,
+    hitDice: (hdTrimmed != null && hdTrimmed.isNotEmpty) ? hdTrimmed : null,
     speed: speed,
     strScore: str,
     dexScore: dex,
@@ -436,13 +447,13 @@ class Monster extends DomainEntity {
   factory Monster.singleEdition({
     required EntityId id,
     required String name,
-    required String size,
-    required String monsterType,
-    required String alignment,
-    required int armorClass,
-    required int hitPoints,
-    required String hitDieFormula,
-    required String challengeRating,
+    String? size,
+    String? monsterType,
+    String? alignment,
+    int? armorClass,
+    int? hitPoints,
+    String? hitDieFormula,
+    String? challengeRating,
     required String actionsMarkdown,
     List<EntityReference<Spell>> innateSpells = const [],
     List<EvaluationMath> attackMath = const [],
@@ -491,13 +502,17 @@ class Monster extends DomainEntity {
   bool get isHomebrew => sourcePresetId == 'homebrew';
 
   // Shared facts derived from statBlock2024 as the single source of truth
-  String get size => statBlock2024.sizeDisplay;
-  String get monsterType => statBlock2024.typeDisplay;
-  String get alignment => statBlock2024.alignment;
-  int get armorClass => statBlock2024.ac;
-  int get hitPoints => statBlock2024.maxHp;
-  String get hitDieFormula => statBlock2024.hitDice ?? '';
-  String get challengeRating => _stripCrPrefix(statBlock2024.crDisplay);
+  String? get size => statBlock2024.sizeDisplay;
+  String? get monsterType => statBlock2024.typeDisplay;
+  String? get alignment => statBlock2024.alignment;
+  int? get armorClass => statBlock2024.ac;
+  int? get hitPoints => statBlock2024.maxHp;
+  String? get hitDieFormula => statBlock2024.hitDice;
+  String? get challengeRating {
+    final cr = statBlock2024.crDisplay;
+    if (cr == null) return null;
+    return _stripCrPrefix(cr);
+  }
 
   MonsterStatBlock getStatBlockForEdition(RulesetEdition edition) {
     return edition == RulesetEdition.v2014 ? statBlock2014 : statBlock2024;
@@ -514,13 +529,13 @@ class Monster extends DomainEntity {
         // Legacy keys emitted from statBlock2024 for backwards compatibility
         'id': id.toMap(),
         'name': name,
-        'size': size,
-        'monsterType': monsterType,
-        'alignment': alignment,
-        'armorClass': armorClass,
-        'hitPoints': hitPoints,
-        'hitDieFormula': hitDieFormula,
-        'challengeRating': challengeRating,
+        if (size != null) 'size': size,
+        if (monsterType != null) 'monsterType': monsterType,
+        if (alignment != null) 'alignment': alignment,
+        if (armorClass != null) 'armorClass': armorClass,
+        if (hitPoints != null) 'hitPoints': hitPoints,
+        if (hitDieFormula != null) 'hitDieFormula': hitDieFormula,
+        if (challengeRating != null) 'challengeRating': challengeRating,
         'actionsMarkdown': actionsMarkdown,
         'innateSpells': innateSpells.map((s) => s.toMap()).toList(),
         'attackMath': attackMath.map((a) => a.toMap()).toList(),
@@ -600,13 +615,13 @@ class Monster extends DomainEntity {
     }
 
     // Legacy records saved before Cleanup slice 18 (no statBlock2014/statBlock2024)
-    final size = map['size']?.toString() ?? 'Medium';
-    final monsterType = map['monsterType']?.toString() ?? 'Humanoid';
-    final alignment = map['alignment']?.toString() ?? 'unaligned';
-    final armorClass = (map['armorClass'] as num?)?.toInt() ?? 10;
-    final hitPoints = (map['hitPoints'] as num?)?.toInt() ?? 10;
-    final hitDieFormula = map['hitDieFormula']?.toString() ?? '2d8';
-    final challengeRating = map['challengeRating']?.toString() ?? '1';
+    final size = map['size']?.toString();
+    final monsterType = map['monsterType']?.toString();
+    final alignment = map['alignment']?.toString();
+    final armorClass = (map['armorClass'] as num?)?.toInt();
+    final hitPoints = (map['hitPoints'] as num?)?.toInt();
+    final hitDieFormula = map['hitDieFormula']?.toString();
+    final challengeRating = map['challengeRating']?.toString();
 
     final statBlock = hydrateLegacyMonsterStatBlock(
       id: id,
