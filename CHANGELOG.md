@@ -4,6 +4,7 @@ One line per slice, newest first. Each line: date, slice name, what changed for 
 Work before Map slice 1.1 (hardening passes 0 to 12) is in the git history.
 
 ## 2026-11-27
+- Cleanup slice 19: Retire 4 cs18 mutation branches and confirm 14-day dependency look-ahead passes (Fixes 1.1, 1.3).
 - Cleanup slice 18: Make the seven F-16 monster facts (size, type, alignment, AC, HP, hit dice, CR) nullable with zero invented defaults in Monster, MonsterStatBlock, hydrateLegacyMonsterStatBlock, and fromMap (keeping unreadable CR text as written without a forced CR prefix), backed by 200-seed subset-removal unknown-facts laws (Step 7, Fixes 7.1-7.2).
 - Cleanup slice 18: Unify Monster into lib/src/models/monster.dart holding dual-edition MonsterStatBlock fields (statBlock2014/statBlock2024), deriving shared combat facts from statBlock2024 while emitting legacy keys in toMap, adding Monster.singleEdition and pre-Cleanup slice 18 legacy fromMap hydration (backed by 500-seed round-trip and 200-seed legacy parity laws), and adding findMonsterStatBlockByName to Dnd5eCatalog (Step 6, Fixes 6.1-6.2).
 - Cleanup slice 18: Add pure-Dart MonsterStatBlock, CreatureTrait, CreatureAction, and SummonCategory models with toMap/fromMap/copyWith/equality/hashCode and 500-seed round-trip laws (Step 5, Fix 5.1).
