@@ -273,7 +273,6 @@ class MonsterStatBlock {
         if (xp != null) 'xp': xp,
         'traits': traits.map((t) => t.toMap()).toList(),
         'actions': actions.map((a) => a.toMap()).toList(),
-        'reactions': reactions.map((r) => r.toMap()).toList(),
         'legendaryActions': legendaryActions.map((l) => l.toMap()).toList(),
         if (explicitSpellSlots != null)
           'explicitSpellSlots': {
