@@ -1,0 +1,29 @@
+From 16dea9991f66e6d0df28eb00cfb12067072fb9e9 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Thu, 26 Nov 2026 17:11:25 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20R3?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/models/equipment_item.dart | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/src/models/equipment_item.dart b/lib/src/models/equipment_item.dart
+index fd7d79a..065e453 100644
+--- a/lib/src/models/equipment_item.dart
++++ b/lib/src/models/equipment_item.dart
+@@ -157,7 +157,7 @@ ItemCategory _legacyCategoryFromItemType(String itemType) {
+   }
+   if (typeStr.contains('wand')) return ItemCategory.wand;
+   if (typeStr.contains('gem')) return ItemCategory.gemstone;
+-  if (typeStr.contains('art')) return ItemCategory.artObject;
++  if (typeStr.contains('art')) return ItemCategory.wondrousItem;
+   if (typeStr.contains('trinket')) return ItemCategory.trinket;
+   if (typeStr.contains('gear') ||
+       typeStr.contains('tool') ||
+-- 
+2.55.0
+

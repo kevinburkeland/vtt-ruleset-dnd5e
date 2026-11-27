@@ -1,0 +1,29 @@
+From c7f70e05715b46924f35c05fea7580b9040e8d2c Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Thu, 26 Nov 2026 17:10:52 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20R1?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/spellcasting/spell_allocation_validator.dart | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/src/spellcasting/spell_allocation_validator.dart b/lib/src/spellcasting/spell_allocation_validator.dart
+index d6cd1f1..e4544c8 100644
+--- a/lib/src/spellcasting/spell_allocation_validator.dart
++++ b/lib/src/spellcasting/spell_allocation_validator.dart
+@@ -510,7 +510,7 @@ class SpellAllocationValidator {
+ 
+       case 'paladin':
+         final maxPrepared = (edition == RulesetEdition.v2024)
+-            ? (_halfCasterPrepared2024[lvl] ?? 2)
++            ? math.max(1, ((lvl + 1) ~/ 2) + abilityModifier)
+             : (lvl < 2 ? 0 : math.max(1, (lvl ~/ 2) + abilityModifier));
+         final alwaysPreparedCount = Dnd5eRuleset.catalog.getAlwaysPreparedSpells(
+           classSlug: 'paladin',
+-- 
+2.55.0
+

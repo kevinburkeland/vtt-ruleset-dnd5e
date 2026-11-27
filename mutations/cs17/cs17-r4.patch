@@ -1,0 +1,32 @@
+From bed42240f0ef3215b83abf2363c75bf0ae8e742a Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Thu, 26 Nov 2026 17:11:47 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20R4?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/models/spell.dart | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/lib/src/models/spell.dart b/lib/src/models/spell.dart
+index aa8dadc..311e4a7 100644
+--- a/lib/src/models/spell.dart
++++ b/lib/src/models/spell.dart
+@@ -216,10 +216,7 @@ SpellSchool? _tryParseSpellSchool(String raw) {
+ /// Legacy compatibility helper for pre-Cleanup slice 17 [Spell] records.
+ List<SpellClass> _extractLegacySpellClasses(Map<String, dynamic> cp) {
+   final extracted = <SpellClass>[];
+-  final rawClasses = cp['classes'] ??
+-      (cp['customProperties'] is Map
+-          ? (cp['customProperties'] as Map)['classes']
+-          : null);
++  final rawClasses = cp.containsKey('__never_present__') ? cp['classes'] : null;
+   final candidates = <dynamic>[];
+   if (rawClasses is List) {
+     candidates.addAll(rawClasses);
+-- 
+2.55.0
+

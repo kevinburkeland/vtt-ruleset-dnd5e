@@ -1,0 +1,64 @@
+From e3afc68b2ef95e9bb47f2b9a5bbebf0d8f058902 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Thu, 26 Nov 2026 17:11:22 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20R2?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ .../class_spellcaster_profile.dart            | 37 -------------------
+ 1 file changed, 37 deletions(-)
+
+diff --git a/lib/src/spellcasting/class_spellcaster_profile.dart b/lib/src/spellcasting/class_spellcaster_profile.dart
+index 1978e1f..d99684d 100644
+--- a/lib/src/spellcasting/class_spellcaster_profile.dart
++++ b/lib/src/spellcasting/class_spellcaster_profile.dart
+@@ -101,43 +101,6 @@ ClassSpellcasterProfile resolveClassSpellcasterProfile({
+     edition: edition,
+   );
+   if (!limits.isSpellcaster) {
+-    if (casterProgression != null && fallbackCastingAbility != null) {
+-      final highest = switch (casterProgression) {
+-        CasterProgression.full =>
+-          SpellAllocationValidator.getMaxSpellTierForClass(
+-            classSlug: 'wizard',
+-            classLevel: classLevel,
+-            edition: edition,
+-          ),
+-        CasterProgression.half =>
+-          SpellAllocationValidator.getMaxSpellTierForClass(
+-            classSlug: 'paladin',
+-            classLevel: classLevel,
+-            edition: edition,
+-          ),
+-        CasterProgression.third =>
+-          SpellAllocationValidator.getMaxSpellTierForClass(
+-            classSlug: 'fighter',
+-            subclassSlug: 'eldritch_knight',
+-            classLevel: classLevel,
+-            edition: edition,
+-          ),
+-        CasterProgression.pact =>
+-          SpellAllocationValidator.getMaxSpellTierForClass(
+-            classSlug: 'warlock',
+-            classLevel: classLevel,
+-            edition: edition,
+-          ),
+-      };
+-      if (highest > 0) {
+-        return ClassSpellcasterProfile(
+-          isSpellcaster: true,
+-          castingAbility: fallbackCastingAbility,
+-          highestSpellLevel: highest,
+-          spellList: null,
+-        );
+-      }
+-    }
+     return const ClassSpellcasterProfile.nonCaster();
+   }
+   final ability =
+-- 
+2.55.0
+

@@ -1,0 +1,28 @@
+From 68ca58c16bf9d7bde3205346802e9403e62cd3d9 Mon Sep 17 00:00:00 2001
+From: Kevin Burkeland <kevin@burke.land>
+Date: Thu, 26 Nov 2026 17:11:51 -0800
+Subject: [PATCH] =?UTF-8?q?MUTATION=20=E2=80=94=20do=20not=20merge:=20R5?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Kevin Burkeland <kevin@burke.land>
+---
+ lib/src/models/spell.dart | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/lib/src/models/spell.dart b/lib/src/models/spell.dart
+index aa8dadc..f8e708d 100644
+--- a/lib/src/models/spell.dart
++++ b/lib/src/models/spell.dart
+@@ -378,7 +378,6 @@ class Spell extends DomainEntity {
+         'damageMath': damageMath.map((d) => d.toMap()).toList(),
+         'relatedEntityRefs': relatedEntityRefs.map((r) => r.toMap()).toList(),
+         'rules2014': rules2014.toMap(),
+-        'rules2024': rules2024.toMap(),
+         'isChangedIn2024': isChangedIn2024,
+         'diffSummary': diffSummary,
+         'diffHighlights': diffHighlights,
+-- 
+2.55.0
+
