@@ -510,7 +510,7 @@ class SpellAllocationValidator {
 
       case 'paladin':
         final maxPrepared = (edition == RulesetEdition.v2024)
-            ? (_halfCasterPrepared2024[lvl] ?? 2)
+            ? math.max(1, ((lvl + 1) ~/ 2) + abilityModifier)
             : (lvl < 2 ? 0 : math.max(1, (lvl ~/ 2) + abilityModifier));
         final alwaysPreparedCount = Dnd5eRuleset.catalog.getAlwaysPreparedSpells(
           classSlug: 'paladin',
