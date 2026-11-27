@@ -157,7 +157,7 @@ ItemCategory _legacyCategoryFromItemType(String itemType) {
   }
   if (typeStr.contains('wand')) return ItemCategory.wand;
   if (typeStr.contains('gem')) return ItemCategory.gemstone;
-  if (typeStr.contains('art')) return ItemCategory.artObject;
+  if (typeStr.contains('art')) return ItemCategory.wondrousItem;
   if (typeStr.contains('trinket')) return ItemCategory.trinket;
   if (typeStr.contains('gear') ||
       typeStr.contains('tool') ||
