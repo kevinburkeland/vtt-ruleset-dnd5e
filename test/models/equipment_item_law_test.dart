@@ -270,5 +270,89 @@ void main() {
         expect(decoded.tags, equals(expTags), reason: 'seed=$seed tags mismatch');
       }
     });
+
+    test(
+        '300-seed EquipmentItem.singleEdition parity law: matches EquipmentItem.fromMap(oldMap) field by field',
+        () {
+      const itemTypes = [
+        'Weapon (longsword)',
+        'Armor (heavy)',
+        'Shield',
+        'Potion',
+        'Elixir',
+        'Ring',
+        'Rod',
+        'Scroll',
+        'Staff',
+        'Wand',
+        'Gemstone',
+        'Art Object',
+        'Trinket',
+        'Adventuring Gear',
+        'Wondrous Item',
+      ];
+      const rarities = [
+        'Artifact',
+        'Legendary',
+        'Very Rare',
+        'Rare',
+        'Uncommon',
+        'Common',
+        'Nonmagical',
+      ];
+      for (var seed = 1; seed <= 300; seed++) {
+        final rng = Random(88000 + seed);
+        final itemType = itemTypes[seed % itemTypes.length];
+        final rarity = rarities[rng.nextInt(rarities.length)];
+        final attune = rng.nextBool();
+        final hasRaw = rng.nextBool();
+        final hasCost = rng.nextBool();
+        final desc = seed % 3 == 0
+            ? '# Title\nActual summary $seed.\nMore details.'
+            : (seed % 3 == 1 ? '' : 'Single line $seed.');
+        final cp = <String, dynamic>{
+          if (hasCost) 'cost': '${seed * 10} gp',
+          if (hasRaw)
+            'rawJson': <String, dynamic>{
+              'value': '${seed * 20} gp',
+              if (attune) 'reqAttune': seed.isEven ? 'by a wizard' : true,
+            },
+        };
+        final id = EntityId(
+          slug: 'single-item-$seed',
+          ruleset: RulesetVersion.homebrew,
+        );
+        final name = 'Single Item $seed';
+
+        final single = EquipmentItem.singleEdition(
+          id: id,
+          name: name,
+          itemType: itemType,
+          rarity: rarity,
+          requiresAttunement: attune,
+          descriptionMarkdown: desc,
+          customProperties: cp,
+        );
+
+        final oldMap = <String, dynamic>{
+          'id': id.toMap(),
+          'name': name,
+          'itemType': itemType,
+          'rarity': rarity,
+          'requiresAttunement': attune,
+          'descriptionMarkdown': desc,
+          'grants': const <Map<String, dynamic>>[],
+          'customProperties': cp,
+        };
+        final fromLegacy = EquipmentItem.fromMap(oldMap);
+
+        expectMapsEqualWithDiff(
+          _equipmentItemFieldSnapshot(single),
+          _equipmentItemFieldSnapshot(fromLegacy),
+          seed: seed,
+          typeName: 'EquipmentItem.singleEdition',
+        );
+      }
+    });
   });
 }

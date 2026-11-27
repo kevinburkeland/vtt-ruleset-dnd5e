@@ -890,7 +890,7 @@ class CharacterEvaluationEngine {
             if (res.isResolved) equipEntity = res.entity;
           }
           final weaponEntity = equipEntity ??
-              EquipmentItem(
+              EquipmentItem.singleEdition(
                 id: EntityId(
                     slug: instance.itemRef.slug, ruleset: RulesetVersion.v2024),
                 name: instance.displayName,

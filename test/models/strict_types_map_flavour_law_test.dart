@@ -450,6 +450,8 @@ Spell _buildRandomSpell(int seed) {
       refCount,
       (i) => _randomRef<DomainEntity>(rng, EntityType.monster, 'summon', i),
     ),
+    rules2014: const SpellEditionDetails.empty(),
+    rules2024: const SpellEditionDetails.empty(),
     customProperties: props,
   );
 }
@@ -508,9 +510,13 @@ EquipmentItem _buildRandomEquipmentItem(int seed) {
     ),
     name: 'Relic Blade $seed',
     itemType: const <String>['Weapon', 'Armor', 'Wondrous Item'][seed % 3],
+    category: ItemCategory.wondrousItem,
     rarity: const <String>['Common', 'Uncommon', 'Rare'][seed % 3],
+    rarityTier: ItemRarity.nonmagical,
     requiresAttunement: rng.nextBool(),
     descriptionMarkdown: 'A finely wrought item ($seed).',
+    rules2014: const ItemEditionDetails.empty(),
+    rules2024: const ItemEditionDetails.empty(),
     grants: List<FeatureGrant>.generate(
       grantCount,
       (i) => _randomGrant(rng, i),

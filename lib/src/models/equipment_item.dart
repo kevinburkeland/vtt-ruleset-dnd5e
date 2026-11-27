@@ -136,9 +136,13 @@ class ItemEditionDetails {
       );
 }
 
-/// Legacy compatibility helper for pre-Cleanup slice 17 [EquipmentItem] records.
-/// Maps free-text `itemType` strings using the pre-slice-17 substring rules.
-ItemCategory _legacyCategoryFromItemType(String itemType) {
+/// Single-edition & legacy compatibility helper for [EquipmentItem] records.
+///
+/// Serves both pre-Cleanup slice 17 stored records decoded via
+/// [EquipmentItem.fromMap] and new single-edition records built via
+/// [EquipmentItem.singleEdition].
+/// Maps free-text `itemType` strings using the single-edition substring rules.
+ItemCategory _singleEditionCategoryFromItemType(String itemType) {
   final typeStr = itemType.toLowerCase();
   if (typeStr.contains('weapon')) return ItemCategory.weapon;
   if (typeStr.contains('armor') || typeStr.contains('shield')) {
@@ -167,9 +171,11 @@ ItemCategory _legacyCategoryFromItemType(String itemType) {
   return ItemCategory.wondrousItem;
 }
 
-/// Legacy compatibility helper for pre-Cleanup slice 17 [EquipmentItem] records.
-/// Maps free-text `rarity` strings using the pre-slice-17 substring rules.
-ItemRarity _legacyRarityFromString(String rarity) {
+/// Single-edition & legacy compatibility helper for [EquipmentItem] records.
+///
+/// Serves both pre-Cleanup slice 17 stored records and new single-edition records.
+/// Maps free-text `rarity` strings using the single-edition substring rules.
+ItemRarity _singleEditionRarityFromString(String rarity) {
   final rarityStr = rarity.toLowerCase();
   if (rarityStr.contains('artifact')) return ItemRarity.artifact;
   if (rarityStr.contains('legendary')) return ItemRarity.legendary;
@@ -182,8 +188,10 @@ ItemRarity _legacyRarityFromString(String rarity) {
   return ItemRarity.nonmagical;
 }
 
-/// Legacy compatibility helper for pre-Cleanup slice 17 [EquipmentItem] records.
-String _legacyFirstContentLine(String descriptionMarkdown, String name) {
+/// Single-edition & legacy compatibility helper for [EquipmentItem] records.
+///
+/// Serves both pre-Cleanup slice 17 stored records and new single-edition records.
+String _singleEditionFirstContentLine(String descriptionMarkdown, String name) {
   final descLines = descriptionMarkdown
       .split('\n')
       .map((l) => l.trim())
@@ -193,6 +201,92 @@ String _legacyFirstContentLine(String descriptionMarkdown, String name) {
   return descriptionMarkdown.isNotEmpty
       ? descriptionMarkdown.split('\n').first
       : name;
+}
+
+/// Shared single-edition hydration path for [EquipmentItem].
+///
+/// Serves both pre-Cleanup slice 17 stored records decoded via
+/// [EquipmentItem.fromMap] and new single-edition records constructed via
+/// [EquipmentItem.singleEdition].
+EquipmentItem _hydrateSingleEditionItem({
+  required EntityId id,
+  required String name,
+  String? name2014,
+  String? name2024,
+  required String itemType,
+  ItemCategory? category,
+  required String rarity,
+  ItemRarity? rarityTier,
+  String? cost,
+  String? cost2014,
+  String? cost2024,
+  required bool requiresAttunement,
+  String? attunementRequirement,
+  required String descriptionMarkdown,
+  String? summary,
+  String? activation,
+  String? charges,
+  String? masteryProperties,
+  String? savingThrowDc,
+  List<String>? properties,
+  bool isChangedIn2024 = false,
+  String? diffSummary,
+  List<String> diffHighlights = const [],
+  List<String>? tags,
+  List<FeatureGrant> grants = const [],
+  Map<String, dynamic> customProperties = const {},
+}) {
+  final resolvedCategory =
+      category ?? _singleEditionCategoryFromItemType(itemType);
+  final resolvedRarityTier =
+      rarityTier ?? _singleEditionRarityFromString(rarity);
+  final rawJson = customProperties['rawJson'] as Map?;
+  final resolvedCost =
+      cost ?? rawJson?['value']?.toString() ?? customProperties['cost']?.toString();
+  final resolvedAttunementReq = attunementRequirement ??
+      (requiresAttunement
+          ? (rawJson?['reqAttune']?.toString() ?? 'Requires Attunement')
+          : null);
+  final resolvedSummary =
+      summary ?? _singleEditionFirstContentLine(descriptionMarkdown, name);
+  final editionDetails = ItemEditionDetails(
+    summary: resolvedSummary,
+    description: descriptionMarkdown,
+    activation: activation,
+    charges: charges,
+    masteryProperties: masteryProperties,
+    savingThrowDc: savingThrowDc,
+    properties: properties ?? const [],
+  );
+  return EquipmentItem(
+    id: id,
+    name: name,
+    name2014: name2014,
+    name2024: name2024,
+    itemType: itemType,
+    category: resolvedCategory,
+    rarity: rarity,
+    rarityTier: resolvedRarityTier,
+    cost: resolvedCost,
+    cost2014: cost2014,
+    cost2024: cost2024,
+    requiresAttunement: requiresAttunement,
+    attunementRequirement: resolvedAttunementReq,
+    descriptionMarkdown: descriptionMarkdown,
+    rules2014: editionDetails,
+    rules2024: editionDetails,
+    isChangedIn2024: isChangedIn2024,
+    diffSummary: diffSummary,
+    diffHighlights: diffHighlights,
+    tags: tags ??
+        [
+          itemType,
+          rarity,
+          if (requiresAttunement) 'attunement',
+        ],
+    grants: grants,
+    customProperties: customProperties,
+  );
 }
 
 /// Unified Equipment & Magic Item Domain Model (both 2014 RAW and 2024 Revised).
@@ -232,17 +326,17 @@ class EquipmentItem extends DomainEntity {
     this.name2014,
     this.name2024,
     required this.itemType,
-    this.category = ItemCategory.wondrousItem,
+    required this.category,
     required this.rarity,
-    this.rarityTier = ItemRarity.nonmagical,
+    required this.rarityTier,
     this.cost,
     this.cost2014,
     this.cost2024,
     required this.requiresAttunement,
     this.attunementRequirement,
     required this.descriptionMarkdown,
-    this.rules2014 = const ItemEditionDetails.empty(),
-    this.rules2024 = const ItemEditionDetails.empty(),
+    required this.rules2014,
+    required this.rules2024,
     this.isChangedIn2024 = false,
     this.diffSummary,
     this.diffHighlights = const [],
@@ -250,6 +344,67 @@ class EquipmentItem extends DomainEntity {
     this.grants = const [],
     this.customProperties = const {},
   });
+
+  /// Builds a single-edition [EquipmentItem] and hydrates `category`,
+  /// `rarityTier`, `cost`, `attunementRequirement`, `rules2014`/`rules2024`,
+  /// and `tags` via [_hydrateSingleEditionItem], shared with
+  /// [EquipmentItem.fromMap] for pre-Cleanup slice 17 stored records.
+  factory EquipmentItem.singleEdition({
+    required EntityId id,
+    required String name,
+    String? name2014,
+    String? name2024,
+    required String itemType,
+    ItemCategory? category,
+    required String rarity,
+    ItemRarity? rarityTier,
+    String? cost,
+    String? cost2014,
+    String? cost2024,
+    required bool requiresAttunement,
+    String? attunementRequirement,
+    required String descriptionMarkdown,
+    String? summary,
+    String? activation,
+    String? charges,
+    String? masteryProperties,
+    String? savingThrowDc,
+    List<String>? properties,
+    bool isChangedIn2024 = false,
+    String? diffSummary,
+    List<String> diffHighlights = const [],
+    List<String>? tags,
+    List<FeatureGrant> grants = const [],
+    Map<String, dynamic> customProperties = const {},
+  }) =>
+      _hydrateSingleEditionItem(
+        id: id,
+        name: name,
+        name2014: name2014,
+        name2024: name2024,
+        itemType: itemType,
+        category: category,
+        rarity: rarity,
+        rarityTier: rarityTier,
+        cost: cost,
+        cost2014: cost2014,
+        cost2024: cost2024,
+        requiresAttunement: requiresAttunement,
+        attunementRequirement: attunementRequirement,
+        descriptionMarkdown: descriptionMarkdown,
+        summary: summary,
+        activation: activation,
+        charges: charges,
+        masteryProperties: masteryProperties,
+        savingThrowDc: savingThrowDc,
+        properties: properties,
+        isChangedIn2024: isChangedIn2024,
+        diffSummary: diffSummary,
+        diffHighlights: diffHighlights,
+        tags: tags,
+        grants: grants,
+        customProperties: customProperties,
+      );
 
   @override
   EntityType get entityType => EntityType.equipment;
@@ -307,12 +462,12 @@ class EquipmentItem extends DomainEntity {
       final catName = map['category']?.toString();
       final category = ItemCategory.values.firstWhere(
         (c) => c.name == catName,
-        orElse: () => _legacyCategoryFromItemType(itemType),
+        orElse: () => _singleEditionCategoryFromItemType(itemType),
       );
       final rarName = map['rarityTier']?.toString();
       final rarityTier = ItemRarity.values.firstWhere(
         (r) => r.name == rarName,
-        orElse: () => _legacyRarityFromString(rarity),
+        orElse: () => _singleEditionRarityFromString(rarity),
       );
       final r14 = map['rules2014'] is Map
           ? ItemEditionDetails.fromMap(
@@ -352,38 +507,14 @@ class EquipmentItem extends DomainEntity {
       );
     }
 
-    // Legacy pre-Cleanup slice 17 record hydration.
-    final category = _legacyCategoryFromItemType(itemType);
-    final rarityTier = _legacyRarityFromString(rarity);
-    final rawJson = customProperties['rawJson'] as Map?;
-    final costStr = rawJson?['value']?.toString() ??
-        customProperties['cost']?.toString();
-    final attunementReq = requiresAttunement
-        ? (rawJson?['reqAttune']?.toString() ?? 'Requires Attunement')
-        : null;
-    final summary = _legacyFirstContentLine(descriptionMarkdown, name);
-    final editionDetails = ItemEditionDetails(
-      summary: summary,
-      description: descriptionMarkdown,
-    );
-    return EquipmentItem(
+    // Legacy pre-Cleanup slice 17 record hydration (shared with singleEdition).
+    return _hydrateSingleEditionItem(
       id: id,
       name: name,
       itemType: itemType,
-      category: category,
       rarity: rarity,
-      rarityTier: rarityTier,
-      cost: costStr,
       requiresAttunement: requiresAttunement,
-      attunementRequirement: attunementReq,
       descriptionMarkdown: descriptionMarkdown,
-      rules2014: editionDetails,
-      rules2024: editionDetails,
-      tags: [
-        itemType,
-        rarity,
-        if (requiresAttunement) 'attunement',
-      ],
       grants: grants,
       customProperties: customProperties,
     );

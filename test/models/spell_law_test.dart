@@ -261,5 +261,117 @@ void main() {
         expect(decoded.tags, containsAll(['S', 'HB-LEGACY']));
       }
     });
+
+    test(
+        '300-seed Spell.singleEdition parity law: matches Spell.fromMap(legacyMap) field by field',
+        () {
+      const schools = [
+        'Abjuration',
+        'Conjuration',
+        'Divination',
+        'Enchantment',
+        'Evocation',
+        'Illusion',
+        'Necromancy',
+        'Transmutation',
+        'Chronomancy',
+      ];
+      for (var seed = 1; seed <= 300; seed++) {
+        final rng = Random(seed + 7700);
+        final schoolStr = schools[seed % schools.length];
+        final level = rng.nextInt(10);
+        final ritual = rng.nextBool();
+        final conc = rng.nextBool();
+        final actionType = ActionType.values[seed % ActionType.values.length];
+        final hasMat = rng.nextBool();
+        final matDesc = hasMat ? 'silver bell #$seed' : null;
+        final hasHigher = rng.nextBool();
+        final higherText = hasHigher ? 'Upcast +1d8 ($seed)' : null;
+        final hasDamage = rng.nextBool();
+        final damageMath = hasDamage
+            ? [
+                EvaluationMath(
+                  diceFormula: '${1 + (seed % 5)}d8',
+                  damageType:
+                      DamageType.values[seed % DamageType.values.length],
+                ),
+              ]
+            : const <EvaluationMath>[];
+        final rangeText = switch (seed % 3) {
+          0 => 'Self',
+          1 => 'Touch',
+          _ => '${30 + (seed % 4) * 30} feet',
+        };
+        final duration = SpellDuration(
+          type: conc ? DurationType.timed : DurationType.instantaneous,
+          durationSeconds: conc ? 60 : 0,
+          requiresConcentration: conc,
+          rawText: conc ? 'Concentration, up to 1 minute' : null,
+        );
+        final components = SpellComponents(
+          v: true,
+          s: seed.isEven,
+          m: hasMat,
+          materialDescription: matDesc,
+          materialCostGp: hasMat ? 10 : 0,
+          consumesMaterial: false,
+        );
+        final castingTime = CastingTime(cost: 1, actionType: actionType);
+        final cp = <String, dynamic>{
+          'classes': seed.isEven
+              ? <String>['Wizard', 'Cleric']
+              : <String>['Bard'],
+          if (ritual) 'ritual': true,
+          if (seed % 4 == 0) 'savingThrow': <String>['dexterity'],
+          if (seed % 5 == 0) 'source': 'HB-$seed',
+          if (seed % 3 == 0) 'areaTags': <String>['S'],
+        };
+        final desc = 'Single edition spell body $seed';
+        final id =
+            EntityId(slug: 'single-spell-$seed', ruleset: RulesetVersion.homebrew);
+        final name = 'Single Spell $seed';
+
+        final single = Spell.singleEdition(
+          id: id,
+          name: name,
+          level: level,
+          school: schoolStr,
+          castingTime: castingTime,
+          duration: duration,
+          range: rangeText,
+          damageType: hasDamage ? damageMath.first.damageType.name : null,
+          components: components,
+          descriptionMarkdown: desc,
+          higherLevelsMarkdown: higherText,
+          damageMath: damageMath,
+          customProperties: cp,
+        );
+
+        final legacyMap = <String, dynamic>{
+          'id': id.toMap(),
+          'name': name,
+          'level': level,
+          'school': schoolStr,
+          'castingTime': castingTime.toMap(),
+          'duration': duration.toMap(),
+          'range': rangeText,
+          if (hasDamage) 'damageType': damageMath.first.damageType.name,
+          'components': components.toMap(),
+          'descriptionMarkdown': desc,
+          'higherLevelsMarkdown': higherText,
+          'damageMath': damageMath.map((d) => d.toMap()).toList(),
+          'relatedEntityRefs': const <Map<String, dynamic>>[],
+          'customProperties': cp,
+        };
+        final fromLegacy = Spell.fromMap(legacyMap);
+
+        expectMapsEqualWithDiff(
+          _spellFieldSnapshot(single),
+          _spellFieldSnapshot(fromLegacy),
+          seed: seed,
+          typeName: 'Spell.singleEdition',
+        );
+      }
+    });
   });
 }

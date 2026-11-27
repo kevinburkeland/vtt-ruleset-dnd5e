@@ -19,92 +19,94 @@ void main() {
       Dnd5eRuleset.resetForTesting();
       Dnd5eRuleset.install(const TestDnd5eCatalog());
 
-      chainMail = const EquipmentItem(
-        id: EntityId(slug: 'chain-mail', ruleset: RulesetVersion.v2024),
+      chainMail = EquipmentItem.singleEdition(
+        id: const EntityId(slug: 'chain-mail', ruleset: RulesetVersion.v2024),
         name: 'Chain Mail',
         itemType: 'Heavy Armor',
         rarity: 'Common',
         requiresAttunement: false,
         descriptionMarkdown: 'Heavy armor AC 16.',
-        customProperties: {
+        customProperties: const {
           'baseAc': 16,
           'armorType': 'heavy',
         },
       );
 
-      breastplate = const EquipmentItem(
-        id: EntityId(slug: 'breastplate', ruleset: RulesetVersion.v2024),
+      breastplate = EquipmentItem.singleEdition(
+        id: const EntityId(slug: 'breastplate', ruleset: RulesetVersion.v2024),
         name: 'Breastplate',
         itemType: 'Medium Armor',
         rarity: 'Common',
         requiresAttunement: false,
         descriptionMarkdown: 'Medium armor AC 14.',
-        customProperties: {
+        customProperties: const {
           'baseAc': 14,
           'armorType': 'medium',
           'maxDexBonus': 2,
         },
       );
 
-      leatherArmor = const EquipmentItem(
-        id: EntityId(slug: 'leather-armor', ruleset: RulesetVersion.v2024),
+      leatherArmor = EquipmentItem.singleEdition(
+        id: const EntityId(
+            slug: 'leather-armor', ruleset: RulesetVersion.v2024),
         name: 'Leather Armor',
         itemType: 'Light Armor',
         rarity: 'Common',
         requiresAttunement: false,
         descriptionMarkdown: 'Light armor AC 11.',
-        customProperties: {
+        customProperties: const {
           'baseAc': 11,
           'armorType': 'light',
         },
       );
 
-      shield = const EquipmentItem(
-        id: EntityId(slug: 'shield', ruleset: RulesetVersion.v2024),
+      shield = EquipmentItem.singleEdition(
+        id: const EntityId(slug: 'shield', ruleset: RulesetVersion.v2024),
         name: 'Shield',
         itemType: 'Shield',
         rarity: 'Common',
         requiresAttunement: false,
         descriptionMarkdown: '+2 AC.',
-        customProperties: {
+        customProperties: const {
           'isShield': true,
           'acBonus': 2,
         },
       );
 
-      ringOfProtection = const EquipmentItem(
-        id: EntityId(slug: 'ring-of-protection', ruleset: RulesetVersion.v2024),
+      ringOfProtection = EquipmentItem.singleEdition(
+        id: const EntityId(
+            slug: 'ring-of-protection', ruleset: RulesetVersion.v2024),
         name: 'Ring of Protection',
         itemType: 'Ring',
         rarity: 'Rare',
         requiresAttunement: true,
         descriptionMarkdown: '+1 AC and +1 Saves.',
-        customProperties: {
+        customProperties: const {
           'acBonus': 1,
         },
       );
 
-      gauntletsOfOgrePower = const EquipmentItem(
-        id: EntityId(
+      gauntletsOfOgrePower = EquipmentItem.singleEdition(
+        id: const EntityId(
             slug: 'gauntlets-of-ogre-power', ruleset: RulesetVersion.v2024),
         name: 'Gauntlets of Ogre Power',
         itemType: 'Wondrous Item',
         rarity: 'Uncommon',
         requiresAttunement: true,
         descriptionMarkdown: 'Sets STR to 19.',
-        customProperties: {
+        customProperties: const {
           'abilityOverrides': {'strength': 19},
         },
       );
 
-      rapier = const EquipmentItem(
-        id: EntityId(slug: 'rapier', ruleset: RulesetVersion.v2024),
+      rapier = EquipmentItem.singleEdition(
+        id: const EntityId(slug: 'rapier', ruleset: RulesetVersion.v2024),
         name: 'Rapier',
         itemType: 'Martial Melee Weapon',
         rarity: 'Common',
         requiresAttunement: false,
         descriptionMarkdown: '1d8 piercing, finesse.',
-        customProperties: {
+        customProperties: const {
           'isWeapon': true,
           'isFinesse': true,
           'damageFormula': '1d8',

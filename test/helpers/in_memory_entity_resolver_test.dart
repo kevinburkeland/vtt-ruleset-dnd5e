@@ -4,14 +4,14 @@ import 'in_memory_entity_resolver.dart';
 
 void main() {
   group('InMemoryEntityResolver', () {
-    const chainMail = EquipmentItem(
-      id: EntityId(slug: 'chain-mail', ruleset: RulesetVersion.v2024),
+    final chainMail = EquipmentItem.singleEdition(
+      id: const EntityId(slug: 'chain-mail', ruleset: RulesetVersion.v2024),
       name: 'Chain Mail',
       itemType: 'Heavy Armor',
       rarity: 'Common',
       requiresAttunement: false,
       descriptionMarkdown: 'Heavy armor AC 16.',
-      customProperties: {'baseAc': 16, 'armorType': 'heavy'},
+      customProperties: const {'baseAc': 16, 'armorType': 'heavy'},
     );
 
     test('resolves registered entity by slug and typed result', () {

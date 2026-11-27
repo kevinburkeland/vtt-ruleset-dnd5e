@@ -20,7 +20,7 @@ lib/src/models/core_types.dart	10.7
 lib/src/models/equipment_item.dart	84.3
 lib/src/models/feature_grant.dart	44.6
 lib/src/models/i_entity_resolver.dart	0.0
-lib/src/models/spell.dart	71.8
+lib/src/models/spell.dart	75.0
 lib/src/models/spell_monster_equipment.dart	79.8
 lib/src/modules/dnd5e_ruleset_module.dart	63.7
 lib/src/modules/dnd_5e_modules.dart	36.3

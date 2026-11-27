@@ -202,7 +202,9 @@ bool _mapEquals(Map<String, dynamic> a, Map<String, dynamic> b) {
   return true;
 }
 
-/// Legacy compatibility helper for pre-Cleanup slice 17 [Spell] records.
+/// Single-edition & legacy compatibility helper for [Spell] records.
+///
+/// Serves both pre-Cleanup slice 17 stored records and new single-edition records.
 SpellSchool? _tryParseSpellSchool(String raw) {
   final clean = raw.trim().toLowerCase();
   for (final s in SpellSchool.values) {
@@ -213,8 +215,10 @@ SpellSchool? _tryParseSpellSchool(String raw) {
   return null;
 }
 
-/// Legacy compatibility helper for pre-Cleanup slice 17 [Spell] records.
-List<SpellClass> _extractLegacySpellClasses(Map<String, dynamic> cp) {
+/// Single-edition & legacy compatibility helper for [Spell] records.
+///
+/// Serves both pre-Cleanup slice 17 stored records and new single-edition records.
+List<SpellClass> _extractSingleEditionSpellClasses(Map<String, dynamic> cp) {
   final extracted = <SpellClass>[];
   final rawClasses = cp['classes'] ??
       (cp['customProperties'] is Map
@@ -259,8 +263,10 @@ List<SpellClass> _extractLegacySpellClasses(Map<String, dynamic> cp) {
   return extracted;
 }
 
-/// Legacy compatibility helper for pre-Cleanup slice 17 [Spell] records.
-List<String> _extractLegacySpellTags(Map<String, dynamic> cp) {
+/// Single-edition & legacy compatibility helper for [Spell] records.
+///
+/// Serves both pre-Cleanup slice 17 stored records and new single-edition records.
+List<String> _extractSingleEditionSpellTags(Map<String, dynamic> cp) {
   final tags = <String>[];
   if (cp['areaTags'] is List) {
     for (final t in (cp['areaTags'] as List)) {
@@ -290,6 +296,170 @@ List<String> _extractLegacySpellTags(Map<String, dynamic> cp) {
     }
   }
   return tags;
+}
+
+/// Parses distance and range type metrics from a free-text spell range.
+({int distFeet, String rangeType}) _parseSpellRangeMetrics({
+  required String rawRange,
+  int initialDistFeet = 0,
+  String initialRangeType = 'ranged',
+}) {
+  var distFeet = initialDistFeet;
+  var rType = initialRangeType;
+  if (distFeet <= 0 && rawRange.isNotEmpty) {
+    final lower = rawRange.toLowerCase();
+    if (lower.contains('touch')) {
+      rType = 'touch';
+      distFeet = 0;
+    } else if (lower.contains('self')) {
+      rType = 'self';
+      distFeet = 0;
+    } else {
+      if (lower.contains('line')) {
+        rType = 'line';
+      } else if (lower.contains('cone')) {
+        rType = 'cone';
+      } else if (lower.contains('radius') || lower.contains('sphere')) {
+        rType = 'radius';
+      }
+      final digitMatch = RegExp(r'\d+').firstMatch(rawRange);
+      if (digitMatch != null) {
+        distFeet = int.tryParse(digitMatch.group(0) ?? '0') ?? 0;
+        if (distFeet > 0 && lower.contains('mile')) {
+          distFeet *= 5280;
+        }
+      }
+    }
+  }
+  return (distFeet: distFeet, rangeType: rType);
+}
+
+/// Shared single-edition hydration path for [Spell].
+///
+/// Serves both pre-Cleanup slice 17 stored records decoded via [Spell.fromMap]
+/// and new single-edition records constructed via [Spell.singleEdition].
+Spell _hydrateSingleEditionSpell({
+  required EntityId id,
+  required String name,
+  String? name2014,
+  String? name2024,
+  required int level,
+  required String school,
+  SpellSchool? schoolEnum,
+  required CastingTime castingTime,
+  required SpellDuration duration,
+  required String range,
+  int? rangeDistanceFeet,
+  String? rangeType,
+  String? damageType,
+  required SpellComponents components,
+  required String descriptionMarkdown,
+  String? higherLevelsMarkdown,
+  List<EvaluationMath> damageMath = const [],
+  List<EntityReference<DomainEntity>> relatedEntityRefs = const [],
+  List<CombatEffectRider> riders = const [],
+  List<SpellClass>? classes,
+  bool? ritual,
+  String? savingThrow,
+  String? rollFormula,
+  String? damageOrHealType,
+  String? castingTimeText,
+  String? rangeText,
+  String? durationTextOverride,
+  String? componentsText,
+  bool isChangedIn2024 = false,
+  String? diffSummary,
+  List<String> diffHighlights = const [],
+  List<String>? tags,
+  Map<String, dynamic> customProperties = const {},
+}) {
+  final cp = Map<String, dynamic>.from(customProperties);
+  if (cp.containsKey('customProperties') && cp['customProperties'] is Map) {
+    final nested = Map<String, dynamic>.from(cp['customProperties'] as Map);
+    cp.remove('customProperties');
+    cp.addAll(nested);
+  }
+  final parsedMetrics = _parseSpellRangeMetrics(
+    rawRange: range,
+    initialDistFeet: rangeDistanceFeet ?? 0,
+    initialRangeType: rangeType ?? 'ranged',
+  );
+  final compList = <String>[];
+  if (components.v) compList.add('V');
+  if (components.s) compList.add('S');
+  if (components.m) {
+    final mDesc = components.materialDescription;
+    compList.add(mDesc != null && mDesc.isNotEmpty ? 'M ($mDesc)' : 'M');
+  }
+  final durationText = durationTextOverride ??
+      duration.rawText ??
+      (duration.type == DurationType.instantaneous
+          ? 'Instantaneous'
+          : (duration.type == DurationType.permanent
+              ? 'Permanent'
+              : (duration.type == DurationType.special
+                  ? 'Special'
+                  : '${duration.durationSeconds} seconds')));
+  final meta = cp['meta'];
+  final isRitual = ritual ??
+      ((meta is Map && meta['ritual'] == true) || cp['ritual'] == true);
+  var resolvedSavingThrow = savingThrow;
+  if (resolvedSavingThrow == null) {
+    final rawSt = cp['savingThrow'];
+    if (rawSt is List && rawSt.isNotEmpty) {
+      resolvedSavingThrow = rawSt.map((e) => e.toString().trim()).join(', ');
+    } else if (rawSt is String && rawSt.isNotEmpty) {
+      resolvedSavingThrow = rawSt.trim();
+    }
+  }
+  final editionDetails = SpellEditionDetails(
+    castingTime: castingTimeText ??
+        (castingTime.cost > 0
+            ? '${castingTime.cost} ${castingTime.actionType.name}'
+            : '1 Action'),
+    range: rangeText ?? (range.isNotEmpty ? range : 'Self'),
+    components: componentsText ?? compList.join(', '),
+    duration: durationText,
+    concentration: duration.requiresConcentration,
+    ritual: isRitual,
+    savingThrow: resolvedSavingThrow,
+    description: [descriptionMarkdown],
+    higherLevels: higherLevelsMarkdown,
+    classes: classes ?? _extractSingleEditionSpellClasses(cp),
+    rollFormula:
+        rollFormula ?? (damageMath.isNotEmpty ? damageMath.first.diceFormula : null),
+    damageOrHealType: damageOrHealType ??
+        (damageMath.isNotEmpty ? damageMath.first.damageType.name : null),
+  );
+
+  return Spell(
+    id: id,
+    name: name,
+    name2014: name2014,
+    name2024: name2024,
+    level: level,
+    school: school,
+    schoolEnum: schoolEnum ?? _tryParseSpellSchool(school),
+    castingTime: castingTime,
+    duration: duration,
+    range: range,
+    rangeDistanceFeet: parsedMetrics.distFeet,
+    rangeType: parsedMetrics.rangeType,
+    damageType: damageType,
+    components: components,
+    descriptionMarkdown: descriptionMarkdown,
+    higherLevelsMarkdown: higherLevelsMarkdown,
+    damageMath: damageMath,
+    relatedEntityRefs: relatedEntityRefs,
+    riders: riders,
+    rules2014: editionDetails,
+    rules2024: editionDetails,
+    isChangedIn2024: isChangedIn2024,
+    diffSummary: diffSummary,
+    diffHighlights: diffHighlights,
+    tags: tags ?? _extractSingleEditionSpellTags(cp),
+    customProperties: cp,
+  );
 }
 
 /// Unified Spell Domain Model (both 2014 RAW and 2024 Revised).
@@ -345,14 +515,89 @@ class Spell extends DomainEntity {
     this.damageMath = const [],
     this.relatedEntityRefs = const [],
     this.riders = const [],
-    this.rules2014 = const SpellEditionDetails.empty(),
-    this.rules2024 = const SpellEditionDetails.empty(),
+    required this.rules2014,
+    required this.rules2024,
     this.isChangedIn2024 = false,
     this.diffSummary,
     this.diffHighlights = const [],
     this.tags = const [],
     this.customProperties = const {},
   });
+
+  /// Builds a single-edition [Spell] and hydrates `rules2014`, `rules2024`,
+  /// `schoolEnum`, `rangeDistanceFeet`, `rangeType`, and `tags` via
+  /// [_hydrateSingleEditionSpell], shared with [Spell.fromMap] for
+  /// pre-Cleanup slice 17 stored records.
+  factory Spell.singleEdition({
+    required EntityId id,
+    required String name,
+    String? name2014,
+    String? name2024,
+    required int level,
+    required String school,
+    SpellSchool? schoolEnum,
+    required CastingTime castingTime,
+    required SpellDuration duration,
+    required String range,
+    int? rangeDistanceFeet,
+    String? rangeType,
+    String? damageType,
+    required SpellComponents components,
+    required String descriptionMarkdown,
+    String? higherLevelsMarkdown,
+    List<EvaluationMath> damageMath = const [],
+    List<EntityReference<DomainEntity>> relatedEntityRefs = const [],
+    List<CombatEffectRider> riders = const [],
+    List<SpellClass>? classes,
+    bool? ritual,
+    String? savingThrow,
+    String? rollFormula,
+    String? damageOrHealType,
+    String? castingTimeText,
+    String? rangeText,
+    String? durationTextOverride,
+    String? componentsText,
+    bool isChangedIn2024 = false,
+    String? diffSummary,
+    List<String> diffHighlights = const [],
+    List<String>? tags,
+    Map<String, dynamic> customProperties = const {},
+  }) =>
+      _hydrateSingleEditionSpell(
+        id: id,
+        name: name,
+        name2014: name2014,
+        name2024: name2024,
+        level: level,
+        school: school,
+        schoolEnum: schoolEnum,
+        castingTime: castingTime,
+        duration: duration,
+        range: range,
+        rangeDistanceFeet: rangeDistanceFeet,
+        rangeType: rangeType,
+        damageType: damageType,
+        components: components,
+        descriptionMarkdown: descriptionMarkdown,
+        higherLevelsMarkdown: higherLevelsMarkdown,
+        damageMath: damageMath,
+        relatedEntityRefs: relatedEntityRefs,
+        riders: riders,
+        classes: classes,
+        ritual: ritual,
+        savingThrow: savingThrow,
+        rollFormula: rollFormula,
+        damageOrHealType: damageOrHealType,
+        castingTimeText: castingTimeText,
+        rangeText: rangeText,
+        durationTextOverride: durationTextOverride,
+        componentsText: componentsText,
+        isChangedIn2024: isChangedIn2024,
+        diffSummary: diffSummary,
+        diffHighlights: diffHighlights,
+        tags: tags,
+        customProperties: customProperties,
+      );
 
   @override
   EntityType get entityType => EntityType.spell;
@@ -404,33 +649,13 @@ class Spell extends DomainEntity {
       cp['classes'] = map['classes'];
     }
     final rawRange = map['range']?.toString() ?? 'Self';
-    int distFeet = (map['rangeDistanceFeet'] as num?)?.toInt() ?? 0;
-    String rType = map['rangeType']?.toString() ?? 'ranged';
-    if (distFeet <= 0 && rawRange.isNotEmpty) {
-      final lower = rawRange.toLowerCase();
-      if (lower.contains('touch')) {
-        rType = 'touch';
-        distFeet = 0;
-      } else if (lower.contains('self')) {
-        rType = 'self';
-        distFeet = 0;
-      } else {
-        if (lower.contains('line')) {
-          rType = 'line';
-        } else if (lower.contains('cone')) {
-          rType = 'cone';
-        } else if (lower.contains('radius') || lower.contains('sphere')) {
-          rType = 'radius';
-        }
-        final digitMatch = RegExp(r'\d+').firstMatch(rawRange);
-        if (digitMatch != null) {
-          distFeet = int.tryParse(digitMatch.group(0) ?? '0') ?? 0;
-          if (distFeet > 0 && lower.contains('mile')) {
-            distFeet *= 5280;
-          }
-        }
-      }
-    }
+    final rangeMetrics = _parseSpellRangeMetrics(
+      rawRange: rawRange,
+      initialDistFeet: (map['rangeDistanceFeet'] as num?)?.toInt() ?? 0,
+      initialRangeType: map['rangeType']?.toString() ?? 'ranged',
+    );
+    final distFeet = rangeMetrics.distFeet;
+    final rType = rangeMetrics.rangeType;
 
     final id = EntityId.fromMap(Map<String, dynamic>.from(map['id'] as Map? ?? {}));
     final name = map['name']?.toString() ?? '';
@@ -503,55 +728,12 @@ class Spell extends DomainEntity {
       );
     }
 
-    // Legacy pre-Cleanup slice 17 record hydration.
-    final compList = <String>[];
-    if (components.v) compList.add('V');
-    if (components.s) compList.add('S');
-    if (components.m) {
-      final mDesc = components.materialDescription;
-      compList.add(mDesc != null && mDesc.isNotEmpty ? 'M ($mDesc)' : 'M');
-    }
-    final durationText = duration.rawText ??
-        (duration.type == DurationType.instantaneous
-            ? 'Instantaneous'
-            : (duration.type == DurationType.permanent
-                ? 'Permanent'
-                : (duration.type == DurationType.special
-                    ? 'Special'
-                    : '${duration.durationSeconds} seconds')));
-    final meta = cp['meta'];
-    final isRitual = (meta is Map && meta['ritual'] == true) || cp['ritual'] == true;
-    String? savingThrow;
-    final rawSt = cp['savingThrow'];
-    if (rawSt is List && rawSt.isNotEmpty) {
-      savingThrow = rawSt.map((e) => e.toString().trim()).join(', ');
-    } else if (rawSt is String && rawSt.isNotEmpty) {
-      savingThrow = rawSt.trim();
-    }
-    final legacyDetails = SpellEditionDetails(
-      castingTime: castingTime.cost > 0
-          ? '${castingTime.cost} ${castingTime.actionType.name}'
-          : '1 Action',
-      range: rawRange.isNotEmpty ? rawRange : 'Self',
-      components: compList.join(', '),
-      duration: durationText,
-      concentration: duration.requiresConcentration,
-      ritual: isRitual,
-      savingThrow: savingThrow,
-      description: [desc],
-      higherLevels: higherLevels,
-      classes: _extractLegacySpellClasses(cp),
-      rollFormula: damageMath.isNotEmpty ? damageMath.first.diceFormula : null,
-      damageOrHealType:
-          damageMath.isNotEmpty ? damageMath.first.damageType.name : null,
-    );
-
-    return Spell(
+    // Legacy pre-Cleanup slice 17 record hydration (shared with singleEdition).
+    return _hydrateSingleEditionSpell(
       id: id,
       name: name,
       level: level,
       school: school,
-      schoolEnum: _tryParseSpellSchool(school),
       castingTime: castingTime,
       duration: duration,
       range: rawRange,
@@ -564,9 +746,6 @@ class Spell extends DomainEntity {
       damageMath: damageMath,
       relatedEntityRefs: relatedEntityRefs,
       riders: extractedRiders,
-      rules2014: legacyDetails,
-      rules2024: legacyDetails,
-      tags: _extractLegacySpellTags(cp),
       customProperties: cp,
     );
   }

@@ -4,7 +4,7 @@ import '../helpers/in_memory_entity_resolver.dart';
 import '../helpers/test_dnd5e_catalog.dart';
 
 Spell _makeTestSpell(String slug, String name, int level) {
-  return Spell(
+  return Spell.singleEdition(
     id: EntityId(slug: slug, ruleset: RulesetVersion.v2024),
     name: name,
     level: level,
