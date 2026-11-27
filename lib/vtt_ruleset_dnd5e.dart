@@ -53,6 +53,7 @@ export 'src/spellcasting/class_spellcaster_profile.dart';
 export 'src/models/core_types.dart';
 export 'src/models/feature_grant.dart';
 export 'src/models/spell_monster_equipment.dart';
+export 'src/models/monster_stat_block.dart';
 export 'src/models/character_models.dart';
 export 'src/models/i_entity_resolver.dart';
 export 'package:vtt_engine_core/models/entity_reference.dart';
