@@ -378,7 +378,6 @@ class Spell extends DomainEntity {
         'damageMath': damageMath.map((d) => d.toMap()).toList(),
         'relatedEntityRefs': relatedEntityRefs.map((r) => r.toMap()).toList(),
         'rules2014': rules2014.toMap(),
-        'rules2024': rules2024.toMap(),
         'isChangedIn2024': isChangedIn2024,
         'diffSummary': diffSummary,
         'diffHighlights': diffHighlights,
