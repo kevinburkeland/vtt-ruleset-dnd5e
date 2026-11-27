@@ -3,7 +3,36 @@ import 'dart:math';
 import 'package:test/test.dart';
 import 'package:vtt_ruleset_dnd5e/vtt_ruleset_dnd5e.dart';
 
+import '../helpers/map_diff_helper.dart';
 import '../helpers/test_dnd5e_catalog.dart';
+
+Map<String, dynamic> _spellFieldSnapshot(Spell s) => {
+      'id': s.id.toMap(),
+      'name': s.name,
+      'name2014': s.name2014,
+      'name2024': s.name2024,
+      'level': s.level,
+      'school': s.school,
+      'schoolEnum': s.schoolEnum?.name,
+      'castingTime': s.castingTime.toMap(),
+      'duration': s.duration.toMap(),
+      'range': s.range,
+      'rangeDistanceFeet': s.rangeDistanceFeet,
+      'rangeType': s.rangeType,
+      'damageType': s.damageType,
+      'components': s.components.toMap(),
+      'descriptionMarkdown': s.descriptionMarkdown,
+      'higherLevelsMarkdown': s.higherLevelsMarkdown,
+      'damageMath': s.damageMath.map((d) => d.toMap()).toList(),
+      'relatedEntityRefs': s.relatedEntityRefs.map((r) => r.toMap()).toList(),
+      'rules2014': s.rules2014.toMap(),
+      'rules2024': s.rules2024.toMap(),
+      'isChangedIn2024': s.isChangedIn2024,
+      'diffSummary': s.diffSummary,
+      'diffHighlights': s.diffHighlights,
+      'tags': s.tags,
+      'customProperties': s.customProperties,
+    };
 
 void main() {
   setUpAll(() {
@@ -122,7 +151,20 @@ void main() {
           customProperties: {'seed': seed},
         );
 
-        final decoded = Spell.fromMap(original.toMap());
+        final originalMap = original.toMap();
+        final decoded = Spell.fromMap(originalMap);
+        expectMapsEqualWithDiff(
+          _spellFieldSnapshot(decoded),
+          _spellFieldSnapshot(original),
+          seed: seed,
+          typeName: 'Spell',
+        );
+        expectMapsEqualWithDiff(
+          decoded.toMap(),
+          originalMap,
+          seed: seed,
+          typeName: 'Spell',
+        );
         expect(decoded, equals(original), reason: 'Failed on seed $seed');
         expect(decoded.school, equals(schoolStr));
         expect(decoded.schoolEnum, equals(schoolEnum));

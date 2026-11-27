@@ -2,6 +2,8 @@ import 'dart:math';
 import 'package:test/test.dart';
 import 'package:vtt_ruleset_dnd5e/vtt_ruleset_dnd5e.dart';
 
+import '../helpers/map_diff_helper.dart';
+
 // Independent copy of pre-Cleanup slice 17 equipmentItemToMagicItem rules
 // for Fix 5.3 old-format compatibility law.
 ItemCategory _legacyCategory(String itemType) {
@@ -55,6 +57,31 @@ String _legacySummary(String desc, String name) {
   if (descLines.isNotEmpty) return descLines.first;
   return desc.isNotEmpty ? desc.split('\n').first : name;
 }
+
+Map<String, dynamic> _equipmentItemFieldSnapshot(EquipmentItem item) => {
+      'id': item.id.toMap(),
+      'name': item.name,
+      'name2014': item.name2014,
+      'name2024': item.name2024,
+      'itemType': item.itemType,
+      'category': item.category.name,
+      'rarity': item.rarity,
+      'rarityTier': item.rarityTier.name,
+      'cost': item.cost,
+      'cost2014': item.cost2014,
+      'cost2024': item.cost2024,
+      'requiresAttunement': item.requiresAttunement,
+      'attunementRequirement': item.attunementRequirement,
+      'descriptionMarkdown': item.descriptionMarkdown,
+      'rules2014': item.rules2014.toMap(),
+      'rules2024': item.rules2024.toMap(),
+      'isChangedIn2024': item.isChangedIn2024,
+      'diffSummary': item.diffSummary,
+      'diffHighlights': item.diffHighlights,
+      'tags': item.tags,
+      'grants': item.grants.map((g) => g.toMap()).toList(),
+      'customProperties': item.customProperties,
+    };
 
 void main() {
   group('Fix 5.1 law: EquipmentItem map round-trip and equality (500 seeds)', () {
@@ -114,6 +141,18 @@ void main() {
         final map = item.toMap();
         final decoded = EquipmentItem.fromMap(map);
 
+        expectMapsEqualWithDiff(
+          _equipmentItemFieldSnapshot(decoded),
+          _equipmentItemFieldSnapshot(item),
+          seed: seed,
+          typeName: 'EquipmentItem',
+        );
+        expectMapsEqualWithDiff(
+          decoded.toMap(),
+          map,
+          seed: seed,
+          typeName: 'EquipmentItem',
+        );
         expect(
           decoded,
           equals(item),

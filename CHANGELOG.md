@@ -3,6 +3,9 @@
 One line per slice, newest first. Each line: date, slice name, what changed for a user or a developer.
 Work before Map slice 1.1 (hardening passes 0 to 12) is in the git history.
 
+## 2026-11-27
+- Cleanup slice 18: Retire 5 cs17 mutation branches, add recursive map_diff_helper.dart to Spell and EquipmentItem round-trip laws (test/ only), and confirm 14-day dependency look-ahead passes (Fixes 1.1, 1.4, 1.5).
+
 ## 2026-11-26
 - Cleanup slice 17: Move Spell into lib/src/models/spell.dart with SpellEditionDetails, typed schoolEnum (preserving unknown homebrew schools), edition fields, and pre-slice-17 fromMap compatibility, plus toMap/fromMap/equality on SpellMaterialComponent and SpellScalingFormula, backed by 500-seed round-trip and 200-seed legacy compatibility laws (Fixes 6.1, 6.2).
 - Cleanup slice 17: Move EquipmentItem into lib/src/models/equipment_item.dart with pure-Dart ItemCategory, ItemRarity, ItemEditionDetails, edition fields, and pre-slice-17 fromMap compatibility, backed by 500-seed round-trip and 200-seed legacy compatibility laws (Fixes 5.1, 5.3).
